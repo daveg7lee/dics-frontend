@@ -1,15 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from "apollo-boost";
-import React from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import Button from "../Components/Button";
-import CustomPopup from "../Components/CustomPopup";
-import Input from "../Components/Input";
-import Loading from "../Components/Loading";
-import useInput from "../Hooks/useInput";
+import { gql } from 'apollo-boost';
+import React from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import Button from '../Components/Button';
+import CustomPopup from '../Components/CustomPopup';
+import Input from '../Components/Input';
+import Loading from '../Components/Loading';
+import useInput from '../Hooks/useInput';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -90,6 +90,7 @@ const SEE_AND_SEARCH_USERS = gql`
       id
       username
       avatar
+      type
       scores {
         id
         score
@@ -109,7 +110,7 @@ const DELETE_SCORE = gql`
 `;
 
 export default () => {
-  const term = useInput("");
+  const term = useInput('');
   const { data, loading, refetch } = useQuery(SEE_AND_SEARCH_USERS, {
     variables: { term: term.value },
   });
@@ -128,13 +129,13 @@ export default () => {
       });
       if (deleteScore) {
         window.location.reload();
-        toast.success("Deleted");
+        toast.success('Deleted');
       }
     } catch (e) {
       const errorMessage = e.message
-        .replace("GraphQL", "")
-        .replace("error", "")
-        .replace(":", "");
+        .replace('GraphQL', '')
+        .replace('error', '')
+        .replace(':', '');
       toast.error(errorMessage);
     }
   };
@@ -162,11 +163,11 @@ export default () => {
                   <Score>
                     {user.scores.length > 0 &&
                       user.scores.map((score) => {
-                        user.type === "SGC"
-                          ? score.type === "Demerit"
+                        user.type === 'SGC'
+                          ? score.type === 'Demerit'
                             ? (sum -= score.score * 2)
                             : (sum += score.score)
-                          : score.type === "Demerit"
+                          : score.type === 'Demerit'
                           ? (sum -= score.score)
                           : (sum += score.score);
                       })}
@@ -189,24 +190,24 @@ export default () => {
                             {user.scores.map((score) => (
                               <tr
                                 key={score.id}
-                                style={{ marginTop: "0.5rem" }}
+                                style={{ marginTop: '0.5rem' }}
                                 id={score.id}
                               >
                                 <Td>
-                                  {user.type === "SGC"
-                                    ? score.type === "Demerit"
+                                  {user.type === 'SGC'
+                                    ? score.type === 'Demerit'
                                       ? score.score * -2
                                       : score.score
-                                    : score.type === "Demerit"
+                                    : score.type === 'Demerit'
                                     ? score.score * -1
                                     : score.score}
                                 </Td>
                                 <Td>{score.article}</Td>
                                 <Td>
                                   {score.date
-                                    .replace(/T.*/, "")
-                                    .split("-")
-                                    .join("-")}
+                                    .replace(/T.*/, '')
+                                    .split('-')
+                                    .join('-')}
                                 </Td>
                                 <Td>{score.uploader}</Td>
                                 <Button text="Delete" onClick={deleteScore} />
@@ -228,11 +229,11 @@ export default () => {
               {data.seeUsers.map((user) => {
                 let totalScore = 0;
                 user.scores.map((score) => {
-                  user.type === "SGC"
-                    ? score.type === "Demerit"
-                      ? (totalScore -= score.score * 2)
+                  user.type === 'SGC'
+                    ? score.type === 'Demerit'
+                      ? (totalScore += score.score * -2)
                       : (totalScore += score.score)
-                    : score.type === "Demerit"
+                    : score.type === 'Demerit'
                     ? (totalScore += score.score * -1)
                     : (totalScore += score.score);
                 });
@@ -259,24 +260,24 @@ export default () => {
                                 {user.scores.map((score) => (
                                   <tr
                                     key={score.id}
-                                    style={{ marginTop: "0.5rem" }}
+                                    style={{ marginTop: '0.5rem' }}
                                     id={score.id}
                                   >
                                     <Td>
-                                      {user.type === "SGC"
-                                        ? score.type === "Demerit"
+                                      {user.type === 'SGC'
+                                        ? score.type === 'Demerit'
                                           ? score.score * -2
                                           : score.score
-                                        : score.type === "Demerit"
+                                        : score.type === 'Demerit'
                                         ? score.score * -1
                                         : score.score}
                                     </Td>
                                     <Td>{score.article}</Td>
                                     <Td>
                                       {score.date
-                                        .replace(/T.*/, "")
-                                        .split("-")
-                                        .join("-")}
+                                        .replace(/T.*/, '')
+                                        .split('-')
+                                        .join('-')}
                                     </Td>
                                     <Td>{score.uploader}</Td>
                                     <Button
