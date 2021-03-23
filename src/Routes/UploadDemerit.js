@@ -1,13 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from "apollo-boost";
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
-import Loader from "react-loader-spinner";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import Button from "../Components/Button";
-import Input from "../Components/Input";
-import useInput from "../Hooks/useInput";
+import { gql } from 'apollo-boost';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
+import Loader from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import Button from '../Components/Button';
+import Input from '../Components/Input';
+import useInput from '../Hooks/useInput';
 
 const Container = styled.div`
   margin: 5rem 0px;
@@ -146,12 +146,12 @@ const SEARCH_USER_AND_ME = gql`
 `;
 
 export default () => {
-  const uploader = useInput("");
-  const term = useInput("");
-  const [username, setUsername] = useState("");
+  const uploader = useInput('');
+  const term = useInput('');
+  const [username, setUsername] = useState('');
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
-  let date = useInput("");
+  let date = useInput('');
   const { data, loading, refetch } = useQuery(SEARCH_USER_AND_ME, {
     variables: { term: term.value },
   });
@@ -159,21 +159,21 @@ export default () => {
     e.preventDefault();
     try {
       if (!loading) {
-        if (data.me.type !== "Admin") {
+        if (data.me.type !== 'Admin') {
           throw Error("You Can't");
         }
       }
       setLoadingBtn(true);
-      const select = document.getElementById("article-select");
+      const select = document.getElementById('article-select');
       const article = select.value;
-      const array = article.split("");
-      let score = 0
-      try {
+      const array = article.split('');
+      let score;
+      if (article.includes('징계위원회')) {
+        score = 0;
+      } else {
         array
           .slice(array.length - 3, array.length - 1)
-          .map((item) => (sum += Number(item)));
-      }catch{
-        score = 0
+          .map((item) => (score += Number(item)));
       }
       try {
         const {
@@ -183,20 +183,20 @@ export default () => {
             score,
             article,
             username,
-            type: "Demerit",
+            type: 'Demerit',
             date: date.value,
             uploader: uploader.value,
           },
         });
         if (UploadScore) {
-          toast.success("입력이 완료되었습니다!");
+          toast.success('입력이 완료되었습니다!');
           window.setTimeout(() => window.location.reload(), 3000);
         }
       } catch (e) {
         const errorMessage = e.message
-          .replace("GraphQL", "")
-          .replace("error", "")
-          .replace(":", "");
+          .replace('GraphQL', '')
+          .replace('error', '')
+          .replace(':', '');
         toast.error(errorMessage);
       } finally {
         setLoadingBtn(false);
@@ -206,7 +206,7 @@ export default () => {
     }
   };
   useEffect(() => {
-    if (date.value === "") {
+    if (date.value === '') {
       const offset = new Date().getTimezoneOffset() * 60000;
       date.setValue(new Date(Date.now() - offset).toISOString().substr(0, 16));
     }
@@ -252,17 +252,17 @@ export default () => {
                           type="radio"
                           name="Student"
                           value={user.username}
-                          style={{ width: "1rem" }}
+                          style={{ width: '1rem' }}
                           onClick={() => setUsername(user.username)}
                         />
                         {user.username}
                       </Label>
                     ))
-                  : term.value !== "" && <h1>User not Found</h1>}
+                  : term.value !== '' && <h1>User not Found</h1>}
               </>
             )}
           </LabelContainer>
-          <Select id="article-select" defaultValue={"DEFAULT"}>
+          <Select id="article-select" defaultValue={'DEFAULT'}>
             <option value="DEFAULT" disabled>
               --Please choose an option--
             </option>
