@@ -163,11 +163,7 @@ export default () => {
                   <Score>
                     {user.scores.length > 0 &&
                       user.scores.map((score) => {
-                        user.type === 'SGC'
-                          ? score.type === 'Demerit'
-                            ? (sum -= score.score * 2)
-                            : (sum += score.score)
-                          : score.type === 'Demerit'
+                        score.type === 'Demerit'
                           ? (sum -= score.score)
                           : (sum += score.score);
                       })}
@@ -194,11 +190,7 @@ export default () => {
                                 id={score.id}
                               >
                                 <Td>
-                                  {user.type === 'SGC'
-                                    ? score.type === 'Demerit'
-                                      ? score.score * -2
-                                      : score.score
-                                    : score.type === 'Demerit'
+                                  {score.type === 'Demerit'
                                     ? score.score * -1
                                     : score.score}
                                 </Td>
@@ -229,11 +221,7 @@ export default () => {
               {data.seeUsers.map((user) => {
                 let totalScore = 0;
                 user.scores.map((score) => {
-                  user.type === 'SGC'
-                    ? score.type === 'Demerit'
-                      ? (totalScore += score.score * -2)
-                      : (totalScore += score.score)
-                    : score.type === 'Demerit'
+                  score.type === 'Demerit'
                     ? (totalScore += score.score * -1)
                     : (totalScore += score.score);
                 });
@@ -264,11 +252,7 @@ export default () => {
                                     id={score.id}
                                   >
                                     <Td>
-                                      {user.type === 'SGC'
-                                        ? score.type === 'Demerit'
-                                          ? score.score * -2
-                                          : score.score
-                                        : score.type === 'Demerit'
+                                      {score.type === 'Demerit'
                                         ? score.score * -1
                                         : score.score}
                                     </Td>
