@@ -166,12 +166,7 @@ export default () => {
       setLoadingBtn(true);
       const select = document.getElementById('article-select');
       const article = select.value;
-      let score;
-      if (article.includes('징계위원회')) {
-        score = 0;
-      } else {
-        score = Number(article.replace(/[^0-9]/g, ''));
-      }
+      const score = Number(article.replace(/[^0-9]/g, ''));
       try {
         const {
           data: { UploadScore },
