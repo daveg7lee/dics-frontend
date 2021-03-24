@@ -166,14 +166,13 @@ export default () => {
       setLoadingBtn(true);
       const select = document.getElementById('article-select');
       const article = select.value;
-      const array = article.split('');
       let score;
       if (article.includes('징계위원회')) {
         score = 0;
       } else {
-        array
-          .slice(array.length - 3, array.length - 1)
-          .map((item) => (score += Number(item)));
+        score = Number(
+          article.replace(/[^0-9]/g, '').substr(2, article.length)
+        );
       }
       try {
         const {
