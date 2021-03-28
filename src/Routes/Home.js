@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -10,5 +10,9 @@ const Container = styled.div`
 `;
 
 export default () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <h1>개발중...</h1>
+    </Container>
+  );
 };
