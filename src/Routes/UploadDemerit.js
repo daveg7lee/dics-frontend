@@ -290,7 +290,7 @@ export default () => {
               <option value="슬리퍼, 크록스 사용 1점">
                 1조 13항. 슬리퍼, 크록스 사용 1점
               </option>
-              <option value="마스크 미착용 (Covid-19) 1점">
+              <option value="마스크 미착용 1점">
                 1조 14항. 마스크 미착용 (Covid-19) 1점*
               </option>
             </optgroup>
