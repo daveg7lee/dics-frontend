@@ -148,6 +148,7 @@ const SEARCH_USER_AND_ME = gql`
 export default () => {
   const uploader = useInput('');
   const term = useInput('');
+  const score = useInput('');
   const [username, setUsername] = useState('');
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
@@ -166,13 +167,12 @@ export default () => {
       setLoadingBtn(true);
       const select = document.getElementById('article-select');
       const article = select.value;
-      const score = Number(article.replace(/[^0-9]/g, ''));
       try {
         const {
           data: { UploadScore },
         } = await UploadScoreMutation({
           variables: {
-            score,
+            score: Number(score),
             article,
             username,
             type: 'Demerit',
@@ -598,6 +598,11 @@ export default () => {
               </option>
             </optgroup>
           </Select>
+          <DemeritInput
+            placeholder="점수"
+            value={score.value}
+            onChange={score.onChange}
+          />
           {loadingBtn ? (
             <Button
               text={
