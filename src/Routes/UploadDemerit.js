@@ -172,7 +172,7 @@ export default () => {
           data: { UploadScore },
         } = await UploadScoreMutation({
           variables: {
-            score: Number(score),
+            score: Number(score.value),
             article,
             username,
             type: 'Demerit',
@@ -602,6 +602,7 @@ export default () => {
             placeholder="점수"
             value={score.value}
             onChange={score.onChange}
+            type="number"
           />
           {loadingBtn ? (
             <Button
