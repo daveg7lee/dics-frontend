@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Skeleton from "react-loading-skeleton";
-import { Link, withRouter } from "react-router-dom";
-import { useQuery } from "react-apollo-hooks";
-import { GoThreeBars, GoX } from "react-icons/go";
-import { ME } from "../SharedQueries";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Skeleton from 'react-loading-skeleton';
+import { Link, withRouter } from 'react-router-dom';
+import { useQuery } from 'react-apollo-hooks';
+import { GoThreeBars, GoX } from 'react-icons/go';
+import { ME } from '../SharedQueries';
 
 const Header = styled.header`
   width: 100%;
@@ -230,10 +230,10 @@ export default withRouter(({ isLoggedIn }) => {
               <MobileNavContainer>
                 <MobileNavButtoon onClick={onClick}>
                   {click ? (
-                    <GoX style={{ height: "1.5rem", width: "1.5rem" }} />
+                    <GoX style={{ height: '1.5rem', width: '1.5rem' }} />
                   ) : (
                     <GoThreeBars
-                      style={{ height: "1.5rem", width: "1.5rem" }}
+                      style={{ height: '1.5rem', width: '1.5rem' }}
                     />
                   )}
                 </MobileNavButtoon>
@@ -247,14 +247,14 @@ export default withRouter(({ isLoggedIn }) => {
                 </LogoContainer>
                 <HeaderLinkContainer>
                   <HeaderLink to="/gallary" replace>
-                    {window.location.href.includes("gallary") ? (
+                    {window.location.href.includes('gallary') ? (
                       <Button style={{ opacity: 0.7 }}>Gallary</Button>
                     ) : (
                       <Button style={{ opacity: 0.4 }}>Gallary</Button>
                     )}
                   </HeaderLink>
                   <HeaderLink to="/classroom" replace>
-                    {window.location.href.includes("classroom") ? (
+                    {window.location.href.includes('classroom') ? (
                       <Button style={{ opacity: 0.7 }}>Class</Button>
                     ) : (
                       <Button style={{ opacity: 0.4 }}>Class</Button>
@@ -267,17 +267,17 @@ export default withRouter(({ isLoggedIn }) => {
                   {loading ? (
                     <Skeleton
                       circle={true}
-                      width={"2.3rem"}
-                      height={"2.3rem"}
+                      width={'2.3rem'}
+                      height={'2.3rem'}
                     />
                   ) : (
                     <img
                       src={data.me.avatar}
                       alt="User"
                       style={{
-                        width: "2.3rem",
-                        height: "2.3rem",
-                        borderRadius: "50%",
+                        width: '2.3rem',
+                        height: '2.3rem',
+                        borderRadius: '50%',
                       }}
                     />
                   )}
@@ -286,7 +286,7 @@ export default withRouter(({ isLoggedIn }) => {
             </HeaderBox>
           </HeaderWrapper>
           {click ? (
-            <MobileNav style={{ display: "block" }}>
+            <MobileNav style={{ display: 'block' }}>
               <MobileNavBox>
                 <MobileNavLink to="/about" onClick={onClick}>
                   About
@@ -314,10 +314,10 @@ export default withRouter(({ isLoggedIn }) => {
               <MobileNavContainer>
                 <MobileNavButtoon onClick={onClick}>
                   {click ? (
-                    <GoX style={{ height: "1.5rem", width: "1.5rem" }} />
+                    <GoX style={{ height: '1.5rem', width: '1.5rem' }} />
                   ) : (
                     <GoThreeBars
-                      style={{ height: "1.5rem", width: "1.5rem" }}
+                      style={{ height: '1.5rem', width: '1.5rem' }}
                     />
                   )}
                 </MobileNavButtoon>
@@ -331,14 +331,14 @@ export default withRouter(({ isLoggedIn }) => {
                 </LogoContainer>
                 <HeaderLinkContainer>
                   <HeaderLink to="/about" replace>
-                    {window.location.href.includes("about") ? (
+                    {window.location.href.includes('about') ? (
                       <Button style={{ opacity: 0.7 }}>About</Button>
                     ) : (
                       <Button style={{ opacity: 0.4 }}>About</Button>
                     )}
                   </HeaderLink>
                   <HeaderLink to="/gallary" replace>
-                    {window.location.href.includes("gallary") ? (
+                    {window.location.href.includes('gallary') ? (
                       <Button style={{ opacity: 0.7 }}>Gallary</Button>
                     ) : (
                       <Button style={{ opacity: 0.4 }}>Gallary</Button>
@@ -350,14 +350,11 @@ export default withRouter(({ isLoggedIn }) => {
                 <HeaderLink to="/SignIn" replace>
                   <SignInBtn>Sign In</SignInBtn>
                 </HeaderLink>
-                <HeaderLink to="/SignUp" replace>
-                  <SignUpBtn>Sign Up</SignUpBtn>
-                </HeaderLink>
               </HeaderColumn2>
             </HeaderBox>
           </HeaderWrapper>
           {click ? (
-            <MobileNav style={{ display: "block" }}>
+            <MobileNav style={{ display: 'block' }}>
               <MobileNavBox>
                 <MobileNavLink to="/about" onClick={onClick}>
                   About

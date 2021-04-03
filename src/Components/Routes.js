@@ -1,22 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Home from "../Routes/Home";
-import ClassRoom from "../Routes/Class/ClassRoom";
-import Gallary from "../Routes/Gallary";
-import SignIn from "../Routes/Auth/SignIn";
-import SignUp from "../Routes/Auth/SignUp";
-import About from "../Routes/About";
-import Profile from "../Routes/Profile";
-import PostDetail from "../Routes/PostDetail";
-import ImageUpload from "../Routes/ImageUpload";
-import SeeProfile from "../Routes/SeeProfile";
-import EditProfile from "../Routes/EditProfile";
-import UploadDemerit from "../Routes/UploadDemerit";
-import ClassDetail from "../Routes/Class/ClassDetail";
-import ClassUser from "../Routes/Class/ClassUser";
-import SearchUser from "../Routes/SearchUser";
-import UploadMerit from "../Routes/UploadMerit";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Home from '../Routes/Home';
+import ClassRoom from '../Routes/Class/ClassRoom';
+import Gallary from '../Routes/Gallary';
+import SignIn from '../Routes/Auth/SignIn';
+import About from '../Routes/About';
+import Profile from '../Routes/Profile';
+import PostDetail from '../Routes/PostDetail';
+import ImageUpload from '../Routes/ImageUpload';
+import SeeProfile from '../Routes/SeeProfile';
+import EditProfile from '../Routes/EditProfile';
+import UploadDemerit from '../Routes/UploadDemerit';
+import ClassDetail from '../Routes/Class/ClassDetail';
+import ClassUser from '../Routes/Class/ClassUser';
+import SearchUser from '../Routes/SearchUser';
+import UploadMerit from '../Routes/UploadMerit';
 
 const LoggedInRoutes = () => (
   <Switch>
@@ -41,7 +40,6 @@ const LoggedOutRoutes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route exact path="/SignIn" component={SignIn} />
-    <Route exact path="/SignUp" component={SignUp} />
     <Route exact path="/gallary" component={Gallary} />
     <Route exact path="/gallary/:id" component={PostDetail} />
     <Route exact path="/about" component={About} />

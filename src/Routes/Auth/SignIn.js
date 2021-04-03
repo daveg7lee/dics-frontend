@@ -1,14 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { useState } from "react";
-import { useMutation } from "react-apollo-hooks";
-import { Link, withRouter } from "react-router-dom";
-import Loader from "react-loader-spinner";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import Button from "../../Components/Button";
-import Input from "../../Components/Input";
-import useInput from "../../Hooks/useInput";
-import { LOCAL_LOG_IN, LOG_USER_IN } from "./AuthQueries";
+import React, { useState } from 'react';
+import { useMutation } from 'react-apollo-hooks';
+import { Link, withRouter } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import Button from '../../Components/Button';
+import Input from '../../Components/Input';
+import useInput from '../../Hooks/useInput';
+import { LOCAL_LOG_IN, LOG_USER_IN } from './AuthQueries';
 
 const Container = styled.div`
   height: 85vh;
@@ -69,8 +69,8 @@ const SignInInput = styled(Input)`
 export default withRouter(({ history }) => {
   window.scrollTo(0, 0);
   const [loading, setLoading] = useState(false);
-  const username = useInput("");
-  const password = useInput("");
+  const username = useInput('');
+  const password = useInput('');
   const [logUserInMutation] = useMutation(LOG_USER_IN, {
     variables: {
       username: username.value,
@@ -81,14 +81,14 @@ export default withRouter(({ history }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (username.value !== "") {
+    if (username.value !== '') {
       try {
         const {
           data: { LogUserIn: token },
         } = await logUserInMutation();
-        if (token !== "" && token !== undefined) {
+        if (token !== '' && token !== undefined) {
           localLogInMutation({ variables: { token } });
-          history.push("/");
+          history.push('/');
           window.location.reload();
         } else {
           throw Error();
@@ -96,12 +96,12 @@ export default withRouter(({ history }) => {
       } catch (e) {
         setLoading(false);
         const errorMessage = e.message
-          .replace("GraphQL", "")
-          .replace("error", "")
-          .replace(":", "");
+          .replace('GraphQL', '')
+          .replace('error', '')
+          .replace(':', '');
         toast.error(errorMessage);
-        if (e.message.includes("User Not Found")) {
-          history.push("/signUp");
+        if (e.message.includes('User Not Found')) {
+          history.push('/signUp');
         }
       }
     } else {
@@ -135,7 +135,7 @@ export default withRouter(({ history }) => {
                   color="white"
                   height={16}
                   width={16}
-                  timeout={5000}
+                  timeout={500000}
                 />
               }
             />
