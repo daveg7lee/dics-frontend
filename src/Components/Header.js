@@ -174,12 +174,6 @@ const Button = styled.div`
   color: black;
 `;
 
-const SignUpBtn = styled.div`
-  font-weight: 500;
-  font-size: 0.9rem;
-  opacity: 0.4;
-`;
-
 const SignInBtn = styled.div`
   font-size: 0.9rem;
   font-weight: 500;
