@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from "react";
-import Popup from "reactjs-popup";
-import styled from "styled-components";
+import React from 'react';
+import Popup from 'reactjs-popup';
+import styled from 'styled-components';
 
 const StyledPopup = styled(Popup)`
   &-overlay {
@@ -13,6 +13,8 @@ const StyledPopup = styled(Popup)`
     @media (min-width: 1025px) {
       width: 40vw;
     }
+    overflow-y: auto;
+    height: 90vh;
   }
 `;
 
