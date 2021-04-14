@@ -5,7 +5,6 @@ import Home from '../Routes/Home';
 import ClassRoom from '../Routes/Class/ClassRoom';
 import Gallary from '../Routes/Gallary';
 import SignIn from '../Routes/Auth/SignIn';
-import About from '../Routes/About';
 import Profile from '../Routes/Profile';
 import PostDetail from '../Routes/PostDetail';
 import ImageUpload from '../Routes/ImageUpload';
@@ -42,7 +41,6 @@ const LoggedOutRoutes = () => (
     <Route exact path="/SignIn" component={SignIn} />
     <Route exact path="/gallary" component={Gallary} />
     <Route exact path="/gallary/:id" component={PostDetail} />
-    <Route exact path="/about" component={About} />
     <Redirect from="*" to="/" />
   </Switch>
 );
