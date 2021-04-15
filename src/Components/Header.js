@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Header = styled.header`
+const SHeader = styled.header`
   width: 100%;
   backdrop-filter: saturate(200%) blur(5px);
   background-color: rgba(255, 255, 255, 0.8);
@@ -28,14 +28,16 @@ const Logo = styled.h1`
   font-weight: 700;
 `;
 
-export default () => {
+const Header = () => {
   return (
-    <Header>
+    <SHeader>
       <HeaderBox>
         <Link to="/" replace>
           <Logo>DICS</Logo>
         </Link>
       </HeaderBox>
-    </Header>
+    </SHeader>
   );
 };
+
+export default Header;
