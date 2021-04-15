@@ -1,15 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from "apollo-boost";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
-import Skeleton from "react-loading-skeleton";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import Button from "../Components/Button";
-import Input from "../Components/Input";
-import useInput from "../Hooks/useInput";
-import { ME } from "../SharedQueries";
+import { gql } from 'apollo-boost';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
+import Skeleton from 'react-loading-skeleton';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import Button from '../Components/Button';
+import Input from '../Components/Input';
+import useInput from '../Hooks/useInput';
+import { ME } from '../SharedQueries';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -115,11 +115,11 @@ export default () => {
   const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
   const { data, loading } = useQuery(ME);
-  const email = useInput("");
-  const oldPassword = useInput("");
-  const newPassword = useInput("");
-  const [preview, setPreview] = useState("");
-  const [image, setImage] = useState("");
+  const email = useInput('');
+  const oldPassword = useInput('');
+  const newPassword = useInput('');
+  const [preview, setPreview] = useState('');
+  const [image, setImage] = useState('');
   const [editProfileMutation] = useMutation(EDIT_PROFILE, {
     variables: {
       email: email.value,
@@ -152,10 +152,10 @@ export default () => {
     e.preventDefault();
     if (image) {
       const formData = new FormData();
-      formData.append("file", image);
-      formData.append("api_key", apikey);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("timestamp", String(Date.now() / 1000));
+      formData.append('file', image);
+      formData.append('api_key', apikey);
+      formData.append('upload_preset', uploadPreset);
+      formData.append('timestamp', String(Date.now() / 1000));
       const response = await axios.post(url, formData);
       const {
         data: { editProfile },
@@ -163,14 +163,14 @@ export default () => {
         variables: { avatar: response.data.url },
       });
       if (editProfile) {
-        toast.success("Profile Updated");
+        toast.success('Profile Updated');
       }
     } else {
       const {
         data: { editProfile },
       } = await editProfileMutation();
       if (editProfile) {
-        toast.success("Profile Updated");
+        toast.success('Profile Updated');
       }
     }
   };
@@ -217,17 +217,17 @@ export default () => {
                 <InputWrapper>
                   <Label>Avatar</Label>
                   {loading ? (
-                    <Skeleton circle={true} width={"4rem"} height={"4rem"} />
+                    <Skeleton circle={true} width={'4rem'} height={'4rem'} />
                   ) : (
                     <Avatar src={preview} />
                   )}
                   <Label
                     htmlFor="file"
                     style={{
-                      cursor: "pointer",
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "1rem",
+                      cursor: 'pointer',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: '1rem',
                     }}
                   >
                     찾아보기
@@ -237,9 +237,9 @@ export default () => {
                     onChange={onChange}
                     type="file"
                     style={{
-                      visibility: "hidden",
-                      position: "absolute",
-                      zIndex: "-1",
+                      visibility: 'hidden',
+                      position: 'absolute',
+                      zIndex: '-1',
                     }}
                   />
                 </InputWrapper>
