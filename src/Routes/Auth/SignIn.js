@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import Button from '../../Components/Button';
 import Input from '../../Components/Input';
 import useInput from '../../Hooks/useInput';
+import { Helmet } from 'react-helmet';
 import { LOCAL_LOG_IN, LOG_USER_IN } from './AuthQueries';
 
 const Container = styled.div`
@@ -106,6 +107,10 @@ export default withRouter(({ history }) => {
   };
   return (
     <Container>
+      <Helmet>
+        <title>Log In | DICS 벌점 체크 시스템</title>
+        <meta name="description" content="로그인" />
+      </Helmet>
       <Title>DICS</Title>
       <Form>
         <form onSubmit={onSubmit}>
