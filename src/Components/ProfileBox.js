@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const ProfileBox = styled.div`
   height: fit-content;
@@ -125,8 +125,8 @@ export default ({ avatar, username, me }) => (
       </NameBox>
       {me && (
         <BtnBox>
-          <Btn to={`/profile/${username}/edit`}>Edit Profile</Btn>
-          <Btn to={`profile/${username}`}>See Profile</Btn>
+          <Btn to={`/${username}/edit`}>Edit Profile</Btn>
+          <Btn to={`/${username}`}>See Profile</Btn>
         </BtnBox>
       )}
     </NameContainer>

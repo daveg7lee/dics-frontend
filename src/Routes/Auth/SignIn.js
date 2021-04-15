@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
@@ -67,7 +67,6 @@ const SignInInput = styled(Input)`
 `;
 
 export default withRouter(({ history }) => {
-  window.scrollTo(0, 0);
   const [loading, setLoading] = useState(false);
   const username = useInput('');
   const password = useInput('');
@@ -100,9 +99,6 @@ export default withRouter(({ history }) => {
           .replace('error', '')
           .replace(':', '');
         toast.error(errorMessage);
-        if (e.message.includes('User Not Found')) {
-          history.push('/signUp');
-        }
       }
     } else {
       toast.error("Username Can't Empty");
@@ -110,10 +106,7 @@ export default withRouter(({ history }) => {
   };
   return (
     <Container>
-      <Title>
-        Sign In to <br />
-        DICS
-      </Title>
+      <Title>DICS</Title>
       <Form>
         <form onSubmit={onSubmit}>
           <SignInInput
@@ -144,7 +137,6 @@ export default withRouter(({ history }) => {
           )}
         </form>
       </Form>
-      <Link to="/signUp">계정이 없으신가요?</Link>
     </Container>
   );
 });
