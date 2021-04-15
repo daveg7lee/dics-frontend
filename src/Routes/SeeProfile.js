@@ -24,7 +24,7 @@ const SEE_USER = gql`
 `;
 
 export default () => {
-  const username = decodeURI(window.location.href.split('/')[4]);
+  const username = decodeURI(window.location.href.split('/')[3]);
   const { data, loading } = useQuery(SEE_USER, { variables: { username } });
   return (
     <Container>

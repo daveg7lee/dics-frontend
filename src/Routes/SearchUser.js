@@ -170,7 +170,7 @@ export default () => {
                     {user.scores.length > 0 ? sum : 0}
                   </Score>
                   <CustomPopup
-                    trigger={<Button text="Show List" />}
+                    trigger={<Button text="Show" />}
                     contents={
                       <>
                         {user.scores.length > 0 ? (
