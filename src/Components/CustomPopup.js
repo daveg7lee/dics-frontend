@@ -10,6 +10,7 @@ const StyledPopup = styled(Popup)`
   &-content {
     border-radius: 5px;
     width: 100%;
+    background-color: white;
     @media (min-width: 1025px) {
       width: 40vw;
     }
@@ -25,7 +26,7 @@ const PopupContainer = styled.div`
 export default ({ trigger, contents }) => {
   return (
     <StyledPopup trigger={trigger} modal nested>
-      {(close) => <PopupContainer>{contents}</PopupContainer>}
+      {() => <PopupContainer>{contents}</PopupContainer>}
     </StyledPopup>
   );
 };

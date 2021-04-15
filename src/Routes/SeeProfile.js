@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from "apollo-boost";
-import React from "react";
-import { useQuery } from "react-apollo-hooks";
-import styled from "styled-components";
-import Loading from "../Components/Loading";
-import ProfileBox from "../Components/ProfileBox";
+import { gql } from 'apollo-boost';
+import React from 'react';
+import { useQuery } from 'react-apollo-hooks';
+import styled from 'styled-components';
+import Loading from '../Components/Loading';
+import ProfileBox from '../Components/ProfileBox';
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const SEE_USER = gql`
 `;
 
 export default () => {
-  const username = decodeURI(window.location.href.split("/")[5]);
+  const username = decodeURI(window.location.href.split('/')[4]);
   const { data, loading } = useQuery(SEE_USER, { variables: { username } });
   return (
     <Container>
