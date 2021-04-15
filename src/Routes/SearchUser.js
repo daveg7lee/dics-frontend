@@ -26,7 +26,9 @@ const SearchInput = styled(Input)`
   width: 40%;
 `;
 
-const List = styled.ul``;
+const List = styled.ul`
+  margin-bottom: 5rem;
+`;
 
 const Item = styled.li`
   display: grid;
