@@ -13,8 +13,8 @@ const LoggedInRoutes = () => (
     <Route exact path="/" component={Profile} />
     <Route path="/upload" component={Upload} />
     <Route path="/searchUser" component={SearchUser} />
-    <Route path="/:username" component={SeeProfile} />
-    <Route path="/:username/edit" component={EditProfile} />
+    <Route exact path="/:username/edit" component={EditProfile} />
+    <Route exact path="/:username" component={SeeProfile} />
     <Redirect from="*" to="/" />
   </Switch>
 );
