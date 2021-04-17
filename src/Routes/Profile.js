@@ -104,6 +104,7 @@ const LOG_USER_OUT = gql`
 
 export default () => {
   const { data, loading } = useQuery(ME);
+  console.log(data);
   const [logUserOutMutation] = useMutation(LOG_USER_OUT);
   const onClick = async (e) => {
     e.preventDefault();
