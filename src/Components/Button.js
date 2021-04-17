@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Container = styled.button`
-  width: fit-content;
+  width: 100%;
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
