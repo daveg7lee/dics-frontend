@@ -1,16 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from 'react';
-import { useMutation } from 'react-apollo-hooks';
+import { useMutation, gql } from '@apollo/client';
 import { withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Button from '../../Components/Button';
-import Input from '../../Components/Input';
 import useInput from '../../Hooks/useInput';
 import { Helmet } from 'react-helmet';
-import { LOG_USER_IN } from './AuthQueries';
-import { logUserIn } from '../../Client';
+import { logUserIn } from '../../apollo';
 
 const Container = styled.div`
   height: 85vh;
@@ -53,18 +51,9 @@ const Form = styled.div`
   }
 `;
 
-const SignInInput = styled(Input)`
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 8px 5px;
-  font-size: 14px;
-  border-radius: 5px;
-  height: auto;
-  &::placeholder {
-    opacity: 0.8;
-    font-weight: 200;
-  }
-  :not(:last-child) {
-    margin-bottom: 1rem;
+const LOG_USER_IN = gql`
+  mutation LogUserIn($username: String!, $password: String!) {
+    LogUserIn(username: $username, password: $password)
   }
 `;
 
@@ -114,16 +103,18 @@ export default withRouter(({ history }) => {
       <Title>DICS</Title>
       <Form>
         <form onSubmit={onSubmit}>
-          <SignInInput
+          <input
             placeholder="Username"
             value={username.value}
             onChange={username.onChange}
+            className="input"
           />
-          <SignInInput
+          <input
             placeholder="Password"
             value={password.value}
             onChange={password.onChange}
             type="password"
+            className="input"
           />
           {loading ? (
             <Button

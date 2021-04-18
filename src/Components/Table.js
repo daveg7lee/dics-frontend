@@ -4,6 +4,7 @@ const STable = styled.table`
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 20px;
+  padding: 1rem;
 `;
 
 const Th = styled.th``;

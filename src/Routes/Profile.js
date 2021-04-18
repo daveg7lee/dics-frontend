@@ -1,15 +1,13 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { useQuery } from 'react-apollo-hooks';
 import styled from 'styled-components';
-import { ME } from '../SharedQueries';
 import Loading from '../Components/Loading';
 import ProfileBox from '../Components/ProfileBox';
 import CustomPopup from '../Components/CustomPopup';
 import Button from '../Components/Button';
-import { logUserOut } from '../Client';
+import { logUserOut } from '../apollo';
 import Table from '../Components/Table';
+import useUser from '../Hooks/useUser';
 
 const Container = styled.div`
   height: 90vh;
@@ -83,8 +81,8 @@ const Bold = styled.h1`
   text-align: left;
 `;
 
-export default () => {
-  const { data, loading } = useQuery(ME);
+const Profile = () => {
+  const { data, loading } = useUser();
   const onClick = async (e) => {
     e.preventDefault();
     logUserOut();
@@ -125,7 +123,6 @@ export default () => {
                   : 'You are Safe'}
               </Warning>
               <CustomPopup
-                trigger={<Button text="Show List" />}
                 contents={
                   <>
                     {data.me.scores.length >= 1 ? (
@@ -146,3 +143,5 @@ export default () => {
     </Container>
   );
 };
+
+export default Profile;

@@ -1,14 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from 'apollo-boost';
+import { gql, useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
 import Skeleton from 'react-loading-skeleton';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Button from '../Components/Button';
-import Input from '../Components/Input';
 import useInput from '../Hooks/useInput';
-import { ME } from '../SharedQueries';
+import useUser from '../Hooks/useUser';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -109,7 +107,7 @@ const EDIT_PROFILE = gql`
 `;
 
 export default () => {
-  const { data, loading } = useQuery(ME);
+  const { data, loading } = useUser();
   const email = useInput('');
   const oldPassword = useInput('');
   const newPassword = useInput('');
@@ -171,30 +169,33 @@ export default () => {
               <InputContainer>
                 <InputWrapper>
                   <Label>Email</Label>
-                  <Input
+                  <input
                     value={email.value || ''}
                     onChange={email?.onChange}
                     placeholder="Email"
+                    className="input"
                   />
                 </InputWrapper>
               </InputContainer>
               <InputContainer>
                 <InputWrapper>
                   <Label>Old Password</Label>
-                  <Input
+                  <input
                     value={oldPassword.value || ''}
                     onChange={oldPassword?.onChange}
                     placeholder="Old Password"
                     type="password"
+                    className="input"
                   />
                 </InputWrapper>
                 <InputWrapper>
                   <Label>New Password</Label>
-                  <Input
+                  <input
                     value={newPassword.value || ''}
                     onChange={newPassword?.onChange}
                     placeholder="New Password"
                     type="password"
+                    className="input"
                   />
                 </InputWrapper>
               </InputContainer>

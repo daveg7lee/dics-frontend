@@ -61,49 +61,11 @@ const NameBox = styled.div`
   }
 `;
 
-const BtnBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  @media (max-width: 1024px) {
-    font-size: 0.8rem;
-  }
-`;
-
 const Name = styled.h1`
   font-size: 1.7rem;
   font-weight: 600;
   @media (max-width: 1024px) {
     font-size: 1.4rem;
-  }
-`;
-
-const Btn = styled(Link)`
-  color: black;
-  padding: 0.5rem 0.8rem;
-  border: 1px solid ${(props) => props.theme.lightGreyColor};
-  border-radius: 5px;
-  text-align: center;
-  :not(:last-child) {
-    margin-right: 1rem;
-  }
-  @media (max-width: 458px) {
-    padding: 0.4rem 0.7rem;
-    :not(:last-child) {
-      margin-right: 0.3rem;
-    }
-  }
-  @media (max-width: 396px) {
-    padding: 0.4rem;
-    :not(:last-child) {
-      margin-right: 0.3rem;
-    }
-  }
-  @media (max-width: 320px) {
-    padding: 0.3rem 0.1rem;
-    :not(:last-child) {
-      margin-right: 0.2rem;
-    }
   }
 `;
 
@@ -124,9 +86,9 @@ export default ({ avatar, username, me }) => (
         <Name>{username}</Name>
       </NameBox>
       {me && (
-        <BtnBox>
-          <Btn to={`/${username}/edit`}>Edit Profile</Btn>
-        </BtnBox>
+        <Link to={`/${username}/edit`}>
+          <button className="blueButton">Edit Profile</button>
+        </Link>
       )}
     </NameContainer>
   </ProfileBox>

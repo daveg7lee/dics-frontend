@@ -1,7 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from 'apollo-boost';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import Button from '../Components/Button';

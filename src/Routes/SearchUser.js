@@ -1,13 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from 'apollo-boost';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Button from '../Components/Button';
 import CustomPopup from '../Components/CustomPopup';
-import Input from '../Components/Input';
 import Loading from '../Components/Loading';
 import Table from '../Components/Table';
 import useInput from '../Hooks/useInput';
@@ -21,10 +19,6 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2rem 0px;
-`;
-
-const SearchInput = styled(Input)`
-  width: 40%;
 `;
 
 const List = styled.ul`
@@ -136,10 +130,11 @@ export default () => {
   return (
     <Container>
       <Header>
-        <SearchInput
+        <input
           placeholder="User Name"
           value={term.value}
           onChange={onChange}
+          className="input"
         />
       </Header>
       {loading ? (

@@ -5,6 +5,11 @@ module.exports = {
     extend: {
       colors: {
         bgColor: '#FFFFFF',
+        borderColor: '#e6e6e6',
+        blueColor: '#2463EB',
+      },
+      spacing: {
+        '10%': '10%',
       },
     },
   },

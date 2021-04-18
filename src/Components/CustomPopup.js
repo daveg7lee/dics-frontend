@@ -1,32 +1,49 @@
-/* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import Popup from 'reactjs-popup';
-import styled from 'styled-components';
+import Popover from '@material-ui/core/Popover';
 
-const StyledPopup = styled(Popup)`
-  &-overlay {
-    background: rgba(0, 0, 0, 0.5);
-  }
-  &-content {
-    border-radius: 5px;
-    width: 100%;
-    background-color: white;
-    @media (min-width: 1025px) {
-      width: 90vw;
-    }
-    overflow-y: auto;
-    height: 90vh;
-  }
-`;
+const CustomPopup = ({ contents }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-const PopupContainer = styled.div`
-  padding: 1rem;
-`;
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-export default ({ trigger, contents }) => {
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
-    <StyledPopup trigger={trigger} modal nested>
-      {() => <PopupContainer>{contents}</PopupContainer>}
-    </StyledPopup>
+    <div>
+      <button
+        aria-describedby={id}
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+        className="blueButton"
+      >
+        Show List
+      </button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {contents}
+      </Popover>
+    </div>
   );
 };
+
+export default CustomPopup;

@@ -1,30 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { gql } from 'apollo-boost';
 import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import Loader from 'react-loader-spinner';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import Button from '../Components/Button';
 import useInput from '../Hooks/useInput';
 import DemeritOptions from './DemeritOptions';
-
-const LabelContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
-  margin-bottom: 1rem;
-`;
-
-const Label = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0.5rem 0;
-`;
 
 const UPLOAD_SCORE = gql`
   mutation UploadScore(
@@ -165,7 +145,7 @@ export default () => {
             onKeyPress={() => refetch()}
           />
           {data?.searchUser?.length !== 0 && (
-            <LabelContainer>
+            <div className="labelContainer">
               {loading ? (
                 <Loader
                   type="TailSpin"
@@ -178,7 +158,7 @@ export default () => {
                 <>
                   {data?.searchUser?.length !== 0
                     ? data.searchUser.map((user) => (
-                        <Label key={user.id}>
+                        <label className="label" key={user.id}>
                           <input
                             key={user.id}
                             type="radio"
@@ -188,12 +168,12 @@ export default () => {
                             onClick={() => setUsername(user.username)}
                           />
                           {user.username}
-                        </Label>
+                        </label>
                       ))
                     : term.value !== '' && <h1>User not Found</h1>}
                 </>
               )}
-            </LabelContainer>
+            </div>
           )}
           <DemeritOptions />
           <input
@@ -211,19 +191,17 @@ export default () => {
             type="text"
           />
           {loadingBtn ? (
-            <Button
-              text={
-                <Loader
-                  type="TailSpin"
-                  color="white"
-                  height={16}
-                  width={16}
-                  timeout={5000}
-                />
-              }
-            />
+            <button className="blueButton">
+              <Loader
+                type="TailSpin"
+                color="white"
+                height={16}
+                width={16}
+                timeout={5000}
+              />
+            </button>
           ) : (
-            <Button text="Submit" />
+            <button className="blueButton">Submit</button>
           )}
         </form>
       </div>
