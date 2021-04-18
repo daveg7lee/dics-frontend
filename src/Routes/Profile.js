@@ -1,14 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
+import { useQuery } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import { ME } from '../SharedQueries';
 import Loading from '../Components/Loading';
-import { gql } from 'apollo-boost';
 import ProfileBox from '../Components/ProfileBox';
 import CustomPopup from '../Components/CustomPopup';
 import Button from '../Components/Button';
+import { logUserOut } from '../Client';
+import Table from '../Components/Table';
 
 const Container = styled.div`
   height: 90vh;
@@ -63,20 +64,6 @@ const Warning = styled.h1`
   }
 `;
 
-const Table = styled.table`
-  width: 100%;
-`;
-
-const Item = styled.tr`
-  margin-top: 0.5rem;
-`;
-
-const Th = styled.th``;
-
-const Td = styled.td`
-  text-align: center;
-`;
-
 const LogOutContainer = styled.div`
   width: 80%;
   display: flex;
@@ -96,19 +83,11 @@ const Bold = styled.h1`
   text-align: left;
 `;
 
-const LOG_USER_OUT = gql`
-  mutation logUserOut {
-    logUserOut @client
-  }
-`;
-
 export default () => {
   const { data, loading } = useQuery(ME);
-  console.log(data);
-  const [logUserOutMutation] = useMutation(LOG_USER_OUT);
   const onClick = async (e) => {
     e.preventDefault();
-    await logUserOutMutation();
+    logUserOut();
   };
   let sum = 0;
   if (!loading) {
@@ -150,33 +129,7 @@ export default () => {
                 contents={
                   <>
                     {data.me.scores.length >= 1 ? (
-                      <Table>
-                        <thead>
-                          <tr>
-                            <Th>Score</Th>
-                            <Th>Article</Th>
-                            <Th>Date</Th>
-                            <Th>Uploader</Th>
-                          </tr>
-                        </thead>
-                        {data.me.scores.map((score) => (
-                          <Item key={score.id}>
-                            <Td>
-                              {score.type === 'Demerit'
-                                ? score.score * -1
-                                : score.score}
-                            </Td>
-                            <Td>{score.article}</Td>
-                            <Td>
-                              {score.date
-                                .replace(/T.*/, '')
-                                .split('-')
-                                .join('-')}
-                            </Td>
-                            <Td>{score.uploader}</Td>
-                          </Item>
-                        ))}
-                      </Table>
+                      <Table scores={data.me.scores} />
                     ) : (
                       <h1>Nothing Here</h1>
                     )}

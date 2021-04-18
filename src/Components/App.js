@@ -10,7 +10,7 @@ import Theme from '../Styles/Theme';
 import Routes from './Routes';
 import Header from './Header';
 import { useReactiveVar } from '@apollo/client';
-import { isLoggedInVar } from '../Apollo/Client';
+import { isLoggedInVar } from '../Client';
 
 const Wrapper = styled.div`
   margin: 0 auto;

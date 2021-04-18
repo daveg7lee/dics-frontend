@@ -9,6 +9,7 @@ import Button from '../Components/Button';
 import CustomPopup from '../Components/CustomPopup';
 import Input from '../Components/Input';
 import Loading from '../Components/Loading';
+import Table from '../Components/Table';
 import useInput from '../Hooks/useInput';
 
 const Container = styled.div`
@@ -54,16 +55,6 @@ const Avatar = styled.img`
   justify-self: center;
 `;
 
-const Table = styled.table`
-  width: 100%;
-`;
-
-const Th = styled.th``;
-
-const Td = styled.td`
-  text-align: center;
-`;
-
 const Title = styled.h1`
   font-size: 1.3rem;
   font-weight: 600;
@@ -100,6 +91,7 @@ const SEE_AND_SEARCH_USERS = gql`
         date
         type
         uploader
+        detail
       }
     }
   }
@@ -176,38 +168,11 @@ export default () => {
                     contents={
                       <>
                         {user.scores.length > 0 ? (
-                          <Table>
-                            <thead>
-                              <tr>
-                                <Th>Score</Th>
-                                <Th>Article</Th>
-                                <Th>Date</Th>
-                                <Th>Uploader</Th>
-                              </tr>
-                            </thead>
-                            {user.scores.map((score) => (
-                              <tr
-                                key={score.id}
-                                style={{ marginTop: '0.5rem' }}
-                                id={score.id}
-                              >
-                                <Td>
-                                  {score.type === 'Demerit'
-                                    ? score.score * -1
-                                    : score.score}
-                                </Td>
-                                <Td>{score.article}</Td>
-                                <Td>
-                                  {score.date
-                                    .replace(/T.*/, '')
-                                    .split('-')
-                                    .join('-')}
-                                </Td>
-                                <Td>{score.uploader}</Td>
-                                <Button text="Delete" onClick={deleteScore} />
-                              </tr>
-                            ))}
-                          </Table>
+                          <Table
+                            scores={user.scores}
+                            deleteScore={deleteScore}
+                            Admin={true}
+                          />
                         ) : (
                           <h1>Nothing Here</h1>
                         )}
@@ -238,41 +203,11 @@ export default () => {
                         contents={
                           <>
                             {user.scores.length >= 1 ? (
-                              <Table>
-                                <thead>
-                                  <tr>
-                                    <Th>Score</Th>
-                                    <Th>Article</Th>
-                                    <Th>Date</Th>
-                                    <Th>Uploader</Th>
-                                  </tr>
-                                </thead>
-                                {user.scores.map((score) => (
-                                  <tr
-                                    key={score.id}
-                                    style={{ marginTop: '0.5rem' }}
-                                    id={score.id}
-                                  >
-                                    <Td>
-                                      {score.type === 'Demerit'
-                                        ? score.score * -1
-                                        : score.score}
-                                    </Td>
-                                    <Td>{score.article}</Td>
-                                    <Td>
-                                      {score.date
-                                        .replace(/T.*/, '')
-                                        .split('-')
-                                        .join('-')}
-                                    </Td>
-                                    <Td>{score.uploader}</Td>
-                                    <Button
-                                      text="Delete"
-                                      onClick={deleteScore}
-                                    />
-                                  </tr>
-                                ))}
-                              </Table>
+                              <Table
+                                scores={user.scores}
+                                deleteScore={deleteScore}
+                                Admin={true}
+                              />
                             ) : (
                               <h1>Nothing Here</h1>
                             )}

@@ -10,7 +10,7 @@ import Input from '../../Components/Input';
 import useInput from '../../Hooks/useInput';
 import { Helmet } from 'react-helmet';
 import { LOG_USER_IN } from './AuthQueries';
-import { logUserIn } from '../../Apollo/Client';
+import { logUserIn } from '../../Client';
 
 const Container = styled.div`
   height: 85vh;

@@ -126,7 +126,6 @@ export default ({ avatar, username, me }) => (
       {me && (
         <BtnBox>
           <Btn to={`/${username}/edit`}>Edit Profile</Btn>
-          <Btn to={`/${username}`}>See Profile</Btn>
         </BtnBox>
       )}
     </NameContainer>

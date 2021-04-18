@@ -12,7 +12,7 @@ const StyledPopup = styled(Popup)`
     width: 100%;
     background-color: white;
     @media (min-width: 1025px) {
-      width: 40vw;
+      width: 90vw;
     }
     overflow-y: auto;
     height: 90vh;
