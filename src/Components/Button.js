@@ -4,6 +4,9 @@ import styled from 'styled-components';
 const Container = styled.button`
   width: 100%;
   border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
   font-size: 15px;
