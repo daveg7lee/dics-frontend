@@ -38,31 +38,29 @@ const Icon = styled(Link)`
 `;
 
 const Header = () => {
-  const { data, loading } = useQuery(ME);
+  const { data } = useQuery(ME);
   return (
     <SHeader>
-      {!loading && (
-        <>
-          <HeaderBox />
-          <HeaderBox>
-            <Link to="/" replace>
-              <Logo>DICS</Logo>
-            </Link>
-          </HeaderBox>
-          <HeaderBox>
-            {data.me.type === 'Admin' && (
-              <>
-                <Icon to="/upload">
-                  <FcUpload size={25} />
-                </Icon>
-                <Icon to="/searchUser">
-                  <FcSearch size={25} />
-                </Icon>
-              </>
-            )}
-          </HeaderBox>
-        </>
-      )}
+      <>
+        <HeaderBox />
+        <HeaderBox>
+          <Link to="/" replace>
+            <Logo>DICS</Logo>
+          </Link>
+        </HeaderBox>
+        <HeaderBox>
+          {data?.me.type === 'Admin' && (
+            <>
+              <Icon to="/upload">
+                <FcUpload size={25} />
+              </Icon>
+              <Icon to="/searchUser">
+                <FcSearch size={25} />
+              </Icon>
+            </>
+          )}
+        </HeaderBox>
+      </>
     </SHeader>
   );
 };

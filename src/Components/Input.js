@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const Container = styled.input`
   width: 100%;
@@ -18,7 +18,7 @@ const Input = ({
   required = true,
   value,
   onChange,
-  type = "text",
+  type = 'text',
   className,
   onKeyPress,
   min,
@@ -38,7 +38,7 @@ const Input = ({
 Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func,
   type: PropTypes.string,

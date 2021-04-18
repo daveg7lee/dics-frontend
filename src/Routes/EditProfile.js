@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { gql } from 'apollo-boost';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import Skeleton from 'react-loading-skeleton';
@@ -94,7 +93,7 @@ const Avatar = styled.img`
 const EDIT_PROFILE = gql`
   mutation editProfile(
     $email: String
-    $avatar: String
+    $avatar: Upload
     $bio: String
     $oldPassword: String
     $newPassword: String
@@ -110,16 +109,11 @@ const EDIT_PROFILE = gql`
 `;
 
 export default () => {
-  const cloudName = process.env.REACT_APP_CLOUD_NAME;
-  const apikey = process.env.REACT_APP_API_KEY;
-  const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
-  const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
   const { data, loading } = useQuery(ME);
   const email = useInput('');
   const oldPassword = useInput('');
   const newPassword = useInput('');
   const [preview, setPreview] = useState('');
-  const [image, setImage] = useState('');
   const [editProfileMutation] = useMutation(EDIT_PROFILE, {
     variables: {
       email: email.value,
@@ -128,15 +122,16 @@ export default () => {
     },
   });
   useEffect(() => {
-    if (!loading) {
-      email.setValue(data.me.email);
-      setPreview(data.me.avatar);
-    }
+    email.setValue(data?.me?.email);
+    setPreview(data?.me?.avatar);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-  const onChange = async (event) => {
-    const file = event.target.files[0];
-    let reader = new FileReader();
+  const onChange = async ({
+    target: {
+      files: [file],
+    },
+  }) => {
+    const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result;
       if (base64) {
@@ -144,34 +139,24 @@ export default () => {
       }
     };
     if (file) {
-      setImage(file);
       reader.readAsDataURL(file);
-    }
-  };
-  const OnSubmit = async (e) => {
-    e.preventDefault();
-    if (image) {
-      const formData = new FormData();
-      formData.append('file', image);
-      formData.append('api_key', apikey);
-      formData.append('upload_preset', uploadPreset);
-      formData.append('timestamp', String(Date.now() / 1000));
-      const response = await axios.post(url, formData);
       const {
         data: { editProfile },
       } = await editProfileMutation({
-        variables: { avatar: response.data.url },
+        variables: { avatar: file },
       });
       if (editProfile) {
         toast.success('Profile Updated');
       }
-    } else {
-      const {
-        data: { editProfile },
-      } = await editProfileMutation();
-      if (editProfile) {
-        toast.success('Profile Updated');
-      }
+    }
+  };
+  const OnSubmit = async (e) => {
+    e.preventDefault();
+    const {
+      data: { editProfile },
+    } = await editProfileMutation();
+    if (editProfile) {
+      toast.success('Profile Updated');
     }
   };
   return (
@@ -187,8 +172,8 @@ export default () => {
                 <InputWrapper>
                   <Label>Email</Label>
                   <Input
-                    value={email.value}
-                    onChange={email.onChange}
+                    value={email.value || ''}
+                    onChange={email?.onChange}
                     placeholder="Email"
                   />
                 </InputWrapper>
@@ -197,8 +182,8 @@ export default () => {
                 <InputWrapper>
                   <Label>Old Password</Label>
                   <Input
-                    value={oldPassword.value}
-                    onChange={oldPassword.onChange}
+                    value={oldPassword.value || ''}
+                    onChange={oldPassword?.onChange}
                     placeholder="Old Password"
                     type="password"
                   />
@@ -206,8 +191,8 @@ export default () => {
                 <InputWrapper>
                   <Label>New Password</Label>
                   <Input
-                    value={newPassword.value}
-                    onChange={newPassword.onChange}
+                    value={newPassword.value || ''}
+                    onChange={newPassword?.onChange}
                     placeholder="New Password"
                     type="password"
                   />

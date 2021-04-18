@@ -9,7 +9,8 @@ import Button from '../../Components/Button';
 import Input from '../../Components/Input';
 import useInput from '../../Hooks/useInput';
 import { Helmet } from 'react-helmet';
-import { LOCAL_LOG_IN, LOG_USER_IN } from './AuthQueries';
+import { LOG_USER_IN } from './AuthQueries';
+import { logUserIn } from '../../Apollo/Client';
 
 const Container = styled.div`
   height: 85vh;
@@ -77,7 +78,6 @@ export default withRouter(({ history }) => {
       password: password.value,
     },
   });
-  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -87,7 +87,7 @@ export default withRouter(({ history }) => {
           data: { LogUserIn: token },
         } = await logUserInMutation();
         if (token !== '' && token !== undefined) {
-          localLogInMutation({ variables: { token } });
+          logUserIn(token);
           history.push('/');
           window.location.reload();
         } else {
