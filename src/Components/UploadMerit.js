@@ -93,7 +93,6 @@ export default () => {
         });
         if (UploadScore) {
           toast.success('입력이 완료되었습니다!');
-          window.setTimeout(() => window.location.reload(), 3000);
         }
       } catch (e) {
         const errorMessage = e.message

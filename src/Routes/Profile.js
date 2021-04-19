@@ -83,13 +83,14 @@ const Bold = styled.h1`
 
 const Profile = () => {
   const { data, loading } = useUser();
+  console.log(data);
   const onClick = async (e) => {
     e.preventDefault();
     logUserOut();
   };
   let sum = 0;
   if (!loading) {
-    data.me.scores.map((score) => {
+    data?.me?.scores.map((score) => {
       if (score.type === 'Demerit') {
         sum += score.score * -1;
       } else {
@@ -105,8 +106,8 @@ const Profile = () => {
         <>
           <Bold>Profile</Bold>
           <ProfileBox
-            avatar={data.me.avatar}
-            username={data.me.username}
+            avatar={data?.me?.avatar}
+            username={data?.me?.username}
             me={true}
           />
           <Bold>Demerit</Bold>
@@ -125,8 +126,8 @@ const Profile = () => {
               <CustomPopup
                 contents={
                   <>
-                    {data.me.scores.length >= 1 ? (
-                      <Table scores={data.me.scores} />
+                    {data?.me?.scores.length >= 1 ? (
+                      <Table scores={data?.me?.scores} />
                     ) : (
                       <h1>Nothing Here</h1>
                     )}
