@@ -83,7 +83,6 @@ const Bold = styled.h1`
 
 const Profile = () => {
   const { data, loading } = useUser();
-  console.log(data);
   let sum = 0;
   data?.me?.scores.map((score) => {
     if (score.type === 'Demerit') {
