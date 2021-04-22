@@ -84,20 +84,14 @@ const Bold = styled.h1`
 const Profile = () => {
   const { data, loading } = useUser();
   console.log(data);
-  const onClick = async (e) => {
-    e.preventDefault();
-    logUserOut();
-  };
   let sum = 0;
-  if (!loading) {
-    data?.me?.scores.map((score) => {
-      if (score.type === 'Demerit') {
-        sum += score.score * -1;
-      } else {
-        sum += score.score;
-      }
-    });
-  }
+  data?.me?.scores.map((score) => {
+    if (score.type === 'Demerit') {
+      sum += score.score * -1;
+    } else {
+      sum += score.score;
+    }
+  });
   return (
     <Container>
       {loading ? (
@@ -137,7 +131,11 @@ const Profile = () => {
             </WarningBox>
           </ScoreContainer>
           <LogOutContainer>
-            <Button onClick={onClick} text={'Log Out'} width={'5rem'} />
+            <Button
+              onClick={() => logUserOut()}
+              text={'Log Out'}
+              width={'5rem'}
+            />
           </LogOutContainer>
         </>
       )}

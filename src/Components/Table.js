@@ -35,7 +35,7 @@ const Table = ({ scores, deleteScore, Admin }) => {
         </tr>
       </thead>
       {scores.map((score) => (
-        <tr key={score.id} style={{ marginTop: '0.5rem' }} id={score.id}>
+        <tr key={score.id} style={{ marginTop: '0.5rem' }}>
           <Td>{score.type === 'Demerit' ? score.score * -1 : score.score}</Td>
           <Td>{score.article}</Td>
           <Td>{score.date.replace(/T.*/, '').split('-').join('-')}</Td>
@@ -43,7 +43,7 @@ const Table = ({ scores, deleteScore, Admin }) => {
           <Td>{score.detail}</Td>
           {Admin && (
             <Td onClick={deleteScore}>
-              <Delete>Delete</Delete>
+              <Delete id={score.id}>Delete</Delete>
             </Td>
           )}
         </tr>

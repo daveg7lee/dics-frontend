@@ -111,7 +111,7 @@ export default () => {
   const deleteScore = async (e) => {
     e.preventDefault();
     try {
-      const id = e.target.parentNode.id;
+      const id = e.target.id;
       const { data: deleteScore } = await deleteScoreMutation({
         variables: { id },
       });
