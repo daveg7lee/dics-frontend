@@ -9,14 +9,6 @@ import { logUserOut } from '../apollo';
 import Table from '../Components/Table';
 import useUser from '../Hooks/useUser';
 
-const Container = styled.div`
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 const ScoreContainer = styled.div`
   height: fit-content;
   width: 80%;
@@ -92,7 +84,7 @@ const Profile = () => {
     }
   });
   return (
-    <Container>
+    <div className="container">
       {loading ? (
         <Loading />
       ) : (
@@ -138,7 +130,7 @@ const Profile = () => {
           </LogOutContainer>
         </>
       )}
-    </Container>
+    </div>
   );
 };
 

@@ -6,12 +6,14 @@ import Profile from '../Routes/Profile';
 import EditProfile from '../Routes/EditProfile';
 import SearchUser from '../Routes/SearchUser';
 import Upload from '../Routes/Upload';
+import CreateAccount from '../Routes/CreateAccount';
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Profile} />
     <Route path="/upload" component={Upload} />
     <Route path="/searchUser" component={SearchUser} />
+    <Route path="/signup" component={CreateAccount} />
     <Route path="/:username/edit" component={EditProfile} />
     <Redirect from="*" to="/" />
   </Switch>

@@ -11,11 +11,11 @@
 }
 
 .container {
-  @apply min-h-screen flex flex-col justify-center items-center;
+  @apply min-h-screen min-w-full allCenter flex-col;
 }
 
 .formContainer {
-  @apply flex flex-col items-center border-borderColor border p-8 rounded w-full mb-8;
+  @apply flex flex-col items-center p-8 rounded w-full mb-8;
 }
 
 .form {

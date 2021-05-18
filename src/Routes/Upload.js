@@ -6,7 +6,7 @@ import UploadMerit from '../Components/UploadMerit';
 
 const Upload = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="container">
       <Carousel autoPlay={false} animation="slide">
         <Paper>
           <UploadMerit />

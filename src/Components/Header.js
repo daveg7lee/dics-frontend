@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FcSearch, FcUpload } from 'react-icons/fc';
+import { FcSearch, FcUpload, FcPlus } from 'react-icons/fc';
 import useUser from '../Hooks/useUser';
 
 const Header = () => {
   const { data } = useUser();
   return (
-    <header className="header">
+    <header className="header z-50">
       <>
         <div className="headerBox allCenter" />
         <div className="headerBox allCenter">
@@ -22,6 +22,9 @@ const Header = () => {
               </Link>
               <Link className="mr-10%" to="/searchUser">
                 <FcSearch size={25} />
+              </Link>
+              <Link className="mr-10%" to="/signup">
+                <FcPlus size={25} />
               </Link>
             </>
           )}
