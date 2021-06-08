@@ -24,12 +24,6 @@ const ScoreContainer = styled.div`
   }
 `;
 
-const WarningBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
-
 const Score = styled.span`
   font-size: 4rem;
   font-weight: 500;
