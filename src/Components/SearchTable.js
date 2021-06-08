@@ -1,8 +1,8 @@
 import CustomPopup from './CustomPopup';
 import Table from './Table';
 
-const SearchTable = ({ user, totalScore, deleteScore }) => (
-  <li key={user.id} className="grid grid-cols-4 mt-6">
+const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => (
+  <li key={user.id} className="grid grid-cols-5 mt-6">
     <div className="w-12 h-12 rounded-full overflow-hidden justify-self-center">
       <img
         src={user.avatar}
@@ -12,6 +12,7 @@ const SearchTable = ({ user, totalScore, deleteScore }) => (
     </div>
     <h1 className="allCenter">{user.username}</h1>
     <span className="allCenter">{totalScore}</span>
+    <span className="allCenter">{totalMerit}</span>
     <CustomPopup
       contents={
         <>

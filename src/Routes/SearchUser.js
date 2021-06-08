@@ -24,6 +24,7 @@ const SEE_AND_SEARCH_USERS = gql`
       avatar
       type
       totalScores
+      totalMerit
       scores {
         id
         score
@@ -39,6 +40,7 @@ const SEE_AND_SEARCH_USERS = gql`
       avatar
       type
       totalScores
+      totalMerit
       scores {
         id
         score
@@ -110,6 +112,7 @@ export default () => {
                   <SearchTable
                     user={user}
                     totalScore={user.totalScores}
+                    totalMerit={user.totalMerit}
                     deleteScore={deleteScore}
                   />
                 );
@@ -126,6 +129,7 @@ export default () => {
                       <SearchTable
                         user={user}
                         totalScore={user.totalScores}
+                        totalMerit={user.totalMerit}
                         deleteScore={deleteScore}
                       />
                     );
@@ -140,6 +144,7 @@ export default () => {
                       <SearchTable
                         user={user}
                         totalScore={user.totalScores}
+                        totalMerit={user.totalMerit}
                         deleteScore={deleteScore}
                       />
                     );
