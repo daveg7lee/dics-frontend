@@ -24,13 +24,6 @@ const ScoreContainer = styled.div`
   }
 `;
 
-const ScoreBox = styled.div`
-  padding: 3rem;
-  @media (max-width: 760px) {
-    padding: 1.5rem;
-  }
-`;
-
 const WarningBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,18 +33,6 @@ const WarningBox = styled.div`
 const Score = styled.span`
   font-size: 4rem;
   font-weight: 500;
-`;
-
-const Warning = styled.h1`
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  @media (max-width: 760px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 320px) {
-    font-size: 1.3rem;
-  }
 `;
 
 const LogOutContainer = styled.div`
@@ -76,13 +57,6 @@ const Bold = styled.h1`
 const Profile = () => {
   const { data, loading } = useUser();
   let sum = 0;
-  data?.me?.scores.map((score) => {
-    if (score.type === 'Demerit') {
-      sum += score.score * -1;
-    } else {
-      sum += score.score;
-    }
-  });
   return (
     <div className="container">
       {loading ? (
@@ -97,17 +71,24 @@ const Profile = () => {
           />
           <Bold>Demerit</Bold>
           <ScoreContainer>
-            <ScoreBox>
-              <Score>{sum}</Score>
-            </ScoreBox>
-            <WarningBox>
-              <Warning>
+            <div className=" w-1/3 flex justify-around items-center">
+              <div className="flex flex-col justify-center items-center">
+                <Score>{data?.me?.totalScores}</Score>
+                <p className="text-xl font-medium">벌점</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <Score>{data?.me?.totalMerit}</Score>
+                <p className="text-xl font-medium">상점</p>
+              </div>
+            </div>
+            <div className="w-2/3 flex justify-center items-center">
+              <h1 className="mr-5 text-2xl font-semibold">
                 {sum <= -15
                   ? 'Go to Solomon'
                   : sum <= -10
                   ? 'You are Warning'
                   : 'You are Safe'}
-              </Warning>
+              </h1>
               <CustomPopup
                 contents={
                   <>
@@ -119,7 +100,7 @@ const Profile = () => {
                   </>
                 }
               />
-            </WarningBox>
+            </div>
           </ScoreContainer>
           <LogOutContainer>
             <Button

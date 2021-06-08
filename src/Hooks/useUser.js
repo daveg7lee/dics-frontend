@@ -9,6 +9,8 @@ const ME = gql`
       avatar
       type
       email
+      totalScores
+      totalMerit
       scores {
         score
         article
