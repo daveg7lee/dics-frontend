@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FcSearch, FcUpload, FcPlus } from 'react-icons/fc';
+import { FcSearch, FcUpload, FcPlus, FcMinus } from 'react-icons/fc';
 import useUser from '../Hooks/useUser';
 
 const Header = () => {
@@ -17,14 +17,17 @@ const Header = () => {
         <div className="headerBox allCenter">
           {data?.me?.type === 'Admin' && (
             <>
-              <Link className="mr-10%" to="/upload">
+              <Link className="mr-4" to="/upload">
                 <FcUpload size={25} />
               </Link>
-              <Link className="mr-10%" to="/searchUser">
+              <Link className="mr-4" to="/searchUser">
                 <FcSearch size={25} />
               </Link>
-              <Link className="mr-10%" to="/signup">
+              <Link className="mr-4" to="/signup">
                 <FcPlus size={25} />
+              </Link>
+              <Link className="mr-4" to="/deleteUser">
+                <FcMinus size={25} />
               </Link>
             </>
           )}

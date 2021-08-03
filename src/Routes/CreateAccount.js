@@ -49,7 +49,7 @@ function CreateAccount() {
           placeholder="이메일 (아무거나 상관 없음)"
           {...register('email', { required: true })}
         />
-        <input type="submit" className="blueButton" />
+        <input type="submit" className="blueButton" value="학생 추가" />
       </form>
     </div>
   );

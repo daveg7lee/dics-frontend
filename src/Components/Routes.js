@@ -7,6 +7,7 @@ import EditProfile from '../Routes/EditProfile';
 import SearchUser from '../Routes/SearchUser';
 import Upload from '../Routes/Upload';
 import CreateAccount from '../Routes/CreateAccount';
+import DeleteUser from '../Routes/DeleteUser';
 
 const LoggedInRoutes = () => (
   <Switch>
@@ -14,6 +15,7 @@ const LoggedInRoutes = () => (
     <Route path="/upload" component={Upload} />
     <Route path="/searchUser" component={SearchUser} />
     <Route path="/signup" component={CreateAccount} />
+    <Route path="/deleteUser" component={DeleteUser} />
     <Route path="/:username/edit" component={EditProfile} />
     <Redirect from="*" to="/" />
   </Switch>
