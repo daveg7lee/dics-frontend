@@ -19,7 +19,7 @@ const SEARCH_SCORE = gql`
   }
 `;
 
-export default () => {
+const SearchScore = () => {
   const term = useInput('');
   let { data, loading, refetch } = useQuery(SEARCH_SCORE, {
     variables: { term: term.value },
@@ -72,3 +72,5 @@ export default () => {
     </div>
   );
 };
+
+export default SearchScore;
