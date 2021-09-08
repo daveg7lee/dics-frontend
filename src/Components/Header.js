@@ -29,6 +29,9 @@ const Header = () => {
               <Link className="mr-4" to="/deleteUser">
                 <FcMinus size={25} />
               </Link>
+              <Link className="mr-4" to="/searchScore">
+                <FcSearch size={25} />
+              </Link>
             </>
           )}
         </div>

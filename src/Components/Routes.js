@@ -8,12 +8,14 @@ import SearchUser from '../Routes/SearchUser';
 import Upload from '../Routes/Upload';
 import CreateAccount from '../Routes/CreateAccount';
 import DeleteUser from '../Routes/DeleteUser';
+import SearchScore from '../Routes/SearchScore';
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Profile} />
     <Route path="/upload" component={Upload} />
     <Route path="/searchUser" component={SearchUser} />
+    <Route path="/searchScore" component={SearchScore} />
     <Route path="/signup" component={CreateAccount} />
     <Route path="/deleteUser" component={DeleteUser} />
     <Route path="/:username/edit" component={EditProfile} />
