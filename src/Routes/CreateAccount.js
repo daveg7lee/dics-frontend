@@ -26,9 +26,14 @@ const CREATE_ACCOUNT = gql`
 function CreateAccount() {
   const { register, handleSubmit } = useForm();
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
-  const onValid = async ({ username, email }) => {
+  const onValid = async ({ username }) => {
     await createAccountMutation({
-      variables: { username, email, password: '1q2w3e4r', type: 'Student' },
+      variables: {
+        username,
+        email: '.',
+        password: '1q2w3e4r',
+        type: 'Student',
+      },
     });
     toast.success('계정 생성 완료!');
   };
@@ -43,11 +48,6 @@ function CreateAccount() {
           className="input"
           placeholder="이름"
           {...register('username', { required: true })}
-        />
-        <input
-          className="input"
-          placeholder="이메일 (아무거나 상관 없음)"
-          {...register('email', { required: true })}
         />
         <input type="submit" className="blueButton" value="학생 추가" />
       </form>
