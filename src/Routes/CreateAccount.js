@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -25,8 +26,10 @@ const CREATE_ACCOUNT = gql`
 
 function CreateAccount() {
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
   const onValid = async ({ username }) => {
+    setLoading(true);
     await createAccountMutation({
       variables: {
         username,
@@ -36,6 +39,7 @@ function CreateAccount() {
       },
     });
     toast.success('계정 생성 완료!');
+    setLoading(false);
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -49,7 +53,11 @@ function CreateAccount() {
           placeholder="이름"
           {...register('username', { required: true })}
         />
-        <input type="submit" className="blueButton" value="학생 추가" />
+        <input
+          type="submit"
+          className="blueButton"
+          value={loading ? '로딩중...' : '학생 추가'}
+        />
       </form>
     </div>
   );
