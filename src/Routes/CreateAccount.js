@@ -25,7 +25,7 @@ const CREATE_ACCOUNT = gql`
 `;
 
 function CreateAccount() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [loading, setLoading] = useState(false);
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
   const onValid = async ({ username }) => {
@@ -40,6 +40,7 @@ function CreateAccount() {
     });
     toast.success('계정 생성 완료!');
     setLoading(false);
+    setValue('username', '');
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -56,7 +57,7 @@ function CreateAccount() {
         <input
           type="submit"
           className="blueButton"
-          value={loading ? '로딩중...' : '학생 추가'}
+          value={loading ? '등록중...' : '학생 추가'}
         />
       </form>
     </div>
