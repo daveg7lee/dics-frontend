@@ -124,7 +124,7 @@ export default () => {
               <div className="mb-40">
                 <Title>솔로몬 고위험자</Title>
                 {data.seeUsers.map((user) => {
-                  if (user.totalScores <= -10) {
+                  if (user.totalScores <= -15) {
                     return (
                       <SearchTable
                         user={user}
