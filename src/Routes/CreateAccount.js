@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import useUser from '../Hooks/useUser';
+import { useHistory } from "react-router-dom";
 
 const CREATE_ACCOUNT = gql`
   mutation createAccount(
@@ -25,6 +27,15 @@ const CREATE_ACCOUNT = gql`
 `;
 
 function CreateAccount() {
+  const {data, userLoading} = useUser();
+  const history = useHistory();
+
+  if(!userLoading) {
+    if(data?.me?.type !== "Admin") {
+      history.push("/")
+    }
+  }
+
   const { register, handleSubmit, setValue } = useForm();
   const [loading, setLoading] = useState(false);
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);

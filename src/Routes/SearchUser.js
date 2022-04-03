@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Loading from '../Components/Loading';
 import SearchTable from '../Components/SearchTable';
-import useInput from '../Hooks/useInput';
+import useUser from '../Hooks/useUser';
+import {useHistory} from "react-router-dom";
 
 const Title = styled.h1`
   font-size: 1.3rem;
@@ -16,24 +17,8 @@ const Title = styled.h1`
   margin-top: 1rem;
 `;
 
-const SEE_AND_SEARCH_USERS = gql`
-  query searchUser($term: String!) {
-    searchUser(term: $term) {
-      id
-      username
-      avatar
-      type
-      totalScores
-      totalMerit
-      scores {
-        id
-        score
-        article
-        date
-        type
-        uploader
-      }
-    }
+const SEE_USERS = gql`
+  query {
     seeUsers {
       id
       username
@@ -61,16 +46,17 @@ const DELETE_SCORE = gql`
 `;
 
 export default () => {
-  const term = useInput('');
-  const { data, loading, refetch } = useQuery(SEE_AND_SEARCH_USERS, {
-    variables: { term: term.value },
-  });
+  const { data, loading, refetch } = useQuery(SEE_USERS);
+  const {userData, userLoading} = useUser();
+  const history = useHistory();
   const [deleteScoreMutation] = useMutation(DELETE_SCORE);
-  const onChange = (e) => {
-    term.onChange(e);
-    e.preventDefault();
-    refetch();
-  };
+
+  if(!userLoading) {
+    if(userData?.me?.type !== "Admin") {
+        history.push("/")
+    }
+  }
+
   const deleteScore = async (e) => {
     e.preventDefault();
     try {
@@ -90,24 +76,17 @@ export default () => {
       toast.error(errorMessage);
     }
   };
+
   return (
     <div className="min-h-screen">
-      <header className="allCenter my-8">
-        <input
-          placeholder="User Name"
-          value={term.value}
-          onChange={onChange}
-          className="input"
-        />
-      </header>
       {loading ? (
         <Loading />
       ) : (
         <ul className="mb-20">
-          {data.searchUser.length > 0 && (
-            <>
-              <Title>검색 결과</Title>
-              {data.searchUser.map((user) => {
+          <div className="mb-40">
+            <Title>솔로몬 고위험자</Title>
+            {data.seeUsers.map((user) => {
+              if (user.totalScores <= -15) {
                 return (
                   <SearchTable
                     user={user}
@@ -116,43 +95,24 @@ export default () => {
                     deleteScore={deleteScore}
                   />
                 );
-              })}
-            </>
-          )}
-          {data.searchUser.length === 0 && (
-            <>
-              <div className="mb-40">
-                <Title>솔로몬 고위험자</Title>
-                {data.seeUsers.map((user) => {
-                  if (user.totalScores <= -15) {
-                    return (
-                      <SearchTable
-                        user={user}
-                        totalScore={user.totalScores}
-                        totalMerit={user.totalMerit}
-                        deleteScore={deleteScore}
-                      />
-                    );
-                  }
-                })}
-              </div>
-              <div>
-                <Title>전체 보기</Title>
-                {data.seeUsers.map((user) => {
-                  if (user.username !== 'Admin') {
-                    return (
-                      <SearchTable
-                        user={user}
-                        totalScore={user.totalScores}
-                        totalMerit={user.totalMerit}
-                        deleteScore={deleteScore}
-                      />
-                    );
-                  }
-                })}
-              </div>
-            </>
-          )}
+              }
+            })}
+          </div>
+          <div>
+            <Title>전체 보기</Title>
+            {data.seeUsers.map((user) => {
+              if (user.username !== 'Admin') {
+                return (
+                  <SearchTable
+                    user={user}
+                    totalScore={user.totalScores}
+                    totalMerit={user.totalMerit}
+                    deleteScore={deleteScore}
+                  />
+                );
+              }
+            })}
+          </div>
         </ul>
       )}
     </div>
