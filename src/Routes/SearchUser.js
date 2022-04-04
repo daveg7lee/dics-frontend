@@ -1,12 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable import/no-anonymous-default-export */
-import { gql, useMutation, useQuery } from '@apollo/client';
-import React from 'react';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import Loading from '../Components/Loading';
-import SearchTable from '../Components/SearchTable';
-import useUser from '../Hooks/useUser';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import Loading from "../Components/Loading";
+import SearchTable from "../Components/SearchTable";
+import useUser from "../Hooks/useUser";
 import { useHistory } from "react-router-dom";
 
 const Title = styled.h1`
@@ -46,14 +46,16 @@ const DELETE_SCORE = gql`
 `;
 
 export default () => {
+  const user = useUser();
   const { data, loading, refetch } = useQuery(SEE_USERS);
   const [deleteScoreMutation] = useMutation(DELETE_SCORE);
-  const {user, userLoading} = useUser();
   const history = useHistory();
 
-  if(!userLoading) {
-    if(user?.me?.type !== "Admin") {
-      history.push("/")
+  console.log(user);
+
+  if (!user.loading) {
+    if (user.data?.me?.type !== "Admin") {
+      history.push("/");
     }
   }
 
@@ -65,14 +67,14 @@ export default () => {
         variables: { id },
       });
       if (deleteScore) {
-        toast.success('Deleted');
+        toast.success("Deleted");
         refetch();
       }
     } catch (e) {
       const errorMessage = e.message
-        .replace('GraphQL', '')
-        .replace('error', '')
-        .replace(':', '');
+        .replace("GraphQL", "")
+        .replace("error", "")
+        .replace(":", "");
       toast.error(errorMessage);
     }
   };
@@ -101,7 +103,7 @@ export default () => {
           <div>
             <Title>전체 보기</Title>
             {data.seeUsers.map((user) => {
-              if (user.username !== 'Admin') {
+              if (user.username !== "Admin") {
                 return (
                   <SearchTable
                     user={user}
