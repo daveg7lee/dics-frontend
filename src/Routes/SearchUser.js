@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Loading from '../Components/Loading';
 import SearchTable from '../Components/SearchTable';
 import useUser from '../Hooks/useUser';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Title = styled.h1`
   font-size: 1.3rem;
@@ -47,13 +47,13 @@ const DELETE_SCORE = gql`
 
 export default () => {
   const { data, loading, refetch } = useQuery(SEE_USERS);
-  const {userData, userLoading} = useUser();
-  const history = useHistory();
   const [deleteScoreMutation] = useMutation(DELETE_SCORE);
+  const {user, userLoading} = useUser();
+  const history = useHistory();
 
   if(!userLoading) {
-    if(userData?.me?.type !== "Admin") {
-        history.push("/")
+    if(user?.me?.type !== "Admin") {
+      history.push("/")
     }
   }
 
