@@ -1,7 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import useUser from '../Hooks/useUser';
+import { gql, useMutation } from "@apollo/client";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import useUser from "../Hooks/useUser";
 import { useHistory } from "react-router-dom";
 
 const DELETE_USER = gql`
@@ -11,23 +11,23 @@ const DELETE_USER = gql`
 `;
 
 function DeleteUser() {
-  const {data, loading} = useUser();
+  const { data, loading } = useUser();
   const history = useHistory();
 
-  if(!loading) {
-    if(data?.me?.type !== "Admin") {
-      history.push("/")
+  if (!loading) {
+    if (data?.me?.type !== "Admin") {
+      history.push("/");
     }
   }
 
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, formState } = useForm();
   const [deleteUserMutation] = useMutation(DELETE_USER);
   const onValid = async ({ username }) => {
     await deleteUserMutation({
       variables: { username },
     });
-    setValue('username', '');
-    toast.success('계정 삭제 완료!');
+    setValue("username", "");
+    toast.success("계정 삭제 완료!");
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -39,8 +39,11 @@ function DeleteUser() {
         <input
           className="input"
           placeholder="이름"
-          {...register('username', { required: true })}
+          {...register("username", { required: true })}
         />
+        {formState?.errors?.username?.message && (
+          <p>{formState?.errors?.username?.message}</p>
+        )}
         <input type="submit" className="blueButton" value="학생 제거" />
       </form>
     </div>
