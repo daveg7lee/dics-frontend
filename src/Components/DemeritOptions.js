@@ -70,6 +70,19 @@ const DemeritOptions = () => (
       </option>
     </optgroup>
     <optgroup label="3조 품행, 품위">
+      <option value="3조 1항 폭력 행위 징위">3조 1항 폭력 행위 징위</option>
+      <option value="3조 2항 이성 교제 징위">3조 2항 이성 교제 징위</option>
+      <option value="3조 3항 무단 외출 징위">3조 3항 무단 외출 징위</option>
+      <option value="3조 4항 무단으로 휴대폰 반입 혹은 사용 징위">
+        3조 4항 무단으로 휴대폰 반입 혹은 사용 징위
+      </option>
+      <option value="3조 5항 도둑질 징위">3조 5항 도둑질 징위</option>
+      <option value="3조 6항 흡연 또는 음주 징위">
+        3조 6항 흡연 또는 음주 징위
+      </option>
+      <option value="3조 7항 담배 혹은 라이터 소지 징위">
+        3조 7항 담배 혹은 라이터 소지 징위
+      </option>
       <option value="3조 8항. 기물 파손 또는 훼손 최대 12점">
         3조 8항. 기물 파손 또는 훼손 최대 12점
       </option>
