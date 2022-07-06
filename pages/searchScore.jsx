@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import { useState } from "react";
-import Loading from "../Components/Loading";
+import Loading from "../components/Loading";
 import useInput from "../hooks/useInput";
 
 const SEARCH_SCORE = gql`

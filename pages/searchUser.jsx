@@ -1,8 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { toast } from "react-toastify";
-import styled from "styled-components";
-import Loading from "../Components/Loading";
+import Loading from "../components/Loading";
 import SearchTable from "../components/searchUser/SearchTable";
 
 const SEE_USERS = gql`
