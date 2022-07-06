@@ -1,10 +1,13 @@
 import CustomPopup from "../CustomPopup";
 import Table from "../Table";
+import Image from "next/image";
 
 const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => (
   <li key={user.id} className="grid grid-cols-5 mt-6">
     <div className="w-12 h-12 rounded-full overflow-hidden justify-self-center">
-      <img
+      <Image
+        width={48}
+        height={48}
         src={user.avatar}
         alt="Profile Img"
         className="min-w-full max-w-full"

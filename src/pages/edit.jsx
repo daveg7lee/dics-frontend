@@ -5,6 +5,7 @@ import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
 import useUser from "../Hooks/useUser";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import EditInputContainer from "../components/Edit/EditInputContainer";
 
 const EDIT_PROFILE = gql`
@@ -35,7 +36,7 @@ const Edit = () => {
   useEffect(() => {
     setValue("email", data?.me?.email);
     setPreview(data?.me?.avatar);
-  }, [data]);
+  }, [data, setValue]);
 
   const onChange = async ({
     target: {
@@ -95,7 +96,13 @@ const Edit = () => {
                 {loading ? (
                   <div className="w-16 h-16 rounded-full animate-pulse bg-gray-300" />
                 ) : (
-                  <img className="w-16 h-16 rounded-full" src={preview} />
+                  <Image
+                    alt="preview"
+                    width={64}
+                    height={64}
+                    className="w-16 h-16 rounded-full"
+                    src={preview}
+                  />
                 )}
                 <label
                   className="mb-[5px]"

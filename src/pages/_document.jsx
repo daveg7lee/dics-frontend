@@ -5,9 +5,9 @@ export default function Document() {
     <Html lang="kr">
       <Head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="../../public/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content="DICS 벌점체크 사이트" />
-        <link rel="apple-touch-icon" href="../../public/logo192.png" />
+        <link rel="apple-touch-icon" href="/logo192.png" />
         <meta
           name="google-site-verification"
           content="iVIdX2Zr88cCNMJzRYM-wmA9vVXbKako6kSJigxu2Og"

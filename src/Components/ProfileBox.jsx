@@ -1,21 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const ProfileBox = styled.div`
-  height: fit-content;
-  width: 80%;
-  border-radius: 15px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 -5px 25px -5px rgba(0, 0, 0, 0.04);
-  padding: 1rem;
-  @media (max-width: 760px) {
-    width: 100%;
-    padding: 1rem 0.5rem;
-  }
-`;
-
 const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -73,8 +58,8 @@ const Label = styled.h1`
   opacity: 0.5;
 `;
 
-export default ({ avatar, username, me }) => (
-  <ProfileBox>
+const ProfileBox = ({ avatar, username, me }) => (
+  <div className="h-fit md:w-4/5 w-full rounded-2xl grid grid-cols-2 shadow-lg p-4">
     <AvatarContainer>
       <Avatar src={avatar} />
     </AvatarContainer>
@@ -91,5 +76,7 @@ export default ({ avatar, username, me }) => (
         </Link>
       )}
     </NameContainer>
-  </ProfileBox>
+  </div>
 );
+
+export default ProfileBox;

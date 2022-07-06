@@ -57,7 +57,7 @@ const SEARCH_USER_AND_ME = gql`
   }
 `;
 
-export default () => {
+const UploadDemerit = () => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
@@ -182,3 +182,5 @@ export default () => {
     </div>
   );
 };
+
+export default UploadDemerit;

@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loader from "react-loader-spinner";
 import { toast } from "react-toastify";
 import CustomButton from "../CustomButton";
@@ -56,7 +56,7 @@ const SEARCH_USER_AND_ME = gql`
   }
 `;
 
-export default () => {
+const UploadMerit = () => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
@@ -182,3 +182,5 @@ export default () => {
     </div>
   );
 };
+
+export default UploadMerit;

@@ -1,16 +1,9 @@
 import Loader from "react-loader-spinner";
-import styled from "styled-components";
 
-const LoadingBox = styled.div`
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export default () => (
-  <LoadingBox>
+const CustomLoading = () => (
+  <div className="w-full h-[80vh] flex justify-center items-center">
     <Loader type="Oval" color="#969696" height={30} width={30} />
-  </LoadingBox>
+  </div>
 );
+
+export default CustomLoading;
