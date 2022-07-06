@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import SignIn from '../Routes/Auth/SignIn';
-import Profile from '../Routes/Profile';
-import EditProfile from '../Routes/EditProfile';
-import SearchUser from '../Routes/SearchUser';
-import Upload from '../Routes/Upload';
-import CreateAccount from '../Routes/CreateAccount';
-import DeleteUser from '../Routes/DeleteUser';
-import SearchScore from '../Routes/SearchScore';
+import React from "react";
+import PropTypes from "prop-types";
+import { Route, Switch, Redirect } from "react-router-dom";
+import SignIn from "./Auth/SignIn";
+import Profile from "./Profile";
+import EditProfile from "../Routes/EditProfile";
+import SearchUser from "../Routes/SearchUser";
+import Upload from "../Routes/Upload";
+import CreateAccount from "../Routes/CreateAccount";
+import DeleteUser from "../Routes/DeleteUser";
+import SearchScore from "../Routes/SearchScore";
 
 const LoggedInRoutes = () => (
   <Switch>

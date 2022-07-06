@@ -1,10 +1,11 @@
-import { ApolloClient, InMemoryCache, makeVar } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { createUploadLink } from 'apollo-upload-client';
+import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { createUploadLink } from "apollo-upload-client";
 
-const TOKEN = 'TOKEN';
+const TOKEN = "TOKEN";
 
-const isLoggedIn = Boolean(localStorage.getItem(TOKEN));
+const isLoggedIn =
+  typeof window !== "undefined" && Boolean(localStorage.getItem(TOKEN));
 
 export const isLoggedInVar = makeVar(isLoggedIn);
 
@@ -20,9 +21,9 @@ export const logUserOut = () => {
 
 const uploadHttpLink = createUploadLink({
   uri:
-    process.env.NODE_ENV === 'production'
-      ? 'https://dics-backend.herokuapp.com/graphql'
-      : 'http://localhost:4000/graphql',
+    process.env.NODE_ENV === "production"
+      ? "https://dics-backend.herokuapp.com/graphql"
+      : "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

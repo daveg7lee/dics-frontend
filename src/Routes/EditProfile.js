@@ -1,12 +1,11 @@
-/* eslint-disable import/no-anonymous-default-export */
-import { gql, useMutation } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
-import Skeleton from 'react-loading-skeleton';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import Button from '../Components/Button';
-import useInput from '../Hooks/useInput';
-import useUser from '../Hooks/useUser';
+import { gql, useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import CustomButton from "../components/CustomButton";
+import useInput from "../Hooks/useInput";
+import useUser from "../Hooks/useUser";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -108,10 +107,10 @@ const EDIT_PROFILE = gql`
 
 export default () => {
   const { data, loading } = useUser();
-  const email = useInput('');
-  const oldPassword = useInput('');
-  const newPassword = useInput('');
-  const [preview, setPreview] = useState('');
+  const email = useInput("");
+  const oldPassword = useInput("");
+  const newPassword = useInput("");
+  const [preview, setPreview] = useState("");
   const [editProfileMutation] = useMutation(EDIT_PROFILE, {
     variables: {
       email: email.value,
@@ -144,7 +143,7 @@ export default () => {
         variables: { avatar: file },
       });
       if (editProfile) {
-        toast.success('Profile Updated');
+        toast.success("Profile Updated");
       }
     }
   };
@@ -154,7 +153,7 @@ export default () => {
       data: { editProfile },
     } = await editProfileMutation();
     if (editProfile) {
-      toast.success('Profile Updated');
+      toast.success("Profile Updated");
     }
   };
   return (
@@ -170,7 +169,7 @@ export default () => {
                 <InputWrapper>
                   <Label>Email</Label>
                   <input
-                    value={email.value || ''}
+                    value={email.value || ""}
                     onChange={email?.onChange}
                     placeholder="Email"
                     className="input"
@@ -181,7 +180,7 @@ export default () => {
                 <InputWrapper>
                   <Label>Old Password</Label>
                   <input
-                    value={oldPassword.value || ''}
+                    value={oldPassword.value || ""}
                     onChange={oldPassword?.onChange}
                     placeholder="Old Password"
                     type="password"
@@ -191,7 +190,7 @@ export default () => {
                 <InputWrapper>
                   <Label>New Password</Label>
                   <input
-                    value={newPassword.value || ''}
+                    value={newPassword.value || ""}
                     onChange={newPassword?.onChange}
                     placeholder="New Password"
                     type="password"
@@ -203,17 +202,17 @@ export default () => {
                 <InputWrapper>
                   <Label>Avatar</Label>
                   {loading ? (
-                    <Skeleton circle={true} width={'4rem'} height={'4rem'} />
+                    <Skeleton circle={true} width={"4rem"} height={"4rem"} />
                   ) : (
                     <Avatar src={preview} />
                   )}
                   <Label
                     htmlFor="file"
                     style={{
-                      cursor: 'pointer',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginTop: '1rem',
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "1rem",
                     }}
                   >
                     찾아보기
@@ -223,16 +222,16 @@ export default () => {
                     onChange={onChange}
                     type="file"
                     style={{
-                      visibility: 'hidden',
-                      position: 'absolute',
-                      zIndex: '-1',
+                      visibility: "hidden",
+                      position: "absolute",
+                      zIndex: "-1",
                     }}
                   />
                 </InputWrapper>
               </InputContainer>
             </Form>
             <SubmitWrapper>
-              <Button text="Save" onClick={OnSubmit} />
+              <CustomButton text="Save" onClick={OnSubmit} />
             </SubmitWrapper>
           </FormWrapper>
         </InfoWrapper>
