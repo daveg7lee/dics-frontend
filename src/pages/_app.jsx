@@ -1,7 +1,7 @@
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import "../styles/index.css";
+import "../styles/global.css";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 import { client, isLoggedInVar } from "../apollo";
