@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import EditInputContainer from "../components/Edit/EditInputContainer";
