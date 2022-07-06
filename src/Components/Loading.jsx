@@ -1,7 +1,5 @@
-/* eslint-disable import/no-anonymous-default-export */
-import React from 'react';
-import Loader from 'react-loader-spinner';
-import styled from 'styled-components';
+import Loader from "react-loader-spinner";
+import styled from "styled-components";
 
 const LoadingBox = styled.div`
   width: 100%;
