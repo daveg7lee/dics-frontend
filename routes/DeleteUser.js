@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 import { useHistory } from "react-router-dom";
 
 const DELETE_USER = gql`

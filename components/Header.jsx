@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FcSearch, FcUpload, FcPlus, FcMinus } from "react-icons/fc";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 
 const Header = () => {
   const { data } = useUser();

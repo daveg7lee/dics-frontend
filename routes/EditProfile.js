@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import CustomButton from "../components/CustomButton";
 import useInput from "../Hooks/useInput";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 
 const Container = styled.div`
   min-height: 100vh;

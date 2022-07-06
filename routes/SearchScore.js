@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import { useState } from 'react';
-import Loading from '../Components/Loading';
-import useInput from '../Hooks/useInput';
+import { useQuery } from "@apollo/client";
+import gql from "graphql-tag";
+import { useState } from "react";
+import Loading from "../Components/Loading";
+import useInput from "../hooks/useInput";
 
 const SEARCH_SCORE = gql`
   query searchScore($term: String!) {
@@ -20,7 +20,7 @@ const SEARCH_SCORE = gql`
 `;
 
 const SearchScore = () => {
-  const term = useInput('');
+  const term = useInput("");
   let { data, loading, refetch } = useQuery(SEARCH_SCORE, {
     variables: { term: term.value },
   });

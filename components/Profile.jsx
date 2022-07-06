@@ -5,7 +5,7 @@ import CustomPopup from "./CustomPopup";
 import CustomButton from "./CustomButton";
 import { logUserOut } from "../apollo";
 import Table from "./Table";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 import Head from "next/head";
 
 const ScoreContainer = styled.div`

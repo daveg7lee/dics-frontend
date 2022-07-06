@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useUser from "../Hooks/useUser";
+import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 
 const CREATE_ACCOUNT = gql`

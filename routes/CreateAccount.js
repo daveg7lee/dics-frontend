@@ -1,9 +1,9 @@
-import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import useUser from '../Hooks/useUser';
+import { useMutation } from "@apollo/client";
+import gql from "graphql-tag";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import useUser from "../hooks/useUser";
 import { useHistory } from "react-router-dom";
 
 const CREATE_ACCOUNT = gql`
@@ -27,12 +27,12 @@ const CREATE_ACCOUNT = gql`
 `;
 
 function CreateAccount() {
-  const {data, userLoading} = useUser();
+  const { data, userLoading } = useUser();
   const history = useHistory();
 
-  if(!userLoading) {
-    if(data?.me?.type !== "Admin") {
-      history.push("/")
+  if (!userLoading) {
+    if (data?.me?.type !== "Admin") {
+      history.push("/");
     }
   }
 
@@ -44,14 +44,14 @@ function CreateAccount() {
     await createAccountMutation({
       variables: {
         username,
-        email: '.',
-        password: '1q2w3e4r',
-        type: 'Student',
+        email: ".",
+        password: "1q2w3e4r",
+        type: "Student",
       },
     });
-    toast.success('계정 생성 완료!');
+    toast.success("계정 생성 완료!");
     setLoading(false);
-    setValue('username', '');
+    setValue("username", "");
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -63,12 +63,12 @@ function CreateAccount() {
         <input
           className="input"
           placeholder="이름"
-          {...register('username', { required: true })}
+          {...register("username", { required: true })}
         />
         <input
           type="submit"
           className="blueButton"
-          value={loading ? '등록중...' : '학생 추가'}
+          value={loading ? "등록중..." : "학생 추가"}
         />
       </form>
     </div>
