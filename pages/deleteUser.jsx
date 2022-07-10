@@ -5,8 +5,11 @@ import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 
 const DELETE_USER = gql`
-  mutation deleteUser($username: String!) {
-    deleteUser(username: $username)
+  mutation removeUser($username: String!) {
+    removeUser(username: $username) {
+      success
+      error
+    }
   }
 `;
 

@@ -8,8 +8,12 @@ import { useForm } from "react-hook-form";
 import Head from "next/head";
 
 const LOG_USER_IN = gql`
-  mutation LogUserIn($username: String!, $password: String!) {
-    LogUserIn(username: $username, password: $password)
+  mutation login($username: String!, $password: String!) {
+    login(input: { username: $username, password: $password }) {
+      success
+      token
+      error
+    }
   }
 `;
 
@@ -22,18 +26,21 @@ const SignIn = () => {
     setLoading(true);
     try {
       const {
-        data: { LogUserIn: token },
+        data: {
+          login: { success, error, token },
+        },
       } = await logUserInMutation({
         variables: {
           username,
           password,
         },
       });
-      if (token !== "" && token !== undefined) {
+      
+      if (success) {
         logUserIn(token);
         window.location.reload();
       } else {
-        throw Error();
+        throw Error(error);
       }
     } catch (e) {
       setLoading(false);

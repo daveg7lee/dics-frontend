@@ -3,55 +3,30 @@ import { useState } from "react";
 import Loader from "react-loader-spinner";
 import { toast } from "react-toastify";
 import CustomButton from "../CustomButton";
+import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { useForm } from "react-hook-form";
 
 const UPLOAD_SCORE = gql`
-  mutation UploadScore(
+  mutation createScore(
     $score: Int!
     $article: String!
     $username: String!
-    $type: String!
+    $type: ScoreType!
     $date: String!
     $uploader: String!
   ) {
-    UploadScore(
-      score: $score
-      article: $article
-      username: $username
-      type: $type
-      date: $date
-      uploader: $uploader
-    )
-  }
-`;
-
-const SEARCH_USER_AND_ME = gql`
-  query searchUserAndMe($term: String!) {
-    searchUser(term: $term) {
-      id
-      username
-      avatar
-      type
-      scores {
-        score
-        article
-        date
-        type
-        uploader
+    createScore(
+      createScoreInput: {
+        score: $score
+        article: $article
+        username: $username
+        type: $type
+        date: $date
+        uploader: $uploader
       }
-    }
-    me {
-      username
-      avatar
-      type
-      email
-      scores {
-        score
-        article
-        date
-        type
-        uploader
-      }
+    ) {
+      success
+      error
     }
   }
 `;
@@ -61,7 +36,7 @@ const UploadMerit = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
   const { data, loading, refetch } = useQuery(SEARCH_USER_AND_ME, {
-    variables: { term: watch("term") },
+    variables: { username: watch("term") },
   });
 
   const onSubmit = async ({ uploader, term, reason, score, date }) => {
@@ -120,7 +95,7 @@ const UploadMerit = () => {
             {...register("term", { required: true })}
             onKeyPress={() => refetch()}
           />
-          {data?.searchUser?.length !== 0 && (
+          {loading && (
             <div className="labelContainer">
               {loading ? (
                 <Loader
@@ -132,8 +107,8 @@ const UploadMerit = () => {
                 />
               ) : (
                 <>
-                  {data.searchUser.length !== 0
-                    ? data.searchUser.map((user) => (
+                  {data.success
+                    ? data.searchUser.users.map((user) => (
                         <label className="label" key={user.id}>
                           <input
                             key={user.id}

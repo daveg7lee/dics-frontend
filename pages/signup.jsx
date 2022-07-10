@@ -7,27 +7,28 @@ import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 
 const CREATE_ACCOUNT = gql`
-  mutation createAccount(
+  mutation createUser(
     $username: String!
     $email: String!
-    $bio: String
     $password: String!
-    $type: String!
-    $avatar: String
+    $type: UserType!
   ) {
-    createAccount(
-      username: $username
-      email: $email
-      bio: $bio
-      password: $password
-      type: $type
-      avatar: $avatar
-    )
+    createUser(
+      input: {
+        username: $username
+        email: $email
+        password: $password
+        type: $type
+      }
+    ) {
+      success
+      error
+    }
   }
 `;
 
 function SignUp() {
-  const { data, userLoading } = useUser();
+  const { data: meData, userLoading } = useUser();
   const router = useRouter();
 
   const { register, handleSubmit, setValue } = useForm();
@@ -35,12 +36,12 @@ function SignUp() {
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
   const onValid = async ({ username }) => {
     if (!userLoading) {
-      if (data?.me?.type !== "Admin") {
+      if (meData?.me?.type !== "Admin") {
         router.push("/");
       }
     }
     setLoading(true);
-    await createAccountMutation({
+    const { data } = await createAccountMutation({
       variables: {
         username,
         email: ".",
@@ -48,9 +49,13 @@ function SignUp() {
         type: "Student",
       },
     });
-    toast.success("계정 생성 완료!");
-    setLoading(false);
-    setValue("username", "");
+    if (data.createUser.success) {
+      toast.success("계정 생성 완료!");
+      setLoading(false);
+      setValue("username", "");
+    } else {
+      toast.error(data.error);
+    }
   };
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">

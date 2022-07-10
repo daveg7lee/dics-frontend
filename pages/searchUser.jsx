@@ -7,28 +7,33 @@ import SearchTable from "../components/searchUser/SearchTable";
 const SEE_USERS = gql`
   query {
     seeUsers {
-      id
-      username
-      avatar
-      type
-      totalScores
-      totalMerit
-      scores {
+      users {
         id
-        score
-        article
-        date
+        username
+        avatar
         type
-        uploader
-        detail
+        totalScores
+        totalMerit
+        scores {
+          id
+          score
+          article
+          date
+          type
+          uploader
+          detail
+        }
       }
     }
   }
 `;
 
 const DELETE_SCORE = gql`
-  mutation deleteScore($id: ID!) {
-    deleteScore(id: $id)
+  mutation deleteScore($id: String!) {
+    deleteScore(id: $id) {
+      success
+      error
+    }
   }
 `;
 
@@ -48,11 +53,7 @@ const SearchUser = () => {
         refetch();
       }
     } catch (e) {
-      const errorMessage = e.message
-        .replace("GraphQL", "")
-        .replace("error", "")
-        .replace(":", "");
-      toast.error(errorMessage);
+      toast.error(e.message);
     }
   };
 
@@ -66,7 +67,7 @@ const SearchUser = () => {
             <h1 className="text-2xl font-semibold p-4 border-b border-black mt-4">
               솔로몬 고위험자
             </h1>
-            {data.seeUsers.map((user) => {
+            {data.seeUsers.users.map((user) => {
               if (user.totalScores <= -15) {
                 return (
                   <SearchTable
@@ -83,18 +84,14 @@ const SearchUser = () => {
             <h1 className="text-2xl font-semibold p-4 border-b border-black mt-4">
               전체 보기
             </h1>
-            {data.seeUsers.map((user) => {
-              if (user.username !== "Admin") {
-                return (
-                  <SearchTable
-                    user={user}
-                    totalScore={user.totalScores}
-                    totalMerit={user.totalMerit}
-                    deleteScore={deleteScore}
-                  />
-                );
-              }
-            })}
+            {data.seeUsers.users.map((user) => (
+              <SearchTable
+                user={user}
+                totalScore={user.totalScores}
+                totalMerit={user.totalMerit}
+                deleteScore={deleteScore}
+              />
+            ))}
           </div>
         </ul>
       )}

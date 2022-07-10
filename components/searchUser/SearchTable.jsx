@@ -26,7 +26,7 @@ const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => (
               Admin={true}
             />
           ) : (
-            <h1>Nothing Here</h1>
+            <h1 className="p-5">Nothing Here</h1>
           )}
         </>
       }

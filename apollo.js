@@ -30,7 +30,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      token: localStorage.getItem(TOKEN),
+      "x-jwt": localStorage.getItem(TOKEN),
     },
   };
 });
