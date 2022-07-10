@@ -86,6 +86,7 @@ const SearchUser = () => {
             </h1>
             {data.seeUsers.users.map((user) => (
               <SearchTable
+                key={user.id}
                 user={user}
                 totalScore={user.totalScores}
                 totalMerit={user.totalMerit}

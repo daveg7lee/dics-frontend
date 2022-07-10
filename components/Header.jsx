@@ -49,6 +49,7 @@ const Header = () => {
           <img
             aria-describedby={id}
             src={data?.me?.avatar}
+            alt="profile img"
             className="w-8 h-8 rounded-full cursor-pointer"
             onClick={handleClick}
           />
