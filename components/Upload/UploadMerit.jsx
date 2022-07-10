@@ -74,7 +74,7 @@ const UploadMerit = () => {
   };
 
   return (
-    <div className="container px-40">
+    <div className="md:w-1/2 w-full">
       <h1 className="title">상점 입력</h1>
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +107,7 @@ const UploadMerit = () => {
                 />
               ) : (
                 <>
-                  {data.success
+                  {data.searchUser.success
                     ? data.searchUser.users.map((user) => (
                         <label className="label" key={user.id}>
                           <input

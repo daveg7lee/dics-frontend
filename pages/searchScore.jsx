@@ -39,7 +39,7 @@ const SearchScore = () => {
   };
 
   return (
-    <div className="min-h-screen px-5">
+    <div className="min-h-screen px-5 pt-20">
       <header className="w-full flex flex-col justify-center items-center h-32">
         <input
           placeholder="Uploader Name"
@@ -53,7 +53,7 @@ const SearchScore = () => {
       ) : (
         <>
           <h1 className="text-xl font-semibold">검색 결과</h1>
-          <ul className="mb-20">
+          <ul className="my-20">
             {data?.searchScore.scores.map((score) => (
               <li className="w-full flex justify-between mb-5" key={score.id}>
                 <h1 className="text-center w-full">{score.uploader}</h1>

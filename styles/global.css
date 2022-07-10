@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.layout {
+  @apply px-20
+}
+
 .allCenter {
   @apply flex justify-center items-center;
 }
 
 .title {
-  @apply text-3xl font-semibold mb-2;
+  @apply text-center text-3xl font-semibold mb-2;
 }
 
 .container {
@@ -42,16 +46,9 @@
   @apply flex justify-center items-center my-2;
 }
 
-.header {
-  @apply w-full bg-bgColor border-borderColor border-b grid grid-cols-3;
-}
 
 .headerBox {
   @apply w-full p-4;
-}
-
-.Logo {
-  @apply w-auto h-8 text-black text-3xl font-bold;
 }
 
 .blueButton {

@@ -58,7 +58,7 @@ const SearchUser = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-16">
       {loading ? (
         <Loading />
       ) : (

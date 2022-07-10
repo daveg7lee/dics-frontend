@@ -15,6 +15,7 @@ export const logUserIn = (token) => {
 };
 
 export const logUserOut = () => {
+  location.replace("/");
   localStorage.removeItem(TOKEN);
   window.location.reload();
 };

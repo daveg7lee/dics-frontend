@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomButton from "../components/CustomButton";
@@ -7,6 +7,7 @@ import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import EditInputContainer from "../components/Edit/EditInputContainer";
+import { isLoggedInVar } from "../apollo";
 
 const EDIT_PROFILE = gql`
   mutation editProfile(
@@ -29,6 +30,7 @@ const EDIT_PROFILE = gql`
 const Edit = () => {
   const router = useRouter();
   const { data, loading } = useUser();
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { register, handleSubmit, setValue } = useForm();
   const [preview, setPreview] = useState("");
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
@@ -78,10 +80,11 @@ const Edit = () => {
       toast.success("Profile Updated");
     }
   };
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-4/5 h-full">
-        <div className="md:flex">
+    <div className="layout">
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="md:flex w-full h-full">
           <div className="w-[45%] h-full md:m-0 mb-2">
             <h1 className="text-2xl font-semibold">Account Information</h1>
           </div>
@@ -96,12 +99,12 @@ const Edit = () => {
                 {loading ? (
                   <div className="w-16 h-16 rounded-full animate-pulse bg-gray-300" />
                 ) : (
-                  <Image
+                  <img
                     alt="preview"
                     width={64}
                     height={64}
-                    className="w-16 h-16 rounded-full"
                     src={preview}
+                    className="w-16 h-16 rounded-full"
                   />
                 )}
                 <label

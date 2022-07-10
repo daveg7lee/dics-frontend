@@ -70,7 +70,7 @@ const UploadDemerit = () => {
   };
 
   return (
-    <div className="container px-40">
+    <div className="md:w-1/2 w-full">
       <h1 className="title">벌점 입력</h1>
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>

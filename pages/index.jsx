@@ -5,9 +5,7 @@ import Profile from "../components/Profile";
 
 const Index = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-  return (
-    <div className="w-full px-8">{isLoggedIn ? <Profile /> : <SignIn />}</div>
-  );
+  return isLoggedIn ? <Profile /> : <SignIn />;
 };
 
 export default Index;

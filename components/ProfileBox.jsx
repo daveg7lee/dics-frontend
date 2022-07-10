@@ -1,81 +1,44 @@
-import Link from "next/link";
-import styled from "styled-components";
+import CustomPopup from "./CustomPopup";
+import Table from "./Table";
 
-const AvatarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Avatar = styled.img`
-  border-radius: 50%;
-  width: 15rem;
-  height: 15rem;
-  @media (max-width: 950px) {
-    max-width: 10rem;
-    height: 10rem;
-  }
-  @media (max-width: 600px) {
-    max-width: 8rem;
-    height: 8rem;
-  }
-  @media (max-width: 450px) {
-    max-width: 6.5rem;
-    height: 6.5rem;
-  }
-`;
-
-const NameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  @media (max-width: 760px) {
-    justify-content: center;
-  }
-`;
-
-const NameBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media (max-width: 1024px) {
-    margin-bottom: 1rem;
-  }
-`;
-
-const Name = styled.h1`
-  font-size: 1.7rem;
-  font-weight: 600;
-  @media (max-width: 1024px) {
-    font-size: 1.4rem;
-  }
-`;
-
-const Label = styled.h1`
-  font-size: 1rem;
-  font-weight: 500;
-  opacity: 0.5;
-`;
-
-const ProfileBox = ({ avatar, username, me }) => (
-  <div className="h-fit md:w-4/5 w-full rounded-2xl grid grid-cols-2 shadow-lg p-4">
-    <AvatarContainer>
-      <Avatar src={avatar} />
-    </AvatarContainer>
-    <NameContainer>
-      <NameBox>
-        <Label>Name</Label>
-        <Name>{username}</Name>
-      </NameBox>
-      {me && (
-        <Link href={`/edit`}>
-          <a>
-            <button className="blueButton">Edit Profile</button>
-          </a>
-        </Link>
-      )}
-    </NameContainer>
+const ProfileBox = ({ me }) => (
+  <div className="h-fit w-full rounded-2xl flex justify-center items-center p-4">
+    {me.type === "Admin" ? (
+      <h1 className="text-8xl font-bold text-center">Welcome Admin!!</h1>
+    ) : (
+      <div className="w-full flex flex-col justify-center items-center">
+        <div className="flex justify-center items-center mb-10">
+          <div className="flex flex-col justify-center items-center mr-20">
+            <h1 className="text-6xl font-bold">{me?.totalScores}</h1>
+            <p className="text-2xl font-medium">벌점</p>
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="text-6xl font-bold">{me?.totalMerit}</h1>
+            <p className="text-2xl font-medium">상점</p>
+          </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <h1 className="mr-5 text-2xl font-semibold">
+            {me.totalMerit - me.totalScores <= -15
+              ? "Go to Solomon"
+              : me.totalMerit - me.totalScores <= -10
+              ? "You are Warning"
+              : "You are Safe"}
+          </h1>
+          <CustomPopup
+            contents={
+              <>
+                {me?.scores.length >= 1 ? (
+                  <Table scores={me?.scores} />
+                ) : (
+                  <h1>Nothing Here</h1>
+                )}
+              </>
+            }
+          />
+        </div>
+      </div>
+    )}
   </div>
 );
 
