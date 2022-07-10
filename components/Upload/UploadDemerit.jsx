@@ -91,7 +91,7 @@ const UploadDemerit = () => {
             {...register("term", { required: true })}
             onKeyPress={() => refetch()}
           />
-          {loading && (
+          {
             <div className="labelContainer">
               {loading ? (
                 <Loader
@@ -121,7 +121,7 @@ const UploadDemerit = () => {
                 </>
               )}
             </div>
-          )}
+          }
           <input
             className="input"
             placeholder="솔로몬 조항"

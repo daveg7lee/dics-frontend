@@ -73,6 +73,8 @@ const UploadMerit = () => {
     }
   };
 
+  console.log(data?.searchUser.users);
+
   return (
     <div className="md:w-1/2 w-full">
       <h1 className="title">상점 입력</h1>
@@ -95,7 +97,7 @@ const UploadMerit = () => {
             {...register("term", { required: true })}
             onKeyPress={() => refetch()}
           />
-          {loading && (
+          {
             <div className="labelContainer">
               {loading ? (
                 <Loader
@@ -107,7 +109,7 @@ const UploadMerit = () => {
                 />
               ) : (
                 <>
-                  {data.searchUser.success
+                  {data.searchUser.users
                     ? data.searchUser.users.map((user) => (
                         <label className="label" key={user.id}>
                           <input
@@ -125,7 +127,7 @@ const UploadMerit = () => {
                 </>
               )}
             </div>
-          )}
+          }
           <input
             className="input"
             placeholder="사유"

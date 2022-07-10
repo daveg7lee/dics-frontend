@@ -16,7 +16,7 @@ const Header = () => {
   const id = open ? "simple-popper" : undefined;
 
   return (
-    <header className="bg-bgColor border-borderColor border-b fixed top-0">
+    <header className="bg-bgColor border-borderColor border-b fixed top-0 z-10">
       <nav className="flex layout items-center justify-between w-screen">
         <div className="headerBox flex items-center">
           <Link href="/">
@@ -58,6 +58,7 @@ const Header = () => {
             open={open}
             anchorEl={anchorEl}
             placement="bottom-end"
+            className="z-30"
           >
             <div className="absolute right-0 top-1 w-48 rounded-md shadow-lg z-[100]">
               <div className="py-1 rounded-md bg-white ring-1 ring-black ring-opacity-5">
