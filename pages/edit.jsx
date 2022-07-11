@@ -5,21 +5,17 @@ import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
 import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import EditInputContainer from "../components/Edit/EditInputContainer";
-import { isLoggedInVar } from "../apollo";
 
 const EDIT_PROFILE = gql`
   mutation editProfile(
     $email: String
-    $avatar: Upload
     $bio: String
     $oldPassword: String
     $newPassword: String
   ) {
     editProfile(
       email: $email
-      avatar: $avatar
       bio: $bio
       oldPassword: $oldPassword
       newPassword: $newPassword
@@ -30,7 +26,6 @@ const EDIT_PROFILE = gql`
 const Edit = () => {
   const router = useRouter();
   const { data, loading } = useUser();
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { register, handleSubmit, setValue } = useForm();
   const [preview, setPreview] = useState("");
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
@@ -40,31 +35,31 @@ const Edit = () => {
     setPreview(data?.me?.avatar);
   }, [data, setValue]);
 
-  const onChange = async ({
-    target: {
-      files: [file],
-    },
-  }) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setPreview(base64.toString());
-      }
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-      const {
-        data: { editProfile },
-      } = await editProfileMutation({
-        variables: { avatar: file },
-      });
-      if (editProfile) {
-        toast.success("Profile Updated");
-        router.push("/");
-      }
-    }
-  };
+  // const onChange = async ({
+  //   target: {
+  //     files: [file],
+  //   },
+  // }) => {
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     const base64 = reader.result;
+  //     if (base64) {
+  //       setPreview(base64.toString());
+  //     }
+  //   };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //     const {
+  //       data: { editProfile },
+  //     } = await editProfileMutation({
+  //       variables: { avatar: file },
+  //     });
+  //     if (editProfile) {
+  //       toast.success("Profile Updated");
+  //       router.push("/");
+  //     }
+  //   }
+  // };
 
   const onSubmit = async ({ email, oldPassword, newPassword }) => {
     const {
