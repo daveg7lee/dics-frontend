@@ -35,7 +35,7 @@ const SignIn = () => {
           password,
         },
       });
-      
+
       if (success) {
         logUserIn(token);
         window.location.reload();

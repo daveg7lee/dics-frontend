@@ -1,22 +1,23 @@
 import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
+import Cookies from "js-cookie";
 
 const TOKEN = "TOKEN";
 
-const isLoggedIn =
-  typeof window !== "undefined" && Boolean(localStorage.getItem(TOKEN));
+const isLoggedIn = typeof window !== "undefined" && Boolean(Cookies.get(TOKEN));
 
 export const isLoggedInVar = makeVar(isLoggedIn);
 
 export const logUserIn = (token) => {
-  localStorage.setItem(TOKEN, token);
+  Cookies.set("authorization", "true");
+  Cookies.set(TOKEN, token, { expires: 7 });
   isLoggedInVar(true);
 };
 
 export const logUserOut = () => {
-  location.replace("/");
-  localStorage.removeItem(TOKEN);
+  Cookies.set("authorization", "false");
+  Cookies.remove(TOKEN);
   window.location.reload();
 };
 
@@ -31,7 +32,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "x-jwt": localStorage.getItem(TOKEN),
+      "x-jwt": Cookies.get(TOKEN),
     },
   };
 });
