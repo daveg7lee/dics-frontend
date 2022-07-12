@@ -1,9 +1,10 @@
-import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
 import Loader from "react-loader-spinner";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import CustomButton from "../../components/CustomButton";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
+import { useForm } from "react-hook-form";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -13,7 +14,6 @@ const UPLOAD_SCORE = gql`
     $type: ScoreType!
     $date: String!
     $uploader: String!
-    $detail: String
   ) {
     createScore(
       createScoreInput: {
@@ -23,7 +23,6 @@ const UPLOAD_SCORE = gql`
         type: $type
         date: $date
         uploader: $uploader
-        detail: $detail
       }
     ) {
       success
@@ -32,7 +31,7 @@ const UPLOAD_SCORE = gql`
   }
 `;
 
-const UploadDemerit = () => {
+const Merit = () => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
@@ -40,22 +39,29 @@ const UploadDemerit = () => {
     variables: { username: watch("term") },
   });
 
-  const onSubmit = async ({ score, article, term, date, uploader, detail }) => {
+  const onSubmit = async ({ uploader, term, reason, score, date }) => {
     try {
+      setLoadingBtn(true);
+      if (!loading) {
+        if (data.me.type !== "Admin") {
+          throw Error("You Can't");
+        }
+      }
       const {
-        data: { UploadScore },
+        data: {
+          createScore: { success },
+        },
       } = await UploadScoreMutation({
         variables: {
           score: +score,
-          article,
+          article: reason,
           username: term,
-          type: "Demerit",
+          type: "Merit",
           date,
           uploader,
-          detail,
         },
       });
-      if (UploadScore) {
+      if (success) {
         toast.success("입력이 완료되었습니다!");
       }
     } catch (e) {
@@ -70,8 +76,8 @@ const UploadDemerit = () => {
   };
 
   return (
-    <div className="md:w-1/2 w-full">
-      <h1 className="title">벌점 입력</h1>
+    <div className="w-screen min-h-screen flex flex-col justify-center items-center">
+      <h1 className="title">상점 입력</h1>
       <div className="formContainer">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -103,7 +109,7 @@ const UploadDemerit = () => {
                 />
               ) : (
                 <>
-                  {data.searchUser.success
+                  {data.searchUser.users
                     ? data.searchUser.users.map((user) => (
                         <label className="label" key={user.id}>
                           <input
@@ -124,33 +130,29 @@ const UploadDemerit = () => {
           }
           <input
             className="input"
-            placeholder="솔로몬 조항"
-            {...register("article", { required: true })}
+            placeholder="사유"
+            {...register("reason", { required: true })}
           />
           <input
             className="input"
             placeholder="점수"
-            {...register("score", { required: true })}
             type="number"
-          />
-          <input
-            className="input"
-            placeholder="비고"
-            {...register("detail", { required: false })}
-            type="text"
+            {...register("score", { required: true })}
           />
           {loadingBtn ? (
-            <button className="blueButton">
-              <Loader
-                type="TailSpin"
-                color="white"
-                height={16}
-                width={16}
-                timeout={5000}
-              />
-            </button>
+            <CustomButton
+              text={
+                <Loader
+                  type="TailSpin"
+                  color="white"
+                  height={16}
+                  width={16}
+                  timeout={5000}
+                />
+              }
+            />
           ) : (
-            <button className="blueButton">Submit</button>
+            <CustomButton text="Submit" />
           )}
         </form>
       </div>
@@ -158,4 +160,4 @@ const UploadDemerit = () => {
   );
 };
 
-export default UploadDemerit;
+export default Merit;
