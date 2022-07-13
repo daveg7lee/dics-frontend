@@ -36,7 +36,7 @@ const Merit = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
   const { data, loading, refetch } = useQuery(SEARCH_USER_AND_ME, {
-    variables: { username: watch("term") },
+    ...(watch("term") && { variables: { username: watch("term") } }),
   });
 
   const onSubmit = async ({ uploader, term, reason, score, date }) => {
