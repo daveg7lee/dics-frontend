@@ -24,7 +24,7 @@ const SEARCH_SCORE = gql`
 const SearchScore = () => {
   const { register, watch } = useForm();
   const { data, loading } = useQuery(SEARCH_SCORE, {
-    variables: { term: watch("term") },
+    ...(watch("term") && { variables: { term: watch("term") } }),
   });
 
   const dateOnChange = (e) => {
