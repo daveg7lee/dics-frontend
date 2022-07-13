@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 
 const SEARCH_SCORE = gql`
-  query searchScore($term: String!) {
+  query searchScore($term: String) {
     searchScore(term: $term) {
       scores {
         id
