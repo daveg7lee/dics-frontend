@@ -1,84 +1,118 @@
-import { gql, useMutation, useReactiveVar } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
-import { useRouter } from "next/router";
-import Image from "next/image";
 import EditInputContainer from "../components/Edit/EditInputContainer";
-import { isLoggedInVar } from "../apollo";
 
 const EDIT_PROFILE = gql`
-  mutation editProfile(
+  mutation updateUser(
     $email: String
-    $avatar: Upload
-    $bio: String
+    $avatar: String
     $oldPassword: String
     $newPassword: String
   ) {
-    editProfile(
-      email: $email
-      avatar: $avatar
-      bio: $bio
-      oldPassword: $oldPassword
-      newPassword: $newPassword
-    )
+    updateUser(
+      input: {
+        email: $email
+        avatar: $avatar
+        oldPassword: $oldPassword
+        newPassword: $newPassword
+      }
+    ) {
+      success
+    }
   }
 `;
 
+const BUCKET_URL = "https://dics-bucket.s3.ap-northeast-2.amazonaws.com/";
+
 const Edit = () => {
-  const router = useRouter();
-  const { data, loading } = useUser();
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const { data: userData, loading } = useUser();
   const { register, handleSubmit, setValue } = useForm();
-  const [preview, setPreview] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [files, setFiles] = useState([]);
+
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
 
-  useEffect(() => {
-    setValue("email", data?.me?.email);
-    setPreview(data?.me?.avatar);
-  }, [data, setValue]);
+  const preview = () => {
+    if (files.length === 0) return;
 
-  const onChange = async ({
-    target: {
-      files: [file],
-    },
-  }) => {
     const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setPreview(base64.toString());
-      }
+
+    reader.onload = () => {
+      reader.result && setPreviewUrl(String(reader.result));
     };
-    if (file) {
-      reader.readAsDataURL(file);
-      const {
-        data: { editProfile },
-      } = await editProfileMutation({
-        variables: { avatar: file },
-      });
-      if (editProfile) {
-        toast.success("Profile Updated");
-        router.push("/");
-      }
-    }
+
+    reader.readAsDataURL(files[0]);
+  };
+
+  useEffect(() => {
+    setValue("email", userData?.me?.email);
+    setPreviewUrl(userData?.me?.avatar);
+  }, [userData, setValue]);
+
+  useEffect(() => {
+    preview();
+  }, [files, preview]);
+
+  const onFileLoad = (e) => {
+    const file = e.target.files;
+    setFiles(file);
   };
 
   const onSubmit = async ({ email, oldPassword, newPassword }) => {
-    const {
-      data: { editProfile },
-    } = await editProfileMutation({
-      variables: {
-        email: email,
-        oldPassword: oldPassword,
-        newPassword: newPassword,
+    try {
+      let avatar;
+
+      if (files.length !== 0) {
+        avatar = await uploadFile(files[0]);
+      }
+
+      if (oldPassword && !newPassword) {
+        toast.error("새로운 비밀번호를 입력하세요");
+        return;
+      }
+
+      const {
+        data: {
+          updateUser: { success },
+        },
+      } = await editProfileMutation({
+        variables: {
+          email: email,
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          avatar,
+        },
+      });
+
+      if (success) {
+        toast.success("Profile Updated");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const uploadFile = async (file) => {
+    const { data } = await axios.post("/api/s3/uploadFile", {
+      name: file.name,
+      type: file.type,
+    });
+
+    const url = data.url;
+
+    await axios.put(url, file, {
+      headers: {
+        "Content-type": file.type,
+        "Access-Control-Allow-Origin": "*",
       },
     });
-    if (editProfile) {
-      toast.success("Profile Updated");
-    }
+
+    return BUCKET_URL + file.name;
   };
 
   return (
@@ -103,7 +137,7 @@ const Edit = () => {
                     alt="preview"
                     width={64}
                     height={64}
-                    src={preview}
+                    src={previewUrl}
                     className="w-16 h-16 rounded-full"
                   />
                 )}
@@ -121,7 +155,7 @@ const Edit = () => {
                 </label>
                 <input
                   id="file"
-                  onChange={onChange}
+                  onChange={onFileLoad}
                   type="file"
                   className="hidden"
                 />
@@ -136,16 +170,18 @@ const Edit = () => {
             </EditInputContainer>
             <EditInputContainer name={"Old Password"}>
               <input
-                {...register("oldPassword", { required: true })}
+                {...register("oldPassword", { required: false })}
                 placeholder="Old Password"
                 className="input"
+                type="password"
               />
             </EditInputContainer>
             <EditInputContainer name={"New Password"}>
               <input
-                {...register("newPassword", { required: true })}
+                {...register("newPassword", { required: false })}
                 placeholder="New Password"
                 className="input"
+                type="password"
               />
             </EditInputContainer>
             <CustomButton text="Save" />
