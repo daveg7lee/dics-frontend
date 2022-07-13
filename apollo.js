@@ -31,7 +31,7 @@ export async function purgeAllUsers() {
     {
       headers: {
         "Content-Type": "application/json",
-        "stellate-token": process.env.STELLATE_TOKEN,
+        "stellate-token": "dashboard-1c3808a5",
       },
     }
   );
@@ -46,7 +46,7 @@ export async function purgeAllScores() {
     {
       headers: {
         "Content-Type": "application/json",
-        "stellate-token": process.env.STELLATE_TOKEN,
+        "stellate-token": "dashboard-1c3808a5",
       },
     }
   );
