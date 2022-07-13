@@ -24,7 +24,7 @@ export const logUserOut = () => {
 const uploadHttpLink = createUploadLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://dics-management-backend.herokuapp.com/graphql"
+      ? "https://dics-management.stellate.sh"
       : "http://localhost:4000/graphql",
 });
 
