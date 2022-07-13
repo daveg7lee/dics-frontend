@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
+import { purgeAllUsers } from "../apollo";
 
 const CREATE_ACCOUNT = gql`
   mutation createUser(
@@ -49,6 +50,7 @@ function SignUp() {
         type: "Student",
       },
     });
+    await purgeAllUsers();
     if (data.createUser.success) {
       toast.success("계정 생성 완료!");
       setLoading(false);

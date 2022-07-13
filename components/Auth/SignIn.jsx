@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import CustomButton from "../CustomButton";
 import { logUserIn } from "../../apollo";
 import { useForm } from "react-hook-form";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 
 const LOG_USER_IN = gql`
   mutation login($username: String!, $password: String!) {
@@ -54,10 +54,10 @@ const SignIn = () => {
 
   return (
     <div className="allCenter flex-col min-h-screen">
-      <Head>
-        <title>Log In | DICS 벌점 체크 시스템</title>
-        <meta name="description" content="로그인" />
-      </Head>
+      <NextSeo
+        title="DICS Students"
+        description="Powerful website for DICS students!"
+      />
       <div className="py-5 px-10 bg-white">
         <h1 className="font-bold text-4xl text-center mb-4">DICS</h1>
         <div>

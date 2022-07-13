@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
+import { purgeAllUsers } from "../apollo";
 
 const DELETE_USER = gql`
   mutation removeUser($username: String!) {
@@ -28,6 +29,7 @@ function DeleteUser() {
     await deleteUserMutation({
       variables: { username },
     });
+    await purgeAllUsers();
     setValue("username", "");
     toast.success("계정 삭제 완료!");
   };

@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { toast } from "react-toastify";
+import { purgeAllScores, purgeAllUsers } from "../apollo";
 import Loading from "../components/Loading";
 import SearchTable from "../components/searchUser/SearchTable";
 
@@ -48,6 +49,8 @@ const SearchUser = () => {
       const { data: deleteScore } = await deleteScoreMutation({
         variables: { id },
       });
+      await purgeAllUsers();
+      await purgeAllScores();
       if (deleteScore) {
         toast.success("Deleted");
         refetch();

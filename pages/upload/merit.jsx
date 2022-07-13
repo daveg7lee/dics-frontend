@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CustomButton from "../../components/CustomButton";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { useForm } from "react-hook-form";
+import { purgeAllScores } from "../../apollo";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -61,6 +62,7 @@ const Merit = () => {
           uploader,
         },
       });
+      await purgeAllScores();
       if (success) {
         toast.success("입력이 완료되었습니다!");
       }
