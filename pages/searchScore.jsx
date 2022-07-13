@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 
 const SEARCH_SCORE = gql`
-  query searchScore($term: String) {
+  query searchScore($term: String!) {
     searchScore(term: $term) {
       scores {
         id
@@ -24,7 +24,7 @@ const SEARCH_SCORE = gql`
 const SearchScore = () => {
   const { register, watch } = useForm();
   const { data, loading } = useQuery(SEARCH_SCORE, {
-    ...(watch("term") && { variables: { term: watch("term") } }),
+    variables: { term: watch("term") ? watch("term") : "" },
   });
 
   const dateOnChange = (e) => {
