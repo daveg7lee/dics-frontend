@@ -10,7 +10,7 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/logo192.png" />
         <meta
           name="google-site-verification"
-          content="iVIdX2Zr88cCNMJzRYM-wmA9vVXbKako6kSJigxu2Og"
+          content="ljN2MsEuFIaVZgS0RCKF-iufd7Wn6vVp_ygDmB87VRI"
         />
       </Head>
       <body>
