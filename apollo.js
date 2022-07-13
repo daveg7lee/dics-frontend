@@ -25,7 +25,7 @@ export const logUserOut = () => {
 export async function purgeAllUsers() {
   await axios.post(
     process.env.NODE_ENV === "production"
-      ? "https//admin.stellate.co/dics-management"
+      ? "https://admin.stellate.co/dics-management"
       : "http://localhost:3011/",
     JSON.stringify({ query: `mutation { purgeUser }` }),
     {
@@ -40,7 +40,7 @@ export async function purgeAllUsers() {
 export async function purgeAllScores() {
   await axios.post(
     process.env.NODE_ENV === "production"
-      ? "https//admin.stellate.co/dics-management"
+      ? "https://admin.stellate.co/dics-management"
       : "http://localhost:3011/",
     JSON.stringify({ query: `mutation { purgeScore }` }),
     {
