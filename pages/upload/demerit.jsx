@@ -37,7 +37,7 @@ const Demerit = () => {
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
   const { data, loading, refetch } = useQuery(SEARCH_USER_AND_ME, {
-    ...(watch("term") && { variables: { username: watch("term") } }),
+    variables: { username: watch("term") ? watch("term") : "" },
   });
 
   const onSubmit = async ({ score, article, term, date, uploader, detail }) => {

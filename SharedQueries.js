@@ -19,7 +19,7 @@ export const SEARCH_USER = gql`
 `;
 
 export const SEARCH_USER_AND_ME = gql`
-  query searchUserAndMe($username: String) {
+  query searchUserAndMe($username: String!) {
     searchUser(username: $username) {
       success
       users {
