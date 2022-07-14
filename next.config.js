@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require("@next/bundle-analyzer");
 const withPlugins = require("next-compose-plugins");
+const withPWA = require("next-pwa");
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
 const nextConfig = {
+  reactStrictMode: true,
   async redirects() {
     return [
       {
@@ -28,4 +30,17 @@ const nextConfig = {
   webpack5: true,
 };
 
-module.exports = withPlugins([bundleAnalyzer], nextConfig);
+module.exports = withPlugins(
+  [
+    bundleAnalyzer,
+    [
+      withPWA,
+      {
+        pwa: {
+          dest: "public",
+        },
+      },
+    ],
+  ],
+  nextConfig
+);
