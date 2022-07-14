@@ -57,13 +57,17 @@ const Header = () => {
               </svg>
             )}
           </button>
-          <img
-            aria-describedby={id}
-            src={data?.me?.avatar}
-            alt="profile img"
-            className="w-8 h-8 rounded-full cursor-pointer"
-            onClick={handleClick}
-          />
+          {data?.me?.avatar ? (
+            <img
+              aria-describedby={id}
+              src={data?.me?.avatar}
+              alt="profile img"
+              className="w-8 h-8 rounded-full cursor-pointer"
+              onClick={handleClick}
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-gray-600 animate-pulse" />
+          )}
           <Popper
             id={id}
             open={open}
