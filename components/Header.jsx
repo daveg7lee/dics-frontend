@@ -32,6 +32,7 @@ const Header = () => {
             type="button"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="text-gray-500 dark:text-gray-400 mr-2"
+            aria-label="dark-mode"
           >
             {theme === "light" ? (
               <svg
