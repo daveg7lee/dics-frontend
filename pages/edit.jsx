@@ -142,7 +142,7 @@ const Edit = () => {
               <div className="flex flex-col items-center justify-center w-full mx-2">
                 <label className="mb-[5px]">Avatar</label>
                 {loading ? (
-                  <div className="w-16 h-16 rounded-full animate-pulse bg-gray-300" />
+                  <div className="w-16 h-16 rounded-full animate-pulse bg-gray-400" />
                 ) : (
                   <img
                     alt="preview"
