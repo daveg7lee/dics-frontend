@@ -53,7 +53,7 @@ const SearchUser = () => {
         variables: { id },
       });
 
-      await purgeAllScores();
+      await purgeAllUsers();
 
       if (deleteScore) {
         toast.success("Deleted");
