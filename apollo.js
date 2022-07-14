@@ -58,7 +58,7 @@ const uploadHttpLink = createUploadLink({
   uri:
     process.env.NODE_ENV === "production"
       ? "https://dics-management.stellate.sh"
-      : "http://localhost:3010/",
+      : "http://localhost:4000/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

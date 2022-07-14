@@ -16,34 +16,14 @@ const Header = () => {
   const id = open ? "simple-popper" : undefined;
 
   return (
-    <header className="bg-bgColor border-borderColor border-b fixed top-0 z-10">
-      <nav className="flex md:layout px-4 py-4 items-center justify-between w-screen">
+    <header className="bg-bgColor border-borderColor border-b fixed top-0 z-10 layout w-screen">
+      <nav className="flex py-4 items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
             <a className="mr-6 flex items-center">
               <h1 className="text-black text-2xl font-bold">DICS</h1>
             </a>
           </Link>
-
-          {data?.me?.type === "Admin" && (
-            <>
-              <Link href="/upload">
-                <a className="mr-4">Upload</a>
-              </Link>
-              <Link href="/searchUser">
-                <a className="mr-4">Users</a>
-              </Link>
-              <Link href="/signup">
-                <a className="mr-4">Add</a>
-              </Link>
-              <Link href="/deleteUser">
-                <a className="mr-4">Delete</a>
-              </Link>
-              <Link href="/searchScore">
-                <a className="mr-4">Scores</a>
-              </Link>
-            </>
-          )}
         </div>
         <div className="flex items-center justify-center">
           <img

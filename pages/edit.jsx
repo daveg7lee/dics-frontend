@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
 import EditInputContainer from "../components/Edit/EditInputContainer";
@@ -23,6 +24,7 @@ const EDIT_PROFILE = gql`
       }
     ) {
       success
+      error
     }
   }
 `;
@@ -30,6 +32,7 @@ const EDIT_PROFILE = gql`
 const BUCKET_URL = "https://dics-bucket.s3.ap-northeast-2.amazonaws.com/";
 
 const Edit = () => {
+  const router = useRouter();
   const { data: userData, loading } = useUser();
   const { register, handleSubmit, setValue } = useForm();
   const [previewUrl, setPreviewUrl] = useState("");
@@ -65,6 +68,11 @@ const Edit = () => {
 
   const onSubmit = async ({ email, oldPassword, newPassword }) => {
     try {
+      if (!email || !oldPassword || !newPassword) {
+        toast.error("값을 입력하세요");
+        return;
+      }
+
       let avatar;
 
       if (files.length !== 0) {
@@ -78,7 +86,7 @@ const Edit = () => {
 
       const {
         data: {
-          updateUser: { success },
+          updateUser: { success, error },
         },
       } = await editProfileMutation({
         variables: {
@@ -91,6 +99,9 @@ const Edit = () => {
 
       if (success) {
         toast.success("Profile Updated");
+        router.push("/");
+      } else {
+        toast.error(error);
       }
     } catch (e) {
       console.log(e);

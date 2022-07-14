@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Popover from '@material-ui/core/Popover';
+import React, { useState } from "react";
+import Popover from "@material-ui/core/Popover";
 
 const CustomPopup = ({ contents }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -10,7 +10,8 @@ const CustomPopup = ({ contents }) => {
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
+
   return (
     <div>
       <button
@@ -26,12 +27,12 @@ const CustomPopup = ({ contents }) => {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
       >
         {contents}
