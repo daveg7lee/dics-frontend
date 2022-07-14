@@ -50,7 +50,9 @@ function SignUp() {
         type: "Student",
       },
     });
+
     await purgeAllUsers();
+
     if (data.createUser.success) {
       toast.success("계정 생성 완료!");
       setLoading(false);

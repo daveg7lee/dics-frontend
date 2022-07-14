@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
 import EditInputContainer from "../components/Edit/EditInputContainer";
+import { purgeAllUsers } from "../apollo";
 
 const EDIT_PROFILE = gql`
   mutation updateUser(
@@ -96,6 +97,8 @@ const Edit = () => {
           avatar,
         },
       });
+
+      await purgeAllUsers();
 
       if (success) {
         toast.success("Profile Updated");

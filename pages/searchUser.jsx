@@ -49,8 +49,9 @@ const SearchUser = () => {
       const { data: deleteScore } = await deleteScoreMutation({
         variables: { id },
       });
-      await purgeAllUsers();
+
       await purgeAllScores();
+
       if (deleteScore) {
         toast.success("Deleted");
         refetch();
