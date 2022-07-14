@@ -29,7 +29,9 @@ const UPLOAD_SCORE = gql`
     ) {
       success
       error
-      score
+      score {
+        id
+      }
     }
   }
 `;

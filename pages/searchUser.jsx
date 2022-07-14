@@ -34,7 +34,9 @@ const DELETE_SCORE = gql`
     deleteScore(id: $id) {
       success
       error
-      score
+      score {
+        id
+      }
     }
   }
 `;

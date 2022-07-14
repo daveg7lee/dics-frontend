@@ -10,7 +10,9 @@ const DELETE_USER = gql`
     removeUser(username: $username) {
       success
       error
-      user
+      user {
+        id
+      }
     }
   }
 `;

@@ -26,6 +26,9 @@ const EDIT_PROFILE = gql`
     ) {
       success
       error
+      user {
+        id
+      }
     }
   }
 `;
