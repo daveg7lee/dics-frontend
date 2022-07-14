@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="kr">
       <Head>
         <meta charSet="utf-8" />
+        <meta name="theme-color" content="#1E293B" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link
