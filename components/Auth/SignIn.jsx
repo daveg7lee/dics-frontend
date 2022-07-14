@@ -90,14 +90,6 @@ const SignIn = () => {
             )}
           </form>
         </div>
-        <div className="w-full allCenter mt-4">
-          <a
-            className="text-center text-blue-500 cursor-pointer"
-            href="mailto:daveg7lee@gmail.com"
-          >
-            계정이 없으신가요?
-          </a>
-        </div>
       </div>
     </div>
   );
