@@ -58,7 +58,7 @@ const SignIn = () => {
         title="DICS Students"
         description="Powerful website for DICS students!"
       />
-      <div className="py-5 px-10 bg-white">
+      <div className="py-5 px-10">
         <h1 className="font-bold text-4xl text-center mb-4">DICS</h1>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>

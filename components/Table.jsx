@@ -1,54 +1,40 @@
-import styled from 'styled-components';
-
-const STable = styled.table`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 20px;
-  padding: 1rem;
-`;
-
-const Th = styled.th``;
-
-const Td = styled.td`
-  text-align: center;
-`;
-
-const Delete = styled.h1`
-  cursor: pointer;
-  background-color: ${(props) => props.theme.blueColor};
-  padding: 8px 3px;
-  border-radius: 4px;
-  color: white;
-`;
-
 const Table = ({ scores, deleteScore, Admin }) => {
   return (
-    <STable>
+    <table className="w-full border-separate p-4">
       <thead>
         <tr>
-          <Th>Score</Th>
-          <Th>Article</Th>
-          <Th>Date</Th>
-          <Th>Uploader</Th>
-          <Th>Detail</Th>
-          {Admin && <Th>Delete</Th>}
+          <th>Score</th>
+          <th>Article</th>
+          <th>Date</th>
+          <th>Uploader</th>
+          <th>Detail</th>
+          {Admin && <th>Delete</th>}
         </tr>
       </thead>
       {scores.map((score) => (
-        <tr key={score.id} style={{ marginTop: '0.5rem' }}>
-          <Td>{score.type === 'Demerit' ? score.score * -1 : score.score}</Td>
-          <Td>{score.article}</Td>
-          <Td>{score.date.replace(/T.*/, '').split('-').join('-')}</Td>
-          <Td>{score.uploader}</Td>
-          <Td>{score.detail}</Td>
+        <tr key={score.id} style={{ marginTop: "0.5rem" }}>
+          <td className="text-center">
+            {score.type === "Demerit" ? score.score * -1 : score.score}
+          </td>
+          <td className="text-center">{score.article}</td>
+          <td className="text-center">
+            {score.date.replace(/T.*/, "").split("-").join("-")}
+          </td>
+          <td className="text-center">{score.uploader}</td>
+          <td className="text-center">{score.detail}</td>
           {Admin && (
-            <Td onClick={deleteScore}>
-              <Delete id={score.id}>Delete</Delete>
-            </Td>
+            <td className="text-center" onClick={deleteScore}>
+              <h1
+                className="cursor-pointer bg-blueColor py-2 px-1"
+                id={score.id}
+              >
+                Delete
+              </h1>
+            </td>
           )}
         </tr>
       ))}
-    </STable>
+    </table>
   );
 };
 

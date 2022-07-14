@@ -135,7 +135,7 @@ const Edit = () => {
           </div>
 
           <form
-            className="w-full h-full p-4 border border-gray-300 rounded"
+            className="w-full h-full p-4 border border-gray-300 dark:border-slate-600 rounded"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex justify-evenly px-4 mb-2">

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-bgColor dark:bg-slate-800 text-black dark:text-white
+}
+
 .layout {
   @apply px-20
 }
@@ -27,7 +31,7 @@
 }
 
 .input {
-  @apply w-full border-borderColor rounded bg-bgColor h-8 text-xs px-3 py-4 border mb-4 focus:ring focus:ring-blue-300 outline-none;
+  @apply w-full border-borderColor dark:border-slate-600 rounded bg-bgColor dark:bg-slate-800 h-8 text-xs px-3 py-5 border mb-4 focus:ring focus:ring-blue-300 outline-none;
 }
 
 .button {

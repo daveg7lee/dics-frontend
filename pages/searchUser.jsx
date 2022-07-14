@@ -67,7 +67,7 @@ const SearchUser = () => {
       ) : (
         <ul className="mb-20">
           <div className="mb-40 px-10">
-            <h1 className="text-2xl font-semibold p-4 border-b border-black mt-4">
+            <h1 className="text-2xl font-semibold p-4 border-b border-borderColor dark:border-slate-600 mt-4">
               솔로몬 고위험자
             </h1>
             {data.seeUsers.users.map((user) => {
@@ -84,7 +84,7 @@ const SearchUser = () => {
             })}
           </div>
           <div className="px-10">
-            <h1 className="text-2xl font-semibold p-4 border-b border-black mt-4">
+            <h1 className="text-2xl font-semibold p-4 border-b border-borderColor dark:border-slate-600 mt-4">
               전체 보기
             </h1>
             {data.seeUsers.users.map((user) => (
