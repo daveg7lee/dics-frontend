@@ -52,41 +52,57 @@ const SignIn = () => {
   };
 
   return (
-    <div className="allCenter flex-col min-h-screen">
-      <div className="py-5 px-10">
-        <h1 className="font-bold text-4xl text-center mb-4">DICS</h1>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              placeholder="Username"
-              {...register("username", { required: "username is required" })}
-              className="input"
-            />
-            <input
-              placeholder="Password"
-              {...register("password", { required: "password is required" })}
-              type="password"
-              className="input"
-            />
-            {loading ? (
-              <CustomButton
-                text={
-                  <Loader
-                    type="TailSpin"
-                    color="white"
-                    height={16}
-                    width={16}
-                    timeout={500000}
-                  />
-                }
+    <>
+      <div className="allCenter flex-col min-h-screen">
+        <div className="py-5 px-10">
+          <h1 className="font-bold text-4xl text-center mb-4">DICS</h1>
+          <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                placeholder="Username"
+                {...register("username", { required: "username is required" })}
+                className="input"
               />
-            ) : (
-              <CustomButton text="Sign In" width="100%" />
-            )}
-          </form>
+              <input
+                placeholder="Password"
+                {...register("password", { required: "password is required" })}
+                type="password"
+                className="input"
+              />
+              {loading ? (
+                <CustomButton
+                  text={
+                    <Loader
+                      type="TailSpin"
+                      color="white"
+                      height={16}
+                      width={16}
+                      timeout={500000}
+                    />
+                  }
+                />
+              ) : (
+                <CustomButton text="Sign In" width="100%" />
+              )}
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <footer className="flex items-center justify-end w-full absolute bottom-0">
+        <a href="https://stellate.co/?ref=powered-by">
+          <img
+            src="https://stellate.co/badge.svg"
+            alt="Powered by Stellate, the GraphQL Edge Cache"
+            className="block dark:hidden"
+          />
+          <img
+            src="https://stellate.co/badge-light.svg"
+            alt="Powered by Stellate, the GraphQL Edge Cache"
+            className="hidden dark:block"
+          />
+        </a>
+      </footer>
+    </>
   );
 };
 
