@@ -24,6 +24,7 @@ const CREATE_ACCOUNT = gql`
     ) {
       success
       error
+      user
     }
   }
 `;
