@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
-import { purgeAllScores } from "../../apollo";
+import { purgeAllScores, purgeAllUsers } from "../../apollo";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -62,7 +62,7 @@ const Demerit = () => {
           detail,
         },
       });
-      await purgeAllScores();
+      await purgeAllUsers();
       if (success) {
         toast.success("입력이 완료되었습니다!");
       }
