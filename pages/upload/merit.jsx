@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import CustomButton from "../../components/CustomButton";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { useForm } from "react-hook-form";
-import { purgeAllScores, purgeAllUsers } from "../../apollo";
+import { purgeAllUsers } from "../../apollo";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(

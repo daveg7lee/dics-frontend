@@ -37,20 +37,6 @@ const ProfileBox = ({ me }) => (
         </div>
       )}
     </div>
-    <footer className="flex items-center justify-end w-full absolute bottom-0">
-      <a href="https://stellate.co/?ref=powered-by">
-        <img
-          src="https://stellate.co/badge.svg"
-          alt="Powered by Stellate, the GraphQL Edge Cache"
-          className="block dark:hidden"
-        />
-        <img
-          src="https://stellate.co/badge-light.svg"
-          alt="Powered by Stellate, the GraphQL Edge Cache"
-          className="hidden dark:block"
-        />
-      </a>
-    </footer>
   </>
 );
 

@@ -88,7 +88,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-      <footer className="flex items-center justify-end w-full absolute bottom-0">
+      <footer className="flex items-center justify-center w-full absolute bottom-0">
         <a href="https://stellate.co/?ref=powered-by">
           <img
             src="https://stellate.co/badge.svg"
