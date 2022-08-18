@@ -4,7 +4,7 @@ import Table from "./Table";
 
 const ProfileBox = ({ me }) => (
   <>
-    <div className="h-fit w-full rounded-2xl flex justify-center items-center p-4">
+    <div className="h-full w-full rounded-2xl flex justify-center items-center p-6">
       {me.type === "Admin" ? (
         <Admin />
       ) : (
