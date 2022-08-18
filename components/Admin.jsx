@@ -26,6 +26,7 @@ const Admin = () => {
           resetScores: { success },
         },
       } = await resetScoresMutation();
+      await purgeAllUsers();
       if (success) {
         toast.success("모든 점수가 초기화되었습니다.");
       } else {
