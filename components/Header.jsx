@@ -1,37 +1,74 @@
 import React, { useState } from "react";
 import { useTheme } from "next-themes";
 import { logUserOut } from "../apollo";
-import Popper from "@mui/material/Popper";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Link from "next/link";
 import useUser from "../hooks/useUser";
+import Image from "next/image";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
-  const [anchorEl, setAnchorEl] = useState(null);
   const { data } = useUser();
+  const [open, setOpen] = useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const handleClick = () => {
+    setOpen((prev) => !prev);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popper" : undefined;
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   return (
     <header className="bg-bgColor dark:bg-slate-800 text-black dark:text-white border-borderColor dark:border-slate-600 border-b fixed top-0 z-10 layout w-screen">
       <nav className="flex py-4 items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
-            <a className="mr-6 flex items-center">
-              <h1 className="text-2xl font-bold">DICS</h1>
+            <a className="flex items-center">
+              <h1 className="text-2xl font-bold ml-1">DICS Students</h1>
             </a>
           </Link>
         </div>
         <div className="flex items-center justify-center">
+          <ClickAwayListener
+            mouseEvent="onMouseDown"
+            touchEvent="onTouchStart"
+            onClickAway={handleClickAway}
+          >
+            <div className="relative">
+              {data?.me?.avatar ? (
+                <img
+                  src={data?.me?.avatar}
+                  alt="profile img"
+                  className="w-8 h-8 rounded-full cursor-pointer"
+                  onClick={handleClick}
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
+              )}
+              {open ? (
+                <div className="absolute right-0 top-9 w-48 rounded-md shadow-lg z-[100] border border-borderColor dark:border-slate-600">
+                  <div className="py-1 rounded-md bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5">
+                    <Link href="edit">
+                      <a className="border-b border-borderColor dark:border-slate-600 block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100">
+                        Edit Profile
+                      </a>
+                    </Link>
+                    <a
+                      className="cursor-pointer block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100"
+                      onClick={() => logUserOut()}
+                    >
+                      Log Out
+                    </a>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </ClickAwayListener>
           <button
             type="button"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-gray-500 dark:text-gray-400 mr-2"
+            className="text-gray-500 dark:text-gray-400 ml-2"
             aria-label="dark-mode"
           >
             {theme === "light" ? (
@@ -58,40 +95,6 @@ const Header = () => {
               </svg>
             )}
           </button>
-          {data?.me?.avatar ? (
-            <img
-              aria-describedby={id}
-              src={data?.me?.avatar}
-              alt="profile img"
-              className="w-8 h-8 rounded-full cursor-pointer"
-              onClick={handleClick}
-            />
-          ) : (
-            <div className="w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
-          )}
-          <Popper
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            placement="bottom-end"
-            className="z-30"
-          >
-            <div className="absolute right-0 top-1 w-48 rounded-md shadow-lg z-[100]">
-              <div className="py-1 rounded-md bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5">
-                <Link href="edit">
-                  <a className="block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                    Edit Profile
-                  </a>
-                </Link>
-                <a
-                  className="cursor-pointer block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                  onClick={() => logUserOut()}
-                >
-                  Log Out
-                </a>
-              </div>
-            </div>
-          </Popper>
         </div>
       </nav>
     </header>

@@ -38,8 +38,8 @@ const Admin = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="md:flex items-center w-full">
+    <div className="flex flex-col justify-center items-center w-full">
+      <div className="md:flex items-center w-full justify-between">
         <Link href="/upload">
           <a className="text-2xl font-semibold md:w-fit w-full">
             <div className="border border-borderColor p-5 rounded md:mr-5 mb-3">
@@ -79,7 +79,7 @@ const Admin = () => {
           className="text-2xl font-semibold md:w-fit w-full text-left"
           onClick={resetScores}
         >
-          <div className="border border-borderColor p-5 rounded md:mr-5 mb-3">
+          <div className="border border-borderColor p-5 rounded mb-3">
             점수 전체 초기화
           </div>
         </button>
