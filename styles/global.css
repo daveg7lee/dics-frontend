@@ -43,7 +43,7 @@ body {
 }
 
 .select {
-  @apply bg-bgColor w-full py-2 px-1 text-sm rounded border-gray-300 border mb-4 outline-none;
+  @apply bg-bgColor dark:bg-slate-800 w-full py-2.5 px-2 text-sm rounded border-borderColor dark:border-slate-600 border mb-4 outline-none;
 }
 
 .labelContainer {

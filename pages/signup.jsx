@@ -13,6 +13,7 @@ const CREATE_ACCOUNT = gql`
     $email: String!
     $password: String!
     $type: UserType!
+    $grade: GradeType!
   ) {
     createUser(
       input: {
@@ -20,6 +21,7 @@ const CREATE_ACCOUNT = gql`
         email: $email
         password: $password
         type: $type
+        grade: $grade
       }
     ) {
       success
@@ -38,19 +40,21 @@ function SignUp() {
   const { register, handleSubmit, setValue } = useForm();
   const [loading, setLoading] = useState(false);
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
-  const onValid = async ({ username }) => {
+  const onValid = async ({ username, grade }) => {
     if (!userLoading) {
       if (meData?.me?.type !== "Admin") {
         router.push("/");
       }
     }
     setLoading(true);
+
     const { data } = await createAccountMutation({
       variables: {
         username,
         email: ".",
         password: "1q2w3e4r",
         type: "Student",
+        grade,
       },
     });
 
@@ -61,7 +65,8 @@ function SignUp() {
       setLoading(false);
       setValue("username", "");
     } else {
-      toast.error(data.error);
+      console.log(data.createUser.error);
+      toast.error(data.createUser.error);
     }
   };
   return (
@@ -76,6 +81,21 @@ function SignUp() {
           placeholder="이름"
           {...register("username", { required: true })}
         />
+        <select
+          name="grade"
+          {...register("grade", { required: true })}
+          className="select"
+        >
+          <option value="G6" selected>
+            G6
+          </option>
+          <option value="G7">G7</option>
+          <option value="G8">G8</option>
+          <option value="G9">G9</option>
+          <option value="G10">G10</option>
+          <option value="G11">G11</option>
+          <option value="G12">G12</option>
+        </select>
         <input
           type="submit"
           className="blueButton"
