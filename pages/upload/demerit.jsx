@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
-import { purgeAllScores, purgeAllUsers } from "../../apollo";
+import { purgeAllUsers } from "../../apollo";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -36,10 +36,38 @@ const UPLOAD_SCORE = gql`
   }
 `;
 
+const UPLOAD_SCORE_BY_GRADE = gql`
+  mutation createScoreByGrade(
+    $score: Int!
+    $article: String!
+    $grade: GradeType!
+    $type: ScoreType!
+    $date: String!
+    $uploader: String!
+    $detail: String
+  ) {
+    createScoreByGrade(
+      createScoreInput: {
+        score: $score
+        article: $article
+        grade: $grade
+        type: $type
+        date: $date
+        uploader: $uploader
+        detail: $detail
+      }
+    ) {
+      success
+      error
+    }
+  }
+`;
+
 const Demerit = () => {
   const { register, handleSubmit, setValue, watch } = useForm();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [UploadScoreMutation] = useMutation(UPLOAD_SCORE);
+  const [UploadScoreByGradeMutation] = useMutation(UPLOAD_SCORE_BY_GRADE);
   const { data, loading, refetch } = useQuery(SEARCH_USER_AND_ME, {
     variables: { username: watch("term") ? watch("term") : "" },
   });
@@ -47,30 +75,52 @@ const Demerit = () => {
   const onSubmit = async ({ score, article, term, date, uploader, detail }) => {
     try {
       setLoadingBtn(true);
-      const {
-        data: {
-          createScore: { success },
-        },
-      } = await UploadScoreMutation({
-        variables: {
-          score: +score,
-          article,
-          username: term,
-          type: "Demerit",
-          date,
-          uploader,
-          detail,
-        },
-      });
-      await purgeAllUsers();
-      if (success) {
-        toast.success("입력이 완료되었습니다!");
+      if (term.includes("G")) {
+        const {
+          data: {
+            createScoreByGrade: { success },
+          },
+        } = await UploadScoreByGradeMutation({
+          variables: {
+            score: +score,
+            article,
+            grade: term,
+            type: "Demerit",
+            date,
+            uploader,
+            detail,
+          },
+        });
+
+        await purgeAllUsers();
+
+        if (success) {
+          toast.success("입력이 완료되었습니다!");
+        }
+      } else {
+        const {
+          data: {
+            createScore: { success },
+          },
+        } = await UploadScoreMutation({
+          variables: {
+            score: +score,
+            article,
+            username: term,
+            type: "Demerit",
+            date,
+            uploader,
+            detail,
+          },
+        });
+
+        await purgeAllUsers();
+        if (success) {
+          toast.success("입력이 완료되었습니다!");
+        }
       }
     } catch (e) {
-      const errorMessage = e.message
-        .replace("GraphQL", "")
-        .replace("error", "")
-        .replace(":", "");
+      const errorMessage = e.message;
       toast.error(errorMessage);
     } finally {
       setLoadingBtn(false);
