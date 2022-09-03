@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { purgeAllScores, purgeAllUsers } from "../apollo";
+import { purgeAllUsers } from "../apollo";
 import Loading from "../components/Loading";
 import SearchTable from "../components/searchUser/SearchTable";
 
@@ -11,6 +11,7 @@ const SEE_USERS = gql`
       users {
         id
         username
+        grade
         avatar
         type
         totalScores
@@ -52,9 +53,19 @@ const SearchUser = () => {
       const users =
         sortType === "username"
           ? [...data.seeUsers.users]
-          : [...data.seeUsers.users].sort(
+          : sortType === "scores"
+          ? [...data.seeUsers.users].sort(
               (a, b) => a.totalScores - b.totalScores
-            );
+            )
+          : sortType === "grade" && [
+              ...data.seeUsers.users.filter((user) => user.grade === "G6"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G7"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G8"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G9"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G10"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G11"),
+              ...data.seeUsers.users.filter((user) => user.grade === "G12"),
+            ];
       setUserData(users);
     }
   }, [data, sortType]);
@@ -111,6 +122,7 @@ const SearchUser = () => {
               >
                 <option value={"username"}>이름</option>
                 <option value={"scores"}>벌점</option>
+                <option value="grade">학년</option>
               </select>
             </div>
             {userData.map((user) => (
