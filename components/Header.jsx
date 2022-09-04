@@ -28,6 +28,15 @@ const Header = () => {
               <h1 className="text-2xl font-bold ml-1">DICS Students</h1>
             </a>
           </Link>
+          {data?.me?.type !== "Admin" && (
+            <Link href="/suggest">
+              <a className="flex items-center">
+                <h1 className="text-sm ml-5 opacity-60 hover:opacity-100 transition-opacity">
+                  소리함
+                </h1>
+              </a>
+            </Link>
+          )}
         </div>
         <div className="flex items-center justify-center">
           <ClickAwayListener

@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import Link from "next/link";
+import { purgeAllUsers } from "../apollo";
 
 const RESET_SCORE = gql`
   mutation resetScores {
@@ -121,6 +122,13 @@ const Admin = () => {
         >
           <div className="border border-borderColor p-5 rounded">졸업</div>
         </button>
+        <Link href="/admin/suggest">
+          <a className="text-2xl font-semibold w-full">
+            <div className="border border-borderColor p-5 rounded text-center h-full">
+              소리함 관리
+            </div>
+          </a>
+        </Link>
       </div>
     </div>
   );
