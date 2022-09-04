@@ -1,6 +1,7 @@
 import { Table, Loading } from "@nextui-org/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import gql from "graphql-tag";
 import { useState } from "react";
@@ -34,6 +35,7 @@ const CREATE_SUGGEST = gql`
 `;
 
 const Suggest = () => {
+  const router = useRouter();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const { register, handleSubmit } = useForm();
   const { data, loading } = useQuery(FIND_MY_SUGGESTS);
@@ -58,6 +60,7 @@ const Suggest = () => {
       toast.error(errorMessage);
     } finally {
       setLoadingBtn(false);
+      router.reload();
     }
   };
 
