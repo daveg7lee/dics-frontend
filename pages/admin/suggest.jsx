@@ -206,9 +206,7 @@ const SuggestAdmin = () => {
                   <div>
                     <button
                       className="mr-2"
-                      onClick={async () =>
-                        await onClick(suggest.id, "waitring")
-                      }
+                      onClick={async () => await onClick(suggest.id, "waiting")}
                     >
                       재확인
                     </button>
