@@ -98,7 +98,10 @@ const SuggestAdmin = () => {
           <h1 className="text-2xl mb-4 font-bold">대기 중인 건의사항</h1>
           <ul>
             {data?.findAllWaiting?.suggests.map((suggest) => (
-              <div className="p-4 border-borderColor border dark:border-slate-600 rounded">
+              <div
+                className="p-4 border-borderColor border dark:border-slate-600 rounded"
+                key={suggest.id}
+              >
                 <span>{suggest.user.grade + " " + suggest.user.username}</span>
                 <div className="flex justify-between items-center w-full">
                   <h1>{suggest.title}</h1>
@@ -129,7 +132,10 @@ const SuggestAdmin = () => {
           <h1 className="text-2xl font-bold my-4">진행 중인 건의사항</h1>
           <ul>
             {data?.findAllProcessing?.suggests.map((suggest) => (
-              <div className="p-4 border-borderColor border dark:border-slate-600 rounded">
+              <div
+                className="p-4 border-borderColor border dark:border-slate-600 rounded"
+                key={suggest.id}
+              >
                 <span>{suggest.user.grade + " " + suggest.user.username}</span>
                 <div className="flex justify-between items-center w-full">
                   <h1>{suggest.title}</h1>
@@ -157,7 +163,10 @@ const SuggestAdmin = () => {
           <h1 className="text-2xl font-bold my-4">완료된 건의사항</h1>
           <ul className="done">
             {data?.findAllDone?.suggests.map((suggest) => (
-              <div className="p-4 border-borderColor border dark:border-slate-600 rounded">
+              <div
+                className="p-4 border-borderColor border dark:border-slate-600 rounded"
+                key={suggest.id}
+              >
                 <span>{suggest.user.grade + " " + suggest.user.username}</span>
                 <div className="flex justify-between items-center w-full">
                   <h1>{suggest.title}</h1>
@@ -187,7 +196,10 @@ const SuggestAdmin = () => {
           <h1 className="text-2xl font-bold my-4">거절된 건의사항</h1>
           <ul className="done">
             {data?.findAllDecline?.suggests.map((suggest) => (
-              <div className="p-4 border-borderColor border dark:border-slate-600 rounded">
+              <div
+                className="p-4 border-borderColor border dark:border-slate-600 rounded"
+                key={suggest.id}
+              >
                 <span>{suggest.user.grade + " " + suggest.user.username}</span>
                 <div className="flex justify-between items-center w-full">
                   <h1>{suggest.title}</h1>
@@ -201,7 +213,9 @@ const SuggestAdmin = () => {
                       재확인
                     </button>
                     <button
-                      onClick={async () => await onClick(suggest.id, "processing")}
+                      onClick={async () =>
+                        await onClick(suggest.id, "processing")
+                      }
                     >
                       진행
                     </button>
