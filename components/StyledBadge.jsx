@@ -29,6 +29,10 @@ export const StyledBadge = styled("span", {
         bg: "$warningLight",
         color: "$warningLightContrast",
       },
+      decline: {
+        bg: "$errorLight",
+        color: "$errorLightContrast",
+      },
     },
   },
   defaultVariants: {
