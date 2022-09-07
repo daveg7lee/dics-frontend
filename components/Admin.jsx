@@ -5,8 +5,8 @@ import Link from "next/link";
 import { purgeAllUsers } from "../apollo";
 
 const RESET_SCORE = gql`
-  mutation resetScores {
-    resetScores {
+  mutation resetScores($type: ScoreType!) {
+    resetScores(type: $type) {
       success
       error
     }
@@ -26,7 +26,7 @@ const Admin = () => {
   const [resetScoresMutation] = useMutation(RESET_SCORE);
   const [graduateMutation] = useMutation(GRADUATE);
 
-  const resetScores = async () => {
+  const resetScores = async (type) => {
     alert(
       "한번 점수를 초기화하면 다시 되돌릴 수 없습니다. 정말 초기화 하시겠습니까?"
     );
@@ -36,7 +36,7 @@ const Admin = () => {
         data: {
           resetScores: { success },
         },
-      } = await resetScoresMutation();
+      } = await resetScoresMutation({ variables: { type } });
       await purgeAllUsers();
       if (success) {
         toast.success("모든 점수가 초기화되었습니다.");
@@ -110,10 +110,18 @@ const Admin = () => {
         </Link>
         <button
           className="text-2xl font-semibold w-full text-center h-full"
-          onClick={resetScores}
+          onClick={() => resetScores("Demerit")}
         >
           <div className="border border-borderColor p-5 rounded">
-            점수 초기화
+            벌점 초기화
+          </div>
+        </button>
+        <button
+          className="text-2xl font-semibold w-full text-center h-full"
+          onClick={() => resetScores("Merit")}
+        >
+          <div className="border border-borderColor p-5 rounded">
+            상점 초기화
           </div>
         </button>
         <button
@@ -126,6 +134,13 @@ const Admin = () => {
           <a className="text-2xl font-semibold w-full">
             <div className="border border-borderColor p-5 rounded text-center h-full">
               소리함 관리
+            </div>
+          </a>
+        </Link>
+        <Link href="/admin/gallery">
+          <a className="text-2xl font-semibold w-full">
+            <div className="border border-borderColor p-5 rounded text-center h-full">
+              갤러리 관리
             </div>
           </a>
         </Link>
