@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import { purgeAllPhotos } from "../../apollo";
 
 const CREATE_PHOTO = gql`
   mutation createPhoto($files: [String!]!, $caption: String!) {
@@ -101,8 +102,11 @@ const GalleryAdmin = () => {
         },
       } = await createPhotoMutation({ variables: { files: urls, caption } });
 
+      await purgeAllPhotos();
+
       if (success) {
         toast.success("업로드 되었습니다!");
+        router.reload();
       } else {
         toast.error(error);
       }

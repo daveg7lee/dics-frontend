@@ -38,6 +38,22 @@ export async function purgeAllUsers() {
   );
 }
 
+export async function purgeAllPhotos() {
+  await axios.post(
+    process.env.NODE_ENV === "production"
+      ? "https://admin.stellate.co/dics-management"
+      : "http://localhost:3011/",
+    JSON.stringify({ query: `mutation { purgePhoto }` }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "stellate-token":
+          "57ceed6f1995880253b2950d0951c7e878b6c01dd9e829af47204f8751c36b9c",
+      },
+    }
+  );
+}
+
 export async function purgeAllScores() {
   await axios.post(
     process.env.NODE_ENV === "production"
