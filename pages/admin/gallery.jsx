@@ -42,7 +42,7 @@ const GalleryAdmin = () => {
   async function load({ signal, cursor }) {
     console.log(cursor);
 
-    const endpoint = "http://localhost:4000/graphql";
+    const endpoint = process.env.NODE_ENV === "production" ? "https://dics-management.stellate.sh" : "http://localhost:4000/graphql";
     const query = cursor
       ? `{
       photos(cursor: "${cursor}") {
