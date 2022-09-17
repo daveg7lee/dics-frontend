@@ -54,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.19.0"],\
             ["eslint-config-next", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:12.2.0"],\
             ["graphql", "npm:15.4.0"],\
+            ["graphql-request", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:5.0.0"],\
             ["graphql-tag", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:2.12.6"],\
             ["js-cookie", "npm:3.0.1"],\
             ["next", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:12.2.0"],\
@@ -2761,6 +2762,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@graphql-typed-document-node/core", "npm:3.1.0"]\
           ],\
           "linkType": "SOFT"\
+        }],\
+        ["npm:3.1.1", {\
+          "packageLocation": "./.yarn/cache/@graphql-typed-document-node-core-npm-3.1.1-b1b114073d-87ff4cee30.zip/node_modules/@graphql-typed-document-node/core/",\
+          "packageDependencies": [\
+            ["@graphql-typed-document-node/core", "npm:3.1.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:23a2586c32717ab6c756455688268cd88d26db41730149559f755ac042a79ab084518bd601d0f02019165450cf65b33833fe6a41ff7de37fe07c84e72153e156#npm:3.1.1", {\
+          "packageLocation": "./.yarn/__virtual__/@graphql-typed-document-node-core-virtual-06766619de/0/cache/@graphql-typed-document-node-core-npm-3.1.1-b1b114073d-87ff4cee30.zip/node_modules/@graphql-typed-document-node/core/",\
+          "packageDependencies": [\
+            ["@graphql-typed-document-node/core", "virtual:23a2586c32717ab6c756455688268cd88d26db41730149559f755ac042a79ab084518bd601d0f02019165450cf65b33833fe6a41ff7de37fe07c84e72153e156#npm:3.1.1"],\
+            ["@types/graphql", null],\
+            ["graphql", "npm:15.4.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/graphql",\
+            "graphql"\
+          ],\
+          "linkType": "HARD"\
         }],\
         ["virtual:b405b7057a490505d09c701e1f49617fc6382709a41e9102a221d5ff4d40a5909c0fcecadeeedf1ee69f1834796ff0cff717f50d8a68b019de1ed3643fdfc18b#npm:3.1.0", {\
           "packageLocation": "./.yarn/__virtual__/@graphql-typed-document-node-core-virtual-ee8eb1b3b1/0/cache/@graphql-typed-document-node-core-npm-3.1.0-626997e126-582eb20060.zip/node_modules/@graphql-typed-document-node/core/",\
@@ -6757,6 +6778,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["cross-fetch", [\
+        ["npm:3.1.5", {\
+          "packageLocation": "./.yarn/cache/cross-fetch-npm-3.1.5-e414995db9-f6b8c6ee3e.zip/node_modules/cross-fetch/",\
+          "packageDependencies": [\
+            ["cross-fetch", "npm:3.1.5"],\
+            ["node-fetch", "virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["cross-spawn", [\
         ["npm:7.0.3", {\
           "packageLocation": "./.yarn/cache/cross-spawn-npm-7.0.3-e4ff3e65b3-671cc7c728.zip/node_modules/cross-spawn/",\
@@ -7028,6 +7059,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.19.0"],\
             ["eslint-config-next", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:12.2.0"],\
             ["graphql", "npm:15.4.0"],\
+            ["graphql-request", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:5.0.0"],\
             ["graphql-tag", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:2.12.6"],\
             ["js-cookie", "npm:3.0.1"],\
             ["next", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:12.2.0"],\
@@ -7882,6 +7914,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["form-data", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/form-data-npm-3.0.1-d080d436e0-b019e8d35c.zip/node_modules/form-data/",\
+          "packageDependencies": [\
+            ["form-data", "npm:3.0.1"],\
+            ["asynckit", "npm:0.4.0"],\
+            ["combined-stream", "npm:1.0.8"],\
+            ["mime-types", "npm:2.1.35"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/form-data-npm-4.0.0-916facec2d-01135bf867.zip/node_modules/form-data/",\
           "packageDependencies": [\
@@ -8158,6 +8200,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/graphql-npm-15.4.0-ffa0f9cd71-6b3240e551.zip/node_modules/graphql/",\
           "packageDependencies": [\
             ["graphql", "npm:15.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["graphql-request", [\
+        ["npm:5.0.0", {\
+          "packageLocation": "./.yarn/cache/graphql-request-npm-5.0.0-993b4da9bf-2e8900d10c.zip/node_modules/graphql-request/",\
+          "packageDependencies": [\
+            ["graphql-request", "npm:5.0.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:5.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/graphql-request-virtual-23a2586c32/0/cache/graphql-request-npm-5.0.0-993b4da9bf-2e8900d10c.zip/node_modules/graphql-request/",\
+          "packageDependencies": [\
+            ["graphql-request", "virtual:66a7ac7dda6c8fcd07f84faf04951d3ed4eb32de3edcf85691614c7530b61fd72909fd4cbc2a11a19a0a1321b2a15d3afbddf3daf559e55d92328b8a5318435f#npm:5.0.0"],\
+            ["@graphql-typed-document-node/core", "virtual:23a2586c32717ab6c756455688268cd88d26db41730149559f755ac042a79ab084518bd601d0f02019165450cf65b33833fe6a41ff7de37fe07c84e72153e156#npm:3.1.1"],\
+            ["@types/graphql", null],\
+            ["cross-fetch", "npm:3.1.5"],\
+            ["extract-files", "npm:9.0.0"],\
+            ["form-data", "npm:3.0.1"],\
+            ["graphql", "npm:15.4.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/graphql",\
+            "graphql"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9589,6 +9657,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "next",\
             "react-dom",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["node-fetch", [\
+        ["npm:2.6.7", {\
+          "packageLocation": "./.yarn/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+          "packageDependencies": [\
+            ["node-fetch", "npm:2.6.7"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7", {\
+          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-10f4bc17d9/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+          "packageDependencies": [\
+            ["node-fetch", "virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7"],\
+            ["@types/encoding", null],\
+            ["encoding", null],\
+            ["whatwg-url", "npm:5.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/encoding",\
+            "encoding"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11446,6 +11537,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["tr46", [\
+        ["npm:0.0.3", {\
+          "packageLocation": "./.yarn/cache/tr46-npm-0.0.3-de53018915-726321c5ea.zip/node_modules/tr46/",\
+          "packageDependencies": [\
+            ["tr46", "npm:0.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/tr46-npm-1.0.1-9547f343a4-96d4ed46bc.zip/node_modules/tr46/",\
           "packageDependencies": [\
@@ -11761,6 +11859,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["webidl-conversions", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/webidl-conversions-npm-3.0.1-60310f6a2b-c92a0a6ab9.zip/node_modules/webidl-conversions/",\
+          "packageDependencies": [\
+            ["webidl-conversions", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:4.0.2", {\
           "packageLocation": "./.yarn/cache/webidl-conversions-npm-4.0.2-1d159e6409-c93d8dfe90.zip/node_modules/webidl-conversions/",\
           "packageDependencies": [\
@@ -11799,6 +11904,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["whatwg-url", [\
+        ["npm:5.0.0", {\
+          "packageLocation": "./.yarn/cache/whatwg-url-npm-5.0.0-374fb45e60-b8daed4ad3.zip/node_modules/whatwg-url/",\
+          "packageDependencies": [\
+            ["whatwg-url", "npm:5.0.0"],\
+            ["tr46", "npm:0.0.3"],\
+            ["webidl-conversions", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:7.1.0", {\
           "packageLocation": "./.yarn/cache/whatwg-url-npm-7.1.0-d6cae01571-fecb07c872.zip/node_modules/whatwg-url/",\
           "packageDependencies": [\

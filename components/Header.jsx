@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-bgColor dark:bg-slate-800 text-black dark:text-white border-borderColor dark:border-slate-600 border-b fixed top-0 z-10 layout w-screen">
+    <header className="bg-bgColor dark:bg-slate-800 text-black dark:text-white border-borderColor dark:border-slate-600 border-b fixed top-0 z-50 layout w-screen">
       <nav className="flex py-4 items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
