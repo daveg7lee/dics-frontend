@@ -17,6 +17,7 @@ const ME = gql`
         date
         type
         uploader
+        detail
       }
     }
   }
