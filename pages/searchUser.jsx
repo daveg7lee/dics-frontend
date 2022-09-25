@@ -103,6 +103,7 @@ const SearchUser = () => {
               if (user.totalScores <= -15) {
                 return (
                   <SearchTable
+                    key={user.id}
                     user={user}
                     totalScore={user.totalScores}
                     totalMerit={user.totalMerit}
