@@ -84,6 +84,14 @@ const SignIn = () => {
               ) : (
                 <CustomButton text="Sign In" width="100%" />
               )}
+              <div className="flex justify-center mt-5">
+                <a
+                  href="mailto:daveg7lee@gmail.com"
+                  className="text-center w-full text-blue-300"
+                >
+                  비밀번호를 모른다면?
+                </a>
+              </div>
             </form>
           </div>
         </div>
