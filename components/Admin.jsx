@@ -137,13 +137,6 @@ const Admin = () => {
             </div>
           </a>
         </Link>
-        <Link href="/admin/gallery">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              갤러리 관리
-            </div>
-          </a>
-        </Link>
       </div>
     </div>
   );
