@@ -49,14 +49,16 @@ const SearchUser = () => {
   const [deleteScoreMutation] = useMutation(DELETE_SCORE);
 
   useEffect(() => {
-    if (!loading) {
+    if (data) {
       const users =
         sortType === "username"
           ? [...data.seeUsers.users]
-          : sortType === "scores"
+          : sortType === "demerit"
           ? [...data.seeUsers.users].sort(
               (a, b) => a.totalScores - b.totalScores
             )
+          : sortType === "merit"
+          ? [...data.seeUsers.users].sort((a, b) => b.totalMerit - a.totalMerit)
           : sortType === "grade" && [
               ...data.seeUsers.users.filter((user) => user.grade === "G6"),
               ...data.seeUsers.users.filter((user) => user.grade === "G7"),
@@ -122,7 +124,8 @@ const SearchUser = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
               >
                 <option value={"username"}>이름</option>
-                <option value={"scores"}>벌점</option>
+                <option value={"demerit"}>벌점</option>
+                <option value={"merit"}>상점</option>
                 <option value="grade">학년</option>
               </select>
             </div>
