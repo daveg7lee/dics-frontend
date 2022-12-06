@@ -3,7 +3,8 @@ import Table from "../Table";
 import Image from "next/image";
 
 const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => (
-  <li key={user.id} className="grid grid-cols-5 mt-6">
+  <li key={user.id} className="grid grid-cols-6 mt-6">
+    <h1 className="allCenter">{user.grade}</h1>
     <div className="w-12 h-12 rounded-full overflow-hidden justify-self-center">
       <Image
         width={48}

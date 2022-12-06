@@ -24,17 +24,15 @@ const Header = () => {
       <nav className="flex py-4 items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
-            <a className="flex items-center">
-              <h1 className="text-2xl font-bold ml-1">DICS Students</h1>
-            </a>
+            <h1 className="flex items-center text-2xl font-bold ml-1">
+              DICS Students
+            </h1>
           </Link>
           {data?.me?.type !== "Admin" && (
             <Link href="/suggest">
-              <a className="flex items-center">
-                <h1 className="text-sm ml-5 opacity-60 hover:opacity-100 transition-opacity">
-                  소리함
-                </h1>
-              </a>
+              <h1 className="flex items-center text-sm ml-5 opacity-60 hover:opacity-100 transition-opacity">
+                소리함
+              </h1>
             </Link>
           )}
         </div>
@@ -59,9 +57,9 @@ const Header = () => {
                 <div className="absolute right-0 top-9 w-48 rounded-md shadow-lg z-[100] border border-borderColor dark:border-slate-600">
                   <div className="py-1 rounded-md bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5">
                     <Link href="edit">
-                      <a className="border-b border-borderColor dark:border-slate-600 block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100">
+                      <span className="border-b border-borderColor dark:border-slate-600 block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100">
                         Edit Profile
-                      </a>
+                      </span>
                     </Link>
                     <a
                       className="cursor-pointer block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100"

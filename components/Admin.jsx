@@ -74,39 +74,29 @@ const Admin = () => {
     <div className="flex flex-col justify-center items-center w-full">
       <div className="w-full grid grid-cols-6 gap-4">
         <Link href="/upload">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              상벌점 입력
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            상벌점 입력
+          </div>
         </Link>
         <Link href="/searchUser">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              학생 조회
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            학생 조회
+          </div>
         </Link>
         <Link href="/signup">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              학생 추가
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            학생 추가
+          </div>
         </Link>
         <Link href="/deleteUser">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              학생 제거
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            학생 제거
+          </div>
         </Link>
         <Link href="/searchScore">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              상벌점 조회
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            상벌점 조회
+          </div>
         </Link>
         <button
           className="text-2xl font-semibold w-full text-center h-full"
@@ -131,11 +121,9 @@ const Admin = () => {
           <div className="border border-borderColor p-5 rounded">졸업</div>
         </button>
         <Link href="/admin/suggest">
-          <a className="text-2xl font-semibold w-full">
-            <div className="border border-borderColor p-5 rounded text-center h-full">
-              소리함 관리
-            </div>
-          </a>
+          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+            소리함 관리
+          </div>
         </Link>
       </div>
     </div>
