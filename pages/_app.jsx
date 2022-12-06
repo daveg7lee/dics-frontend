@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -32,6 +33,7 @@ const MyApp = ({ Component, pageProps }) => {
         />
         {isLoggedIn && <Header />}
         <Component {...pageProps} />
+        <Analytics />
         <ToastContainer
           position={toast.POSITION.TOP_RIGHT}
           hideProgressBar={true}
