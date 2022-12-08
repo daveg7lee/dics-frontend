@@ -1,16 +1,15 @@
 import { Analytics } from "@vercel/analytics/react";
-import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/global.css";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "next-themes";
 import { DefaultSeo } from "next-seo";
-import { client, isLoggedInVar } from "../apollo";
+import { client } from "../apollo";
 import Header from "../components/Header";
 
 const MyApp = ({ Component, pageProps }) => {
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
   return (
     <ApolloProvider client={client}>
       <ThemeProvider attribute="class">
@@ -31,7 +30,7 @@ const MyApp = ({ Component, pageProps }) => {
             ],
           }}
         />
-        {isLoggedIn && <Header />}
+        <Header />
         <Component {...pageProps} />
         <Analytics />
         <ToastContainer

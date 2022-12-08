@@ -1,11 +1,9 @@
 import Admin from "./Admin";
-import CustomPopup from "./CustomPopup";
-import Table from "./Table";
 
 const ProfileBox = ({ me }) => (
   <>
     <div className="h-full w-full layout flex justify-center items-center py-20">
-      {me.type === "Admin" ? (
+      {me?.type === "Admin" ? (
         <Admin />
       ) : (
         <div className="w-full flex flex-col justify-center items-center">
