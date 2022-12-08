@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
+import { Spinner } from "@chakra-ui/react";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
-import Loading from "../components/Loading";
 
 const SEARCH_SCORE = gql`
   query searchScore($term: String!) {
@@ -49,7 +49,7 @@ const SearchScore = () => {
         <input type="month" onChange={dateOnChange} className="input" />
       </header>
       {loading ? (
-        <Loading />
+        <Spinner />
       ) : (
         <>
           <h1 className="text-xl font-semibold">검색 결과</h1>

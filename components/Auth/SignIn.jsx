@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-import Loader from "react-loader-spinner";
 import { toast } from "react-toastify";
 import CustomButton from "../CustomButton";
 import { logUserIn } from "../../apollo";
 import { useForm } from "react-hook-form";
+import { Spinner } from "@chakra-ui/react";
 
 const LOG_USER_IN = gql`
   mutation login($username: String!, $password: String!) {
@@ -70,17 +70,7 @@ const SignIn = () => {
                 className="input"
               />
               {loading ? (
-                <CustomButton
-                  text={
-                    <Loader
-                      type="TailSpin"
-                      color="white"
-                      height={16}
-                      width={16}
-                      timeout={500000}
-                    />
-                  }
-                />
+                <CustomButton text={<Spinner />} />
               ) : (
                 <CustomButton text="Sign In" width="100%" />
               )}

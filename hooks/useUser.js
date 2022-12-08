@@ -28,6 +28,7 @@ const useUser = () => {
   const { data, loading } = useQuery(ME, {
     skip: !hasToken,
   });
+
   useEffect(() => {
     if (data?.me === null) {
       logUserOut();

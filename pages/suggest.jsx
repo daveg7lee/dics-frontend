@@ -1,4 +1,22 @@
-import { Table, Loading } from "@nextui-org/react";
+import { Loading } from "@nextui-org/react";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import {
+  Input,
+  Select,
+  TableContainer,
+  Text,
+  Table,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  Thead,
+  TableCaption,
+  Tbody,
+  Badge,
+  Spinner,
+} from "@chakra-ui/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -37,21 +55,30 @@ const CREATE_SUGGEST = gql`
 const Suggest = () => {
   const router = useRouter();
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const [html, setHtml] = useState("");
+  const { register, handleSubmit, setError, formState } = useForm();
   const { data, loading } = useQuery(FIND_MY_SUGGESTS);
   const [createSuggestMutation] = useMutation(CREATE_SUGGEST);
 
-  const onValid = async ({ title, text, type }) => {
+  const onValid = async ({ title, type }) => {
     try {
       setLoadingBtn(true);
+
+      if (html === "") {
+        setError("result", { message: "건의사항을 자세히 적어주세요!" });
+      }
+
       const {
         data: {
           createSuggest: { success, error },
         },
-      } = await createSuggestMutation({ variables: { title, text, type } });
+      } = await createSuggestMutation({
+        variables: { title, text: html, type },
+      });
 
       if (success) {
         toast.success("건의가 제출되었습니다.");
+        router.reload();
       } else {
         toast.error(error);
       }
@@ -60,7 +87,6 @@ const Suggest = () => {
       toast.error(errorMessage);
     } finally {
       setLoadingBtn(false);
-      router.reload();
     }
   };
 
@@ -69,43 +95,51 @@ const Suggest = () => {
       <h1 className="text-2xl font-bold mb-3">내 건의</h1>
       {loading ? (
         <div className="w-full h-full flex items-center justify-center">
-          <Loading type="spinner" size="lg" />
+          <Spinner />
         </div>
       ) : (
-        <Table
-          aria-label="Example table with static content"
-          css={{
-            height: "auto",
-            minWidth: "100%",
-          }}
-        >
-          <Table.Header>
-            <Table.Column>제목</Table.Column>
-            <Table.Column>상태</Table.Column>
-            <Table.Column>분류</Table.Column>
-          </Table.Header>
-          <Table.Body items={data.findMySuggests.suggests}>
-            {(suggest) => (
-              <Table.Row key={suggest.id}>
-                <Table.Cell>
-                  <span className="text-black dark:text-white">
-                    {suggest.title}
-                  </span>
-                </Table.Cell>
-                <Table.Cell>
-                  <StyledBadge type={suggest.status}>
-                    {suggest.status}
-                  </StyledBadge>
-                </Table.Cell>
-                <Table.Cell>
-                  <span className="text-black dark:text-white">
-                    {suggest.type}
-                  </span>
-                </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>제목</Th>
+                <Th>상태</Th>
+                <Th>분류</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data.findMySuggests.suggests.map((suggest) => (
+                <Tr key={suggest.id}>
+                  <Td>
+                    <span className="text-black dark:text-white">
+                      {suggest.title}
+                    </span>
+                  </Td>
+                  <Td>
+                    <Badge
+                      colorScheme={
+                        suggest.status === "done"
+                          ? "green"
+                          : suggest.status === "decline"
+                          ? "red"
+                          : suggest.status === "processing"
+                          ? "yellow"
+                          : "gray"
+                      }
+                    >
+                      {suggest.status}
+                    </Badge>
+                  </Td>
+                  <Td>
+                    <span className="text-black dark:text-white">
+                      {suggest.type}
+                    </span>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
       )}
       <h1 className="text-2xl font-bold mb-2 mt-6">건의하기</h1>
       <h3 className="opacity-70 text-sm mb-[2px]">
@@ -116,32 +150,44 @@ const Suggest = () => {
         건의 내용을 살펴볼거에요!
       </h3>
       <form onSubmit={handleSubmit(onValid)}>
-        <label>
+        <Text fontSize="md" mb={2}>
           제목
-          <input
-            className="input"
-            placeholder="제목을 입력하세요"
-            {...register("title", { required: true })}
-          />
-        </label>
-        <label>
+        </Text>
+        <Input
+          mb={4}
+          isInvalid={formState?.errors?.title?.message}
+          errorBorderColor="red.300"
+          placeholder="제목"
+          {...register("title", { required: "제목을 입력하세요" })}
+        />
+        <Text fontSize="md" mb={2}>
           분류
-          <select className="select" {...register("type", { required: true })}>
-            <option value="School">학교</option>
-            <option value="Dorm">기숙사</option>
-            <option value="Other">그 외</option>
-          </select>
-        </label>
-        <label>
+        </Text>
+        <Select
+          mb={4}
+          placeholder="분류"
+          borderColor={formState?.errors?.type?.message ? "red.300" : "white"}
+          {...register("type", { required: "분류를 선택하세요" })}
+        >
+          <option value="School">학교</option>
+          <option value="Dorm">기숙사</option>
+          <option value="Other">그 외</option>
+        </Select>
+        <Text fontSize="md" mb={2}>
           건의사항
-          <textarea
-            className="textarea"
-            placeholder="건의하고 싶은 내용을 입력하세요"
-            {...register("text", { required: true })}
-            rows={20}
+        </Text>
+        <div className="w-full border-borderColor rounded bg-bgColor dark:bg-slate-800 border">
+          <ReactQuill
+            style={{ height: "400px" }}
+            theme="bubble"
+            value={html || ""}
+            onChange={(content, delta, source, editor) =>
+              setHtml(editor.getHTML())
+            }
           />
-        </label>
-        <button className="blueButton" type="submit">
+          <p>{formState?.errors?.html?.message}</p>
+        </div>
+        <button className="blueButton mt-4" type="submit">
           {loadingBtn ? <Loading type="spinner" size="sm" /> : "건의하기"}
         </button>
       </form>

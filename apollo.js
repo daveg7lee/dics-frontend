@@ -12,14 +12,14 @@ export const isLoggedInVar = makeVar(isLoggedIn);
 
 export const logUserIn = (token) => {
   Cookies.set("authorization", "true");
-  Cookies.set(TOKEN, token, { expires: 7 });
+  Cookies.set(TOKEN, token, { expires: 1 });
   isLoggedInVar(true);
 };
 
 export const logUserOut = () => {
   Cookies.set("authorization", "false");
   Cookies.remove(TOKEN);
-  window.location.reload();
+  window.location.replace("/");
 };
 
 export async function purgeAllUsers() {

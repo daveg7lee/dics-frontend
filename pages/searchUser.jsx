@@ -1,8 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { purgeAllUsers } from "../apollo";
-import Loading from "../components/Loading";
 import SearchTable from "../components/searchUser/SearchTable";
 
 const SEE_USERS = gql`
@@ -94,7 +94,7 @@ const SearchUser = () => {
   return (
     <div className="min-h-screen pt-16">
       {loading ? (
-        <Loading />
+        <Spinner />
       ) : (
         <ul className="mb-20">
           <div className="mb-40 px-10">

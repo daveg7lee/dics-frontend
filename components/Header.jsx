@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useTheme } from "next-themes";
-import { isLoggedInVar, logUserOut } from "../apollo";
+import { logUserOut } from "../apollo";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Link from "next/link";
 import useUser from "../hooks/useUser";
-import Image from "next/image";
-import { useReactiveVar } from "@apollo/client";
 
 const Header = () => {
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { theme, setTheme } = useTheme();
   const { data } = useUser();
   const [open, setOpen] = useState(false);
@@ -25,12 +22,12 @@ const Header = () => {
     <header className="bg-bgColor dark:bg-slate-800 text-black dark:text-white border-borderColor dark:border-slate-600 border-b fixed top-0 z-50 layout w-screen">
       <nav className="flex py-4 items-center justify-between">
         <div className="flex items-center">
-          <Link href="/">
+          <Link href={data?.me ? "/home" : "/"}>
             <h1 className="flex items-center text-2xl font-bold ml-1">
               DICS Students
             </h1>
           </Link>
-          {isLoggedIn && data?.me?.type !== "Admin" && (
+          {data?.me && data?.me?.type !== "Admin" && (
             <Link href="/suggest">
               <h1 className="flex items-center text-sm ml-5 opacity-60 hover:opacity-100 transition-opacity">
                 소리함
@@ -39,7 +36,7 @@ const Header = () => {
           )}
         </div>
         <div className="flex items-center justify-center">
-          {isLoggedIn && (
+          {data?.me && (
             <ClickAwayListener
               mouseEvent="onMouseDown"
               touchEvent="onTouchStart"

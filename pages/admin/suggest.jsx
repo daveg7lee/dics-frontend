@@ -2,6 +2,8 @@ import { Loading } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const SUGGESTS = gql`
   query {
@@ -123,7 +125,11 @@ const SuggestAdmin = () => {
                 </div>
                 <details>
                   <summary>건의 사항</summary>
-                  <p>{suggest.text}</p>
+                  <ReactQuill
+                    value={suggest.text}
+                    readOnly={true}
+                    theme={"bubble"}
+                  />
                 </details>
               </div>
             ))}
@@ -155,7 +161,11 @@ const SuggestAdmin = () => {
                 </div>
                 <details>
                   <summary>건의 사항</summary>
-                  <p>{suggest.text}</p>
+                  <ReactQuill
+                    value={suggest.text}
+                    readOnly={true}
+                    theme={"bubble"}
+                  />
                 </details>
               </div>
             ))}
@@ -188,7 +198,11 @@ const SuggestAdmin = () => {
                 </div>
                 <details>
                   <summary>건의 사항</summary>
-                  <p>{suggest.text}</p>
+                  <ReactQuill
+                    value={suggest.text}
+                    readOnly={true}
+                    theme={"bubble"}
+                  />
                 </details>
               </div>
             ))}
@@ -221,7 +235,11 @@ const SuggestAdmin = () => {
                 </div>
                 <details>
                   <summary>건의 사항</summary>
-                  <p>{suggest.text}</p>
+                  <ReactQuill
+                    value={suggest.text}
+                    readOnly={true}
+                    theme={"bubble"}
+                  />
                 </details>
               </div>
             ))}

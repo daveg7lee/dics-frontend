@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import Loader from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { purgeAllUsers } from "../../apollo";
+import { Spinner } from "@chakra-ui/react";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -152,13 +152,7 @@ const Demerit = () => {
           {
             <div className="labelContainer">
               {loading ? (
-                <Loader
-                  type="TailSpin"
-                  color="#00BFFF"
-                  height={20}
-                  width={20}
-                  timeout={5000}
-                />
+                <Spinner />
               ) : (
                 <>
                   {data.searchUser.success
@@ -199,13 +193,7 @@ const Demerit = () => {
           />
           {loadingBtn ? (
             <button className="blueButton">
-              <Loader
-                type="TailSpin"
-                color="white"
-                height={16}
-                width={16}
-                timeout={5000}
-              />
+              <Spinner />
             </button>
           ) : (
             <button className="blueButton">Submit</button>

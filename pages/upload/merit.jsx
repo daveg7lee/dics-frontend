@@ -1,11 +1,11 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
-import Loader from "react-loader-spinner";
 import { toast } from "react-toastify";
 import CustomButton from "../../components/CustomButton";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { useForm } from "react-hook-form";
 import { purgeAllUsers } from "../../apollo";
+import { Spinner } from "@chakra-ui/react";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -105,13 +105,7 @@ const Merit = () => {
           {
             <div className="labelContainer">
               {loading ? (
-                <Loader
-                  type="TailSpin"
-                  color="#00BFFF"
-                  height={20}
-                  width={20}
-                  timeout={5000}
-                />
+                <Spinner />
               ) : (
                 <>
                   {data.searchUser.users
@@ -145,17 +139,7 @@ const Merit = () => {
             {...register("score", { required: true })}
           />
           {loadingBtn ? (
-            <CustomButton
-              text={
-                <Loader
-                  type="TailSpin"
-                  color="white"
-                  height={16}
-                  width={16}
-                  timeout={5000}
-                />
-              }
-            />
+            <CustomButton text={<Spinner />} />
           ) : (
             <CustomButton text="Submit" />
           )}

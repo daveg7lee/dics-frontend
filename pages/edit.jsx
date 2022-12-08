@@ -80,6 +80,11 @@ const Edit = () => {
       let avatar;
 
       if (files.length !== 0) {
+        if (files[0].size > 2000000) {
+          toast.error("이미지 용량이 너무 큽니다");
+          setIsLoading(false);
+          return;
+        }
         avatar = await uploadFile(files[0]);
       }
 
