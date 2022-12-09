@@ -73,7 +73,7 @@ const Header = () => {
               </div>
             </ClickAwayListener>
           )}
-          <button
+          {/* <button
             type="button"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="text-gray-500 dark:text-gray-400 ml-2"
@@ -102,7 +102,7 @@ const Header = () => {
                 ></path>
               </svg>
             )}
-          </button>
+          </button> */}
         </div>
       </nav>
     </header>

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Input, Spinner } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 
 const LOG_USER_IN = gql`
   mutation login($username: String!, $password: String!) {
