@@ -16,6 +16,11 @@ import {
   Tbody,
   Badge,
   Spinner,
+  Box,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  Avatar,
 } from "@chakra-ui/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
@@ -23,7 +28,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import gql from "graphql-tag";
 import { useState } from "react";
-import { StyledBadge } from "../components/StyledBadge";
+import { FiSend } from "react-icons/fi";
 
 const FIND_MY_SUGGESTS = gql`
   query findMySuggests {
@@ -35,7 +40,17 @@ const FIND_MY_SUGGESTS = gql`
         text
         type
         status
-        createdAt
+        user {
+          username
+          grade
+        }
+        reply {
+          text
+          user {
+            username
+            avatar
+          }
+        }
       }
     }
   }
@@ -52,13 +67,50 @@ const CREATE_SUGGEST = gql`
   }
 `;
 
+const REPLY_TO = gql`
+  mutation replyTo($id: String!, $text: String!) {
+    replyTo(replySuggestInput: { id: $id, text: $text }) {
+      success
+      suggest {
+        id
+        title
+        text
+        type
+        status
+        user {
+          username
+          grade
+        }
+        reply {
+          text
+          user {
+            username
+            avatar
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Suggest = () => {
   const router = useRouter();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [html, setHtml] = useState("");
+  const [value, setValue] = useState("");
   const { register, handleSubmit, setError, formState } = useForm();
   const { data, loading } = useQuery(FIND_MY_SUGGESTS);
   const [createSuggestMutation] = useMutation(CREATE_SUGGEST);
+  const [replyToMutation] = useMutation(REPLY_TO);
+
+  const handleChange = (event) => setValue(event.target.value);
+
+  const handleReplyClick = async (suggest) => {
+    setValue("");
+    await replyToMutation({
+      variables: { id: suggest.id, text: value },
+    });
+  };
 
   const onValid = async ({ title, type }) => {
     try {
@@ -98,48 +150,71 @@ const Suggest = () => {
           <Spinner />
         </div>
       ) : (
-        <TableContainer>
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>제목</Th>
-                <Th>상태</Th>
-                <Th>분류</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {data.findMySuggests.suggests.map((suggest) => (
-                <Tr key={suggest.id}>
-                  <Td>
-                    <span className="text-black dark:text-white">
-                      {suggest.title}
-                    </span>
-                  </Td>
-                  <Td>
-                    <Badge
-                      colorScheme={
-                        suggest.status === "done"
-                          ? "green"
-                          : suggest.status === "decline"
-                          ? "red"
-                          : suggest.status === "processing"
-                          ? "yellow"
-                          : "gray"
-                      }
-                    >
-                      {suggest.status}
-                    </Badge>
-                  </Td>
-                  <Td>
-                    <span className="text-black dark:text-white">
-                      {suggest.type}
-                    </span>
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
+        <Box>
+          {data.findMySuggests.suggests.map((suggest) => (
+            <Box key={suggest.id} p={5}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <span className="text-black dark:text-white">
+                  {suggest.title}
+                </span>
+                <Badge
+                  colorScheme={
+                    suggest.status === "done"
+                      ? "green"
+                      : suggest.status === "decline"
+                      ? "red"
+                      : suggest.status === "processing"
+                      ? "yellow"
+                      : "gray"
+                  }
+                >
+                  {suggest.status}
+                </Badge>
+                <span className="text-black dark:text-white">
+                  {suggest.type}
+                </span>
+              </Box>
+              {suggest?.reply && (
+                <Box py={5}>
+                  {suggest?.reply.map((i) => (
+                    <Box display="flex" alignItems="center" key={i.id} py={1}>
+                      <Avatar
+                        name={i.user.username}
+                        src={i.user.avatar}
+                        size="sm"
+                        mr={2}
+                      />
+                      <Text as="p" display="flex" alignItems="center">
+                        {i.text}
+                        <Text color="gray" fontSize="xs" ml={1}>
+                          {i.user.username}
+                        </Text>
+                      </Text>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+              <InputGroup mt={2}>
+                <Input
+                  value={value}
+                  onChange={handleChange}
+                  placeholder="답변을 적어주세요."
+                />
+                <InputRightElement>
+                  <IconButton
+                    size="sm"
+                    onClick={() => handleReplyClick(suggest)}
+                    icon={<FiSend />}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </Box>
+          ))}
+        </Box>
       )}
       <h1 className="text-2xl font-bold mb-2 mt-6">건의하기</h1>
       <h3 className="opacity-70 text-sm mb-[2px]">

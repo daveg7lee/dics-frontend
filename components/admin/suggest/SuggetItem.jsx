@@ -211,105 +211,9 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
   const [updateSuggestMutation] = useMutation(UPDATE_SUGGEST, {
     update: updateUpdateSuggest,
   });
-  const updateReplyTo = (cache, result) => {
-    const {
-      data: { replyTo },
-    } = result;
-    switch (suggest.status) {
-      case "waiting":
-        cache.modify({
-          id: "ROOT_QUERY",
-          fields: {
-            findAllWaiting(prev) {
-              return {
-                success: true,
-                suggests: [
-                  ...prev.suggests.filter((i) => {
-                    if (i.__ref) {
-                      return i.__ref.split(":")[1] !== suggest.id;
-                    } else {
-                      return i.id !== suggest.id;
-                    }
-                  }),
-                  replyTo.suggest,
-                ],
-              };
-            },
-          },
-        });
-        break;
-      case "done":
-        cache.modify({
-          id: "ROOT_QUERY",
-          fields: {
-            findAllDone(prev) {
-              return {
-                success: true,
-                suggests: [
-                  ...prev.suggests.filter((i) => {
-                    if (i.__ref) {
-                      return i.__ref.split(":")[1] !== suggest.id;
-                    } else {
-                      return i.id !== suggest.id;
-                    }
-                  }),
-                  replyTo.suggest,
-                ],
-              };
-            },
-          },
-        });
-        break;
-      case "processing":
-        cache.modify({
-          id: "ROOT_QUERY",
-          fields: {
-            findAllProcessing(prev) {
-              return {
-                success: true,
-                suggests: [
-                  ...prev.suggests.filter((i) => {
-                    if (i.__ref) {
-                      return i.__ref.split(":")[1] !== suggest.id;
-                    } else {
-                      return i.id !== suggest.id;
-                    }
-                  }),
-                  replyTo.suggest,
-                ],
-              };
-            },
-          },
-        });
-        break;
-      case "decline":
-        cache.modify({
-          id: "ROOT_QUERY",
-          fields: {
-            findAllDecline(prev) {
-              return {
-                success: true,
-                suggests: [
-                  ...prev.suggests.filter((i) => {
-                    if (i.__ref) {
-                      return i.__ref.split(":")[1] !== suggest.id;
-                    } else {
-                      return i.id !== suggest.id;
-                    }
-                  }),
-                  replyTo.suggest,
-                ],
-              };
-            },
-          },
-        });
-        break;
-    }
-  };
-  const [replyToMutation] = useMutation(REPLY_TO, { update: updateReplyTo });
+  const [replyToMutation] = useMutation(REPLY_TO);
 
   const onClick = async (id, status) => {
-    setValue("");
     await updateSuggestMutation({
       variables: {
         id,
@@ -319,10 +223,10 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
   };
 
   const handleReplyClick = async () => {
-    const res = await replyToMutation({
+    setValue("");
+    await replyToMutation({
       variables: { id: suggest.id, text: value },
     });
-    console.log(res);
   };
 
   return (
@@ -356,8 +260,7 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
         <ReactQuill value={suggest.text} readOnly={true} theme={"bubble"} />
       </details>
       {suggest?.reply && (
-        <Box as="details">
-          <summary>채팅</summary>
+        <Box>
           {suggest?.reply.map((i) => (
             <Box display="flex" alignItems="center" key={i.id} py={1}>
               <Avatar
@@ -376,7 +279,7 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
           ))}
         </Box>
       )}
-      <InputGroup mt={2}>
+      <InputGroup>
         <Input
           value={value}
           onChange={handleChange}
