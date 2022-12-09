@@ -1,19 +1,9 @@
-import { Loading } from "@nextui-org/react";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import {
   Input,
   Select,
-  TableContainer,
   Text,
-  Table,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Thead,
-  TableCaption,
-  Tbody,
   Badge,
   Spinner,
   Box,
@@ -21,6 +11,9 @@ import {
   InputRightElement,
   IconButton,
   Avatar,
+  Heading,
+  Center,
+  Button,
 } from "@chakra-ui/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
@@ -143,24 +136,30 @@ const Suggest = () => {
   };
 
   return (
-    <div className="w-full min-h-screen py-28 layout">
-      <h1 className="text-2xl font-bold mb-3">내 건의</h1>
+    <Box w="full" py={28} px={{ lg: 32, md: 24, sm: 8 }}>
+      <Heading fontSize="2xl" mb={2}>
+        내 건의
+      </Heading>
       {loading ? (
-        <div className="w-full h-full flex items-center justify-center">
+        <Center>
           <Spinner />
-        </div>
+        </Center>
       ) : (
         <Box>
           {data.findMySuggests.suggests.map((suggest) => (
-            <Box key={suggest.id} p={5}>
+            <Box
+              key={suggest.id}
+              p={5}
+              border="1px"
+              borderColor="gray.200"
+              rounded="lg"
+            >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <span className="text-black dark:text-white">
-                  {suggest.title}
-                </span>
+                <Text>{suggest.title}</Text>
                 <Badge
                   colorScheme={
                     suggest.status === "done"
@@ -174,9 +173,7 @@ const Suggest = () => {
                 >
                   {suggest.status}
                 </Badge>
-                <span className="text-black dark:text-white">
-                  {suggest.type}
-                </span>
+                <Text>{suggest.type}</Text>
               </Box>
               {suggest?.reply && (
                 <Box py={5}>
@@ -216,14 +213,14 @@ const Suggest = () => {
           ))}
         </Box>
       )}
-      <h1 className="text-2xl font-bold mb-2 mt-6">건의하기</h1>
-      <h3 className="opacity-70 text-sm mb-[2px]">
+      <Heading className="text-2xl font-bold mb-2 mt-6">건의하기</Heading>
+      <Text mb={1} color="gray" fontSize="sm">
         한 번 작성한 건의는 수정, 삭제, 보기가 불가능하니 신중하게 작성해주세요!
-      </h3>
-      <h3 className="opacity-70 text-sm mb-4">
+      </Text>
+      <Text mb={4} color="gray" fontSize="sm">
         건의는 1주일에 한 번밖에 할 수 없어요. 매주 학생회 및 사생회가 학생들의
         건의 내용을 살펴볼거에요!
-      </h3>
+      </Text>
       <form onSubmit={handleSubmit(onValid)}>
         <Text fontSize="md" mb={2}>
           제목
@@ -241,7 +238,9 @@ const Suggest = () => {
         <Select
           mb={4}
           placeholder="분류"
-          borderColor={formState?.errors?.type?.message ? "red.300" : "white"}
+          borderColor={
+            formState?.errors?.type?.message ? "red.300" : "gray.200"
+          }
           {...register("type", { required: "분류를 선택하세요" })}
         >
           <option value="School">학교</option>
@@ -251,7 +250,12 @@ const Suggest = () => {
         <Text fontSize="md" mb={2}>
           건의사항
         </Text>
-        <div className="w-full border-borderColor rounded bg-bgColor dark:bg-slate-800 border">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          className="w-full border-borderColor rounded bg-bgColor dark:bg-slate-800 border"
+        >
           <ReactQuill
             style={{ height: "400px" }}
             theme="bubble"
@@ -260,13 +264,12 @@ const Suggest = () => {
               setHtml(editor.getHTML())
             }
           />
-          <p>{formState?.errors?.html?.message}</p>
-        </div>
-        <button className="blueButton mt-4" type="submit">
-          {loadingBtn ? <Loading type="spinner" size="sm" /> : "건의하기"}
-        </button>
+        </Box>
+        <Button mt={4} w="full" type="submit">
+          {loadingBtn ? <Spinner /> : "건의하기"}
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

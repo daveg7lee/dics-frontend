@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { SEARCH_USER_AND_ME } from "../../SharedQueries";
 import { purgeAllUsers } from "../../apollo";
-import { Spinner } from "@chakra-ui/react";
+import { Button, Input, Spinner } from "@chakra-ui/react";
+import AdminOnlyPage from "../../components/ProtectedPages/AdminOnlyPage";
 
 const UPLOAD_SCORE = gql`
   mutation createScore(
@@ -128,79 +129,77 @@ const Demerit = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen flex flex-col items-center justify-center">
-      <h1 className="title">벌점 입력</h1>
-      <div className="formContainer">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className="input"
-            placeholder="입력자"
-            {...register("uploader", { required: true })}
-          />
-          <input
-            className="input"
-            placeholder="Date"
-            type="datetime-local"
-            {...register("date", { required: true })}
-          />
-          <input
-            className="input"
-            placeholder="받는사람"
-            {...register("term", { required: true })}
-            onKeyPress={() => refetch()}
-          />
-          {
-            <div className="labelContainer">
-              {loading ? (
-                <Spinner />
-              ) : (
-                <>
-                  {data.searchUser.success
-                    ? data.searchUser.users.map((user) => (
-                        <label className="label" key={user.id}>
-                          <input
-                            key={user.id}
-                            type="radio"
-                            name="Student"
-                            value={user.username}
-                            style={{ width: "1rem" }}
-                            onClick={() => setValue("term", user.username)}
-                          />
-                          {user.username}
-                        </label>
-                      ))
-                    : term.value !== "" && <h1>User not Found</h1>}
-                </>
-              )}
-            </div>
-          }
-          <input
-            className="input"
-            placeholder="솔로몬 조항"
-            {...register("article", { required: true })}
-          />
-          <input
-            className="input"
-            placeholder="점수"
-            {...register("score", { required: true })}
-            type="number"
-          />
-          <input
-            className="input"
-            placeholder="비고"
-            {...register("detail", { required: false })}
-            type="text"
-          />
-          {loadingBtn ? (
-            <button className="blueButton">
-              <Spinner />
-            </button>
-          ) : (
-            <button className="blueButton">Submit</button>
-          )}
-        </form>
+    <AdminOnlyPage>
+      <div className="min-h-screen w-screen flex flex-col items-center justify-center">
+        <h1 className="title">벌점 입력</h1>
+        <div className="formContainer">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              my={1}
+              placeholder="입력자"
+              {...register("uploader", { required: true })}
+            />
+            <Input
+              my={1}
+              placeholder="Date"
+              type="datetime-local"
+              {...register("date", { required: true })}
+            />
+            <Input
+              my={1}
+              placeholder="받는사람"
+              {...register("term", { required: true })}
+              onKeyPress={() => refetch()}
+            />
+            {
+              <div className="labelContainer">
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    {data.searchUser.success
+                      ? data.searchUser.users.map((user) => (
+                          <label className="label" key={user.id}>
+                            <input
+                              key={user.id}
+                              type="radio"
+                              name="Student"
+                              value={user.username}
+                              style={{ width: "1rem" }}
+                              onClick={() => setValue("term", user.username)}
+                            />
+                            {user.username}
+                          </label>
+                        ))
+                      : term.value !== "" && <h1>User not Found</h1>}
+                  </>
+                )}
+              </div>
+            }
+            <Input
+              my={1}
+              placeholder="솔로몬 조항"
+              {...register("article", { required: true })}
+            />
+            <Input
+              my={1}
+              placeholder="점수"
+              {...register("score", { required: true })}
+              type="number"
+            />
+            <Input
+              my={1}
+              placeholder="비고"
+              {...register("detail", { required: false })}
+              type="text"
+            />
+            <Button disabled={loadingBtn} w={"full"} mt={2} type="submit">
+              {loadingBtn ? <Spinner /> : "Submit"}
+            </Button>
+          </form>
+        </div>
       </div>
-    </div>
+    </AdminOnlyPage>
   );
 };
 

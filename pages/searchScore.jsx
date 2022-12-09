@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Spinner } from "@chakra-ui/react";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
+import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
 
 const SEARCH_SCORE = gql`
   query searchScore($term: String!) {
@@ -39,33 +40,35 @@ const SearchScore = () => {
   };
 
   return (
-    <div className="min-h-screen px-5 pt-20">
-      <header className="w-full flex flex-col justify-center items-center h-32">
-        <input
-          placeholder="Uploader Name"
-          className="input"
-          {...register("term")}
-        />
-        <input type="month" onChange={dateOnChange} className="input" />
-      </header>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <h1 className="text-xl font-semibold">검색 결과</h1>
-          <ul className="my-20">
-            {data?.searchScore.scores.map((score) => (
-              <li className="w-full flex justify-between mb-5" key={score.id}>
-                <h1 className="text-center w-full">{score.uploader}</h1>
-                <h1 className="text-center w-full">{score.user.username}</h1>
-                <h2 className="text-center w-full">{score.article}</h2>
-                <span className="text-center w-full">{score.date}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
+    <AdminOnlyPage>
+      <div className="min-h-screen px-5 pt-20">
+        <header className="w-full flex flex-col justify-center items-center h-32">
+          <input
+            placeholder="Uploader Name"
+            className="input"
+            {...register("term")}
+          />
+          <input type="month" onChange={dateOnChange} className="input" />
+        </header>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <h1 className="text-xl font-semibold">검색 결과</h1>
+            <ul className="my-20">
+              {data?.searchScore.scores.map((score) => (
+                <li className="w-full flex justify-between mb-5" key={score.id}>
+                  <h1 className="text-center w-full">{score.uploader}</h1>
+                  <h1 className="text-center w-full">{score.user.username}</h1>
+                  <h2 className="text-center w-full">{score.article}</h2>
+                  <span className="text-center w-full">{score.date}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </AdminOnlyPage>
   );
 };
 

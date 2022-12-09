@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 import { purgeAllUsers } from "../apollo";
+import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
 
 const DELETE_USER = gql`
   mutation removeUser($username: String!) {
@@ -35,23 +36,25 @@ function DeleteUser() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen">
-      <h1 className="text-3xl font-bold mb-3">학생 제거</h1>
-      <form
-        onSubmit={handleSubmit(onValid)}
-        className="flex flex-col w-96 justify-center items-center"
-      >
-        <input
-          className="input"
-          placeholder="이름"
-          {...register("username", { required: true })}
-        />
-        {formState?.errors?.username?.message && (
-          <p>{formState?.errors?.username?.message}</p>
-        )}
-        <input type="submit" className="blueButton" value="학생 제거" />
-      </form>
-    </div>
+    <AdminOnlyPage>
+      <div className="flex flex-col justify-center items-center w-full h-screen">
+        <h1 className="text-3xl font-bold mb-3">학생 제거</h1>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="flex flex-col w-96 justify-center items-center"
+        >
+          <input
+            className="input"
+            placeholder="이름"
+            {...register("username", { required: true })}
+          />
+          {formState?.errors?.username?.message && (
+            <p>{formState?.errors?.username?.message}</p>
+          )}
+          <input type="submit" className="blueButton" value="학생 제거" />
+        </form>
+      </div>
+    </AdminOnlyPage>
   );
 }
 

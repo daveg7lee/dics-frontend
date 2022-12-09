@@ -1,8 +1,9 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Spinner } from "@chakra-ui/react";
+import { Box, Center, Heading, Select, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { purgeAllUsers } from "../apollo";
+import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
 import SearchTable from "../components/searchUser/SearchTable";
 
 const SEE_USERS = gql`
@@ -92,15 +93,23 @@ const SearchUser = () => {
   };
 
   return (
-    <div className="min-h-screen pt-16">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <ul className="mb-20">
-          <div className="mb-40 px-10">
-            <h1 className="text-2xl font-semibold p-4 border-b border-borderColor dark:border-slate-600 mt-4">
+    <AdminOnlyPage>
+      <Box pt={20}>
+        {loading ? (
+          <Center>
+            <Spinner />
+          </Center>
+        ) : (
+          <Box px={10}>
+            <Heading
+              fontSize="2xl"
+              p={4}
+              mt={4}
+              borderBottom="1px"
+              borderColor="gray.200"
+            >
               솔로몬 고위험자
-            </h1>
+            </Heading>
             {userData.map((user) => {
               if (user.totalScores <= -15) {
                 return (
@@ -114,21 +123,27 @@ const SearchUser = () => {
                 );
               }
             })}
-          </div>
-          <div className="px-10">
-            <div className="border-b border-borderColor dark:border-slate-600 flex items-center justify-between mt-4 p-4">
-              <h1 className="text-2xl font-semibold">전체 보기</h1>
-              <select
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              mt={20}
+              p={4}
+              borderBottom="1px"
+              borderColor="gray.200"
+            >
+              <Heading fontSize="2xl">전체 보기</Heading>
+              <Select
+                w={20}
                 value={sortType}
                 onChange={(event) => setSortType(event.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
               >
                 <option value={"username"}>이름</option>
                 <option value={"demerit"}>벌점</option>
                 <option value={"merit"}>상점</option>
                 <option value="grade">학년</option>
-              </select>
-            </div>
+              </Select>
+            </Box>
             {userData.map((user) => (
               <SearchTable
                 key={user.id}
@@ -138,10 +153,10 @@ const SearchUser = () => {
                 deleteScore={deleteScore}
               />
             ))}
-          </div>
-        </ul>
-      )}
-    </div>
+          </Box>
+        )}
+      </Box>
+    </AdminOnlyPage>
   );
 };
 
