@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import Link from "next/link";
 import { purgeAllUsers } from "../apollo";
+import { Box, Grid, Text } from "@chakra-ui/react";
 
 const RESET_SCORE = gql`
   mutation resetScores($type: ScoreType!) {
@@ -71,62 +72,132 @@ const Admin = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-full">
-      <div className="w-full grid grid-cols-6 gap-4">
-        <Link href="/upload">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+    <Grid
+      w="full"
+      h="full"
+      templateColumns={{
+        sm: "repeat(2, 1fr)",
+        md: "repeat(3, 1fr)",
+        lg: "repeat(4, 1fr)",
+        xl: "repeat(5, 1fr)",
+      }}
+      gap={4}
+    >
+      <Link href="/upload">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
+        >
+          <Text fontSize="2xl" as="b" w="full">
             상벌점 입력
-          </div>
-        </Link>
-        <Link href="/searchUser">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+          </Text>
+        </Box>
+      </Link>
+      <Link href="/searchUser">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
+        >
+          <Text fontSize="2xl" as="b" w="full">
             학생 조회
-          </div>
-        </Link>
-        <Link href="/signup">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+          </Text>
+        </Box>
+      </Link>
+      <Link href="/signup">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
+        >
+          <Text fontSize="2xl" as="b" w="full">
             학생 추가
-          </div>
-        </Link>
-        <Link href="/deleteUser">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+          </Text>
+        </Box>
+      </Link>
+      <Link href="/deleteUser">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
+        >
+          <Text fontSize="2xl" as="b" w="full">
             학생 제거
-          </div>
-        </Link>
-        <Link href="/searchScore">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+          </Text>
+        </Box>
+      </Link>
+      <Link href="/searchScore">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
+        >
+          <Text fontSize="2xl" as="b" w="full">
             상벌점 조회
-          </div>
-        </Link>
-        <button
-          className="text-2xl font-semibold w-full text-center h-full"
-          onClick={() => resetScores("Demerit")}
+          </Text>
+        </Box>
+      </Link>
+      <Box
+        w="full"
+        border="1px"
+        borderColor="gray.200"
+        p={5}
+        textAlign="center"
+        onClick={() => resetScores("Demerit")}
+      >
+        <Text fontSize="2xl" as="b" w="full">
+          벌점 초기화
+        </Text>
+      </Box>
+      <Box
+        w="full"
+        border="1px"
+        borderColor="gray.200"
+        p={5}
+        textAlign="center"
+        onClick={() => resetScores("Merit")}
+      >
+        <Text fontSize="2xl" as="b" w="full">
+          상점 초기화
+        </Text>
+      </Box>
+      <Box
+        w="full"
+        border="1px"
+        borderColor="gray.200"
+        p={5}
+        textAlign="center"
+        onClick={onClickGraduate}
+      >
+        <Text fontSize="2xl" as="b" w="full">
+          졸업
+        </Text>
+      </Box>
+      <Link href="/admin/suggest">
+        <Box
+          w="full"
+          border="1px"
+          borderColor="gray.200"
+          p={5}
+          textAlign="center"
         >
-          <div className="border border-borderColor p-5 rounded">
-            벌점 초기화
-          </div>
-        </button>
-        <button
-          className="text-2xl font-semibold w-full text-center h-full"
-          onClick={() => resetScores("Merit")}
-        >
-          <div className="border border-borderColor p-5 rounded">
-            상점 초기화
-          </div>
-        </button>
-        <button
-          className="text-2xl font-semibold w-full text-center h-full"
-          onClick={onClickGraduate}
-        >
-          <div className="border border-borderColor p-5 rounded">졸업</div>
-        </button>
-        <Link href="/admin/suggest">
-          <div className="text-2xl font-semibold w-full border border-borderColor p-5 rounded text-center h-full">
+          <Text fontSize="2xl" as="b" w="full">
             소리함 관리
-          </div>
-        </Link>
-      </div>
-    </div>
+          </Text>
+        </Box>
+      </Link>
+    </Grid>
   );
 };
 

@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 import "react-quill/dist/quill.bubble.css";
 import "../styles/global.css";
 import { ToastContainer, toast } from "react-toastify";
-import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DefaultSeo } from "next-seo";
 import { client } from "../apollo";
@@ -14,7 +13,6 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
       <ChakraProvider>
-        {/* <ThemeProvider attribute="class"> */}
         <DefaultSeo
           title="DICS Students"
           description="Powerful website for DICS students!"
@@ -39,7 +37,6 @@ const MyApp = ({ Component, pageProps }) => {
           position={toast.POSITION.TOP_RIGHT}
           hideProgressBar={true}
         />
-        {/* </ThemeProvider> */}
       </ChakraProvider>
     </ApolloProvider>
   );

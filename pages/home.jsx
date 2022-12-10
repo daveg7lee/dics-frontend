@@ -16,11 +16,7 @@ function Home() {
       {!data?.me ? (
         <Spinner />
       ) : (
-        <Box
-          w="full"
-          h="full"
-          className="h-full w-full layout flex justify-center items-center py-20"
-        >
+        <Box w="full" h="full" px={{ lg: 32, md: 24, sm: 8 }}>
           {data?.me?.type === "Admin" ? <Admin /> : <Student me={data?.me} />}
         </Box>
       )}

@@ -1,5 +1,17 @@
 import { useQuery } from "@apollo/client";
-import { Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Input,
+  Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
 import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
@@ -41,33 +53,46 @@ const SearchScore = () => {
 
   return (
     <AdminOnlyPage>
-      <div className="min-h-screen px-5 pt-20">
-        <header className="w-full flex flex-col justify-center items-center h-32">
-          <input
-            placeholder="Uploader Name"
-            className="input"
-            {...register("term")}
-          />
-          <input type="month" onChange={dateOnChange} className="input" />
-        </header>
+      <Box pt={24} px={{ lg: 32, md: 24, sm: 8 }}>
+        <Heading fontSize="3xl" mb={4}>
+          상벌점 조회
+        </Heading>
+        <Box>
+          <Input placeholder="Uploader Name" {...register("term")} mb={2} />
+          <Input type="month" onChange={dateOnChange} />
+        </Box>
+        <Heading fontSize="2xl" py={4}>
+          검색 결과
+        </Heading>
         {loading ? (
           <Spinner />
         ) : (
-          <>
-            <h1 className="text-xl font-semibold">검색 결과</h1>
-            <ul className="my-20">
-              {data?.searchScore.scores.map((score) => (
-                <li className="w-full flex justify-between mb-5" key={score.id}>
-                  <h1 className="text-center w-full">{score.uploader}</h1>
-                  <h1 className="text-center w-full">{score.user.username}</h1>
-                  <h2 className="text-center w-full">{score.article}</h2>
-                  <span className="text-center w-full">{score.date}</span>
-                </li>
-              ))}
-            </ul>
-          </>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>입력자</Th>
+                  <Th>학생 이름</Th>
+                  <Th>솔로몬 조항</Th>
+                  <Th>날짜</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {data?.searchScore.scores.map((score) => (
+                  <Tr key={score.id}>
+                    <Td>{score.uploader}</Td>
+                    <Td>{score.user.username}</Td>
+                    <Td>{score.article}</Td>
+                    <Td>
+                      {score.date.replace(/T.*/, "").split("-").join("-")}
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
         )}
-      </div>
+      </Box>
     </AdminOnlyPage>
   );
 };

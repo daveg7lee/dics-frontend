@@ -8,8 +8,9 @@ function Student({ me }) {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      py={20}
     >
-      <Box display="flex" justifyContent="center" alignItems="center" py={20}>
+      <Box display="flex" justifyContent="center" alignItems="center" mb={20}>
         <Box
           display="flex"
           justifyContent="center"

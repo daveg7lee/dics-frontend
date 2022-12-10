@@ -364,7 +364,7 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
           <Button
             variant="ghost"
             size="sm"
-            className="mr-2"
+            mr={2}
             onClick={async () =>
               await onClick(suggest.id, leftButtonType.status)
             }

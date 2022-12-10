@@ -1,4 +1,3 @@
-import { Loading } from "@nextui-org/react";
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import SuggestItem from "../../components/admin/suggest/SuggetItem";
@@ -6,6 +5,7 @@ import AdminOnlyPage from "../../components/ProtectedPages/AdminOnlyPage";
 import {
   Box,
   Heading,
+  Spinner,
   Tab,
   TabList,
   TabPanel,
@@ -109,7 +109,7 @@ const SuggestAdmin = () => {
     <AdminOnlyPage>
       <Box w="full" py={28} px={{ lg: 32, md: 24, sm: 8 }}>
         {loading ? (
-          <Loading />
+          <Spinner />
         ) : (
           <>
             <Heading fontSize="3xl" mb={4}>

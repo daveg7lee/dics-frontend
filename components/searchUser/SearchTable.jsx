@@ -18,6 +18,7 @@ import {
   useDisclosure,
   Table,
   ModalHeader,
+  Avatar,
 } from "@chakra-ui/react";
 
 const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => {
@@ -38,15 +39,7 @@ const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Box className="w-12 h-12 rounded-full overflow-hidden justify-self-center">
-          <Image
-            width={48}
-            height={48}
-            src={user.avatar}
-            alt="Profile Img"
-            className="min-w-full max-w-full"
-          />
-        </Box>
+        <Avatar src={user.avatar} />
       </GridItem>
       <GridItem
         w="full"

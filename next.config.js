@@ -9,16 +9,6 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: "/:path/:path*",
-        has: [{ type: "cookie", key: "authorization", value: "false" }],
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
   compress: true,
   reactStrictMode: true,
   images: {
