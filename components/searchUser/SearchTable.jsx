@@ -73,7 +73,13 @@ const SearchTable = ({ user, totalScore, deleteScore, totalMerit }) => {
         {totalMerit}
       </GridItem>
       <Button onClick={onOpen}>Detail</Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="6xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size="6xl"
+        scrollBehavior="inside"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{user.username}의 벌점 현황</ModalHeader>
