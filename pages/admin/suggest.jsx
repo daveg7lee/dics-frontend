@@ -3,6 +3,15 @@ import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import SuggestItem from "../../components/admin/suggest/SuggetItem";
 import AdminOnlyPage from "../../components/ProtectedPages/AdminOnlyPage";
+import {
+  Box,
+  Heading,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 
 const SUGGESTS = gql`
   query {
@@ -98,59 +107,79 @@ const SuggestAdmin = () => {
 
   return (
     <AdminOnlyPage>
-      <div className="w-full min-h-screen py-28 layout">
+      <Box w="full" py={28} px={{ lg: 32, md: 24, sm: 8 }}>
         {loading ? (
           <Loading />
         ) : (
           <>
-            <h1 className="text-2xl mb-4 font-bold">대기 중인 건의사항</h1>
-            <ul>
-              {data?.findAllWaiting?.suggests.map((suggest) => (
-                <SuggestItem
-                  key={suggest.id}
-                  suggest={suggest}
-                  leftButtonType={{ status: "processing", text: "진행" }}
-                  rightButtonType={{ status: "decline", text: "거절" }}
-                />
-              ))}
-            </ul>
+            <Heading fontSize="3xl" mb={4}>
+              소리함 관리
+            </Heading>
+            <Tabs>
+              <TabList>
+                <Tab>대기 중인 건의사항</Tab>
+                <Tab>진행 중인 건의사항</Tab>
+                <Tab>완료된 건의사항</Tab>
+                <Tab>거절된 건의사항</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <Box>
+                    {data?.findAllWaiting?.suggests.map((suggest) => (
+                      <SuggestItem
+                        key={suggest.id}
+                        suggest={suggest}
+                        leftButtonType={{ status: "processing", text: "진행" }}
+                        rightButtonType={{ status: "decline", text: "거절" }}
+                      />
+                    ))}
+                  </Box>
+                </TabPanel>
+                <TabPanel>
+                  <Box>
+                    {data?.findAllProcessing?.suggests.map((suggest) => (
+                      <SuggestItem
+                        key={suggest.id}
+                        suggest={suggest}
+                        leftButtonType={{ status: "done", text: "완료" }}
+                        rightButtonType={{ status: "waiting", text: "보류" }}
+                      />
+                    ))}
+                  </Box>
+                </TabPanel>
+                <TabPanel>
+                  <Box>
+                    {data?.findAllDone?.suggests.map((suggest) => (
+                      <SuggestItem
+                        key={suggest.id}
+                        suggest={suggest}
+                        leftButtonType={{
+                          status: "processing",
+                          text: "재진행",
+                        }}
+                        rightButtonType={{ status: "decline", text: "거절" }}
+                      />
+                    ))}
+                  </Box>
+                </TabPanel>
 
-            <h1 className="text-2xl font-bold my-4">진행 중인 건의사항</h1>
-            <ul>
-              {data?.findAllProcessing?.suggests.map((suggest) => (
-                <SuggestItem
-                  key={suggest.id}
-                  suggest={suggest}
-                  leftButtonType={{ status: "done", text: "완료" }}
-                  rightButtonType={{ status: "waiting", text: "보류" }}
-                />
-              ))}
-            </ul>
-            <h1 className="text-2xl font-bold my-4">완료된 건의사항</h1>
-            <ul className="done">
-              {data?.findAllDone?.suggests.map((suggest) => (
-                <SuggestItem
-                  key={suggest.id}
-                  suggest={suggest}
-                  leftButtonType={{ status: "processing", text: "재진행" }}
-                  rightButtonType={{ status: "decline", text: "거절" }}
-                />
-              ))}
-            </ul>
-            <h1 className="text-2xl font-bold my-4">거절된 건의사항</h1>
-            <ul className="done">
-              {data?.findAllDecline?.suggests.map((suggest) => (
-                <SuggestItem
-                  key={suggest.id}
-                  suggest={suggest}
-                  leftButtonType={{ status: "waiting", text: "재확인" }}
-                  rightButtonType={{ status: "processing", text: "진행" }}
-                />
-              ))}
-            </ul>
+                <TabPanel>
+                  <Box>
+                    {data?.findAllDecline?.suggests.map((suggest) => (
+                      <SuggestItem
+                        key={suggest.id}
+                        suggest={suggest}
+                        leftButtonType={{ status: "waiting", text: "재확인" }}
+                        rightButtonType={{ status: "processing", text: "진행" }}
+                      />
+                    ))}
+                  </Box>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </>
         )}
-      </div>
+      </Box>
     </AdminOnlyPage>
   );
 };

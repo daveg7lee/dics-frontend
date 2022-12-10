@@ -1,85 +1,82 @@
-import React, { useState } from "react";
-import { useTheme } from "next-themes";
+import React from "react";
 import { logUserOut } from "../apollo";
-import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Link from "next/link";
 import useUser from "../hooks/useUser";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Heading,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 
 const Header = () => {
-  const { theme, setTheme } = useTheme();
+  const { colorMode, toggleColorMode } = useColorMode();
   const { data } = useUser();
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const handleClickAway = () => {
-    setOpen(false);
-  };
 
   return (
-    <header className="bg-bgColor dark:bg-slate-800 text-black dark:text-white border-borderColor dark:border-slate-600 border-b fixed top-0 z-50 layout w-screen">
-      <nav className="flex py-4 items-center justify-between">
-        <div className="flex items-center">
-          <Link href={data?.me ? "/home" : "/"}>
-            <h1 className="flex items-center text-2xl font-bold ml-1">
-              DICS Students
-            </h1>
+    <Box
+      as="header"
+      w="100vw"
+      borderBottom="1px"
+      borderColor="gray.200"
+      position="fixed"
+      top={0}
+      zIndex={99}
+      px={{ lg: 32, md: 24, sm: 8 }}
+      display="flex"
+      justifyContent="space-between"
+      py={4}
+    >
+      <Box display="flex" alignItems="center">
+        <Link href={data?.me ? "/home" : "/"}>
+          <Heading fontSize="2xl">DICS Students</Heading>
+        </Link>
+        {data?.me && data?.me?.type !== "Admin" && (
+          <Link href="/suggest">
+            <Text color="gray" fontSize="sm" ml={5}>
+              소리함
+            </Text>
           </Link>
-          {data?.me && data?.me?.type !== "Admin" && (
-            <Link href="/suggest">
-              <h1 className="flex items-center text-sm ml-5 opacity-60 hover:opacity-100 transition-opacity">
-                소리함
-              </h1>
-            </Link>
-          )}
-        </div>
-        <div className="flex items-center justify-center">
-          {data?.me && (
-            <ClickAwayListener
-              mouseEvent="onMouseDown"
-              touchEvent="onTouchStart"
-              onClickAway={handleClickAway}
-            >
-              <div className="relative">
-                {data?.me?.avatar ? (
-                  <img
-                    src={data?.me?.avatar}
-                    alt="profile img"
-                    className="w-8 h-8 rounded-full cursor-pointer"
-                    onClick={handleClick}
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-gray-400 animate-pulse" />
-                )}
-                {open ? (
-                  <div className="absolute right-0 top-9 w-48 rounded-md shadow-lg z-[100] border border-borderColor dark:border-slate-600">
-                    <div className="py-1 rounded-md bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5">
-                      <Link href="edit">
-                        <span className="border-b border-borderColor dark:border-slate-600 block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100">
-                          Edit Profile
-                        </span>
-                      </Link>
-                      <a
-                        className="cursor-pointer block px-5 py-2 text-sm leading-5 text-gray-700 dark:text-white focus:outline-none transition duration-150 ease-in-out opacity-60 hover:opacity-100"
-                        onClick={() => logUserOut()}
-                      >
-                        Log Out
-                      </a>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            </ClickAwayListener>
-          )}
-          {/* <button
-            type="button"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-gray-500 dark:text-gray-400 ml-2"
-            aria-label="dark-mode"
-          >
-            {theme === "light" ? (
+        )}
+      </Box>
+      <Box display="flex" alignItems="center">
+        {data?.me && (
+          <Menu>
+            <MenuButton>
+              <Avatar src={data?.me?.avatar} size="sm" cursor="pointer" />
+            </MenuButton>
+            <MenuList>
+              <Link href="edit">
+                <MenuItem>
+                  <Text color="gray" fontSize="sm">
+                    Edit Profile
+                  </Text>
+                </MenuItem>
+              </Link>
+              <Divider />
+              <MenuItem onClick={() => logUserOut()}>
+                <Text color="gray" fontSize="sm">
+                  Log Out
+                </Text>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+        <IconButton
+          onClick={toggleColorMode}
+          aria-label="dark-mode"
+          ml={2}
+          size="sm"
+          variant="ghost"
+          icon={
+            colorMode === "light" ? (
               <svg
                 className="w-5 h-5"
                 fill="currentColor"
@@ -101,11 +98,11 @@ const Header = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
-            )}
-          </button> */}
-        </div>
-      </nav>
-    </header>
+            )
+          }
+        ></IconButton>
+      </Box>
+    </Box>
   );
 };
 

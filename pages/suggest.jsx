@@ -137,7 +137,7 @@ const Suggest = () => {
 
   return (
     <Box w="full" py={28} px={{ lg: 32, md: 24, sm: 8 }}>
-      <Heading fontSize="2xl" mb={2}>
+      <Heading mb={2} fontSize="3xl">
         내 건의
       </Heading>
       {loading ? (
@@ -213,7 +213,9 @@ const Suggest = () => {
           ))}
         </Box>
       )}
-      <Heading className="text-2xl font-bold mb-2 mt-6">건의하기</Heading>
+      <Heading mb={2} mt={6} fontSize="3xl">
+        건의하기
+      </Heading>
       <Text mb={1} color="gray" fontSize="sm">
         한 번 작성한 건의는 수정, 삭제, 보기가 불가능하니 신중하게 작성해주세요!
       </Text>
@@ -250,14 +252,9 @@ const Suggest = () => {
         <Text fontSize="md" mb={2}>
           건의사항
         </Text>
-        <Box
-          w="full"
-          border="1px"
-          borderColor="gray.200"
-          className="w-full border-borderColor rounded bg-bgColor dark:bg-slate-800 border"
-        >
+        <Box w="full" border="1px" borderColor="gray.200" rounded="lg">
           <ReactQuill
-            style={{ height: "400px" }}
+            style={{ height: "400px", backgroundColor: "" }}
             theme="bubble"
             value={html || ""}
             onChange={(content, delta, source, editor) =>

@@ -1,13 +1,19 @@
 import { gql, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import CustomButton from "../components/CustomButton";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import useUser from "../hooks/useUser";
-import EditInputContainer from "../components/Edit/EditInputContainer";
 import { purgeAllUsers } from "../apollo";
+import {
+  Avatar,
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Input,
+} from "@chakra-ui/react";
 
 const EDIT_PROFILE = gql`
   mutation updateUser(
@@ -138,79 +144,59 @@ const Edit = () => {
   };
 
   return (
-    <div className="layout">
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="md:flex w-full h-full">
-          <div className="w-[45%] h-full md:m-0 mb-2">
-            <h1 className="text-2xl font-semibold">Account Information</h1>
-          </div>
+    <Box
+      px={{ lg: 32, md: 24, sm: 8 }}
+      minH="100vh"
+      display="flex"
+      flexDirection="column"
+      alignItems="start"
+      justifyContent="center"
+    >
+      <Heading fontSize="3xl" mb={4}>
+        Account Information
+      </Heading>
+      <FormControl
+        w="full"
+        h="full"
+        p={4}
+        border="1px"
+        borderColor="gray.200"
+        rounded="lg"
+        as="form"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Avatar src={previewUrl} size="xl" rounded="full" mb={4} />
 
-          <form
-            className="w-full h-full p-4 border border-gray-300 dark:border-slate-600 rounded"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="flex justify-evenly px-4 mb-2">
-              <div className="flex flex-col items-center justify-center w-full mx-2">
-                <label className="mb-[5px]">Avatar</label>
-                {loading ? (
-                  <div className="w-16 h-16 rounded-full animate-pulse bg-gray-400" />
-                ) : (
-                  <img
-                    alt="preview"
-                    width={64}
-                    height={64}
-                    src={previewUrl}
-                    className="w-16 h-16 rounded-full"
-                  />
-                )}
-                <label
-                  className="mb-[5px]"
-                  htmlFor="file"
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "1rem",
-                  }}
-                >
-                  찾아보기
-                </label>
-                <input
-                  id="file"
-                  onChange={onFileLoad}
-                  type="file"
-                  className="hidden"
-                />
-              </div>
-            </div>
-            <EditInputContainer name={"Email"}>
-              <input
-                {...register("email", { required: false })}
-                placeholder="Email"
-                className="input"
-              />
-            </EditInputContainer>
-            <EditInputContainer name={"Old Password"}>
-              <input
-                {...register("oldPassword", { required: false })}
-                placeholder="Old Password"
-                className="input"
-                type="password"
-              />
-            </EditInputContainer>
-            <EditInputContainer name={"New Password"}>
-              <input
-                {...register("newPassword", { required: false })}
-                placeholder="New Password"
-                className="input"
-                type="password"
-              />
-            </EditInputContainer>
-            <CustomButton text="Save" />
-          </form>
-        </div>
-      </div>
-    </div>
+        <Input id="file" onChange={onFileLoad} type="file" mb={2} />
+
+        <Input
+          {...register("email", { required: false })}
+          placeholder="Email"
+          mb={2}
+        />
+
+        <Input
+          {...register("oldPassword", { required: false })}
+          placeholder="Old Password"
+          type="password"
+          mb={2}
+        />
+
+        <Input
+          {...register("newPassword", { required: false })}
+          placeholder="New Password"
+          type="password"
+          mb={2}
+        />
+        <Button mt={2} w="full">
+          Save
+        </Button>
+      </FormControl>
+    </Box>
   );
 };
 

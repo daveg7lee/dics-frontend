@@ -2,6 +2,8 @@ import { useMutation, gql } from "@apollo/client";
 import {
   Avatar,
   Box,
+  Button,
+  Heading,
   IconButton,
   Input,
   InputGroup,
@@ -62,6 +64,15 @@ const REPLY_TO = gql`
           }
         }
       }
+    }
+  }
+`;
+
+const REMOVE_SUGGEST = gql`
+  mutation removeSuggest($id: String!) {
+    removeSuggest(id: $id) {
+      success
+      error
     }
   }
 `;
@@ -212,6 +223,89 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
     update: updateUpdateSuggest,
   });
   const [replyToMutation] = useMutation(REPLY_TO);
+  const updateRemoveSuggest = (cache, result) => {
+    switch (suggest.status) {
+      case "waiting":
+        cache.modify({
+          id: "ROOT_QUERY",
+          fields: {
+            findAllWaiting(prev) {
+              return {
+                success: true,
+                suggests: prev.suggests.filter((i) => {
+                  if (i.__ref) {
+                    return i.__ref.split(":")[1] !== suggest.id;
+                  } else {
+                    return i.id !== suggest.id;
+                  }
+                }),
+              };
+            },
+          },
+        });
+        break;
+      case "done":
+        cache.modify({
+          id: "ROOT_QUERY",
+          fields: {
+            findAllDone(prev) {
+              return {
+                success: true,
+                suggests: prev.suggests.filter((i) => {
+                  if (i.__ref) {
+                    return i.__ref.split(":")[1] !== suggest.id;
+                  } else {
+                    return i.id !== suggest.id;
+                  }
+                }),
+              };
+            },
+          },
+        });
+        break;
+      case "processing":
+        cache.modify({
+          id: "ROOT_QUERY",
+          fields: {
+            findAllProcessing(prev) {
+              return {
+                success: true,
+                suggests: prev.suggests.filter((i) => {
+                  if (i.__ref) {
+                    return i.__ref.split(":")[1] !== suggest.id;
+                  } else {
+                    return i.id !== suggest.id;
+                  }
+                }),
+              };
+            },
+          },
+        });
+        break;
+      case "decline":
+        cache.modify({
+          id: "ROOT_QUERY",
+          fields: {
+            findAllDecline(prev) {
+              return {
+                success: true,
+                suggests: prev.suggests.filter((i) => {
+                  if (i.__ref) {
+                    return i.__ref.split(":")[1] !== suggest.id;
+                  } else {
+                    return i.id !== suggest.id;
+                  }
+                }),
+              };
+            },
+          },
+        });
+        break;
+    }
+  };
+  const [removeSuggestMutation] = useMutation(REMOVE_SUGGEST, {
+    update: updateRemoveSuggest,
+  });
 
   const onClick = async (id, status) => {
     await updateSuggestMutation({
@@ -229,38 +323,74 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
     });
   };
 
+  const onClickDelete = async () => {
+    if (
+      window.confirm(
+        "정말로 이 건의를 삭제하시겠습니까? 건의를 삭제하지 않고 거절하여 보류하는 방법도 있습니다."
+      )
+    ) {
+      await removeSuggestMutation({ variables: { id: suggest.id } });
+    }
+  };
+
   return (
-    <div
-      className="p-4 border-borderColor border dark:border-slate-600 rounded"
+    <Box
+      p={5}
+      border="1px"
+      borderColor="gray.200"
+      rounded="lg"
       key={suggest.id}
     >
-      <span>{suggest.user.grade + " " + suggest.user.username}</span>
-      <div className="flex justify-between items-center w-full">
-        <h1>{suggest.title}</h1>
-        <div>
-          <button
+      <Box
+        display="flex"
+        w="full"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Text as="b">{suggest.user.grade + " " + suggest.user.username}</Text>
+        <Button colorScheme="red" size="sm" onClick={onClickDelete}>
+          삭제
+        </Button>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        w="full"
+        pt={2}
+      >
+        <Heading fontSize="xl">{suggest.title}</Heading>
+        <Box>
+          <Button
+            variant="ghost"
+            size="sm"
             className="mr-2"
             onClick={async () =>
               await onClick(suggest.id, leftButtonType.status)
             }
           >
             {leftButtonType.text}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={async () =>
               await onClick(suggest.id, rightButtonType.status)
             }
           >
             {rightButtonType.text}
-          </button>
-        </div>
-      </div>
-      <details>
-        <summary>건의 사항</summary>
-        <ReactQuill value={suggest.text} readOnly={true} theme={"bubble"} />
-      </details>
+          </Button>
+        </Box>
+      </Box>
+      <Heading fontSize="xl" mt={4}>
+        건의 사항
+      </Heading>
+      <ReactQuill value={suggest.text} readOnly={true} theme={"bubble"} />
+      <Heading fontSize="xl" mt={4}>
+        답변
+      </Heading>
       {suggest?.reply && (
-        <Box>
+        <Box py={4}>
           {suggest?.reply.map((i) => (
             <Box display="flex" alignItems="center" key={i.id} py={1}>
               <Avatar
@@ -289,7 +419,7 @@ function SuggestItem({ suggest, leftButtonType, rightButtonType }) {
           <IconButton size="sm" onClick={handleReplyClick} icon={<FiSend />} />
         </InputRightElement>
       </InputGroup>
-    </div>
+    </Box>
   );
 }
 
