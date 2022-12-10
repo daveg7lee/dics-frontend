@@ -4,6 +4,7 @@ import Link from "next/link";
 import useUser from "../hooks/useUser";
 import {
   Avatar,
+  Tag,
   Box,
   Divider,
   Heading,
@@ -42,10 +43,40 @@ const Header = () => {
         {data?.me && data?.me?.type !== "Admin" && (
           <Link href="/suggest">
             <Text color="gray" fontSize="sm" ml={5}>
-              소리함
+              소리함{" "}
+              <Tag
+                colorScheme="red"
+                borderRadius="full"
+                size="sm"
+                variant="subtle"
+              >
+                Beta
+              </Tag>
             </Text>
           </Link>
         )}
+        <Text color="gray" fontSize="sm" ml={5}>
+          시간표{" "}
+          <Tag
+            colorScheme="purple"
+            borderRadius="full"
+            size="sm"
+            variant="subtle"
+          >
+            Coming Soon
+          </Tag>
+        </Text>
+        <Text color="gray" fontSize="sm" ml={5}>
+          급식표{" "}
+          <Tag
+            colorScheme="purple"
+            borderRadius="full"
+            size="sm"
+            variant="subtle"
+          >
+            Coming Soon
+          </Tag>
+        </Text>
       </Box>
       <Box display="flex" alignItems="center">
         {data?.me && (
