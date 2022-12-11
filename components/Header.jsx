@@ -57,7 +57,7 @@ const Header = () => {
             </Text>
           </Link>
         ) : (
-          data.me &&
+          data?.me &&
           data?.me?.type ===
             "Admin"(
               <StyledLink href={process.env.NEXT_PUBLIC_ADMIN_PAGE} isExternal>
