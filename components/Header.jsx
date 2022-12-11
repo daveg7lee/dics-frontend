@@ -50,6 +50,7 @@ const Header = () => {
                 borderRadius="full"
                 size="sm"
                 variant="subtle"
+                display={{ base: "none", md: "inline" }}
               >
                 Beta
               </Tag>
@@ -64,6 +65,7 @@ const Header = () => {
                 borderRadius="full"
                 size="sm"
                 variant="subtle"
+                display={{ base: "none", md: "inline" }}
               >
                 Alpha
               </Tag>
@@ -77,6 +79,7 @@ const Header = () => {
             borderRadius="full"
             size="sm"
             variant="subtle"
+            display={{ base: "none", md: "inline" }}
           >
             Coming Soon
           </Tag>
@@ -88,6 +91,7 @@ const Header = () => {
             borderRadius="full"
             size="sm"
             variant="subtle"
+            display={{ base: "none", md: "inline" }}
           >
             Coming Soon
           </Tag>
