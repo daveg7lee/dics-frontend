@@ -15,6 +15,7 @@ import {
   MenuList,
   Text,
   useColorMode,
+  Link as StyledLink,
 } from "@chakra-ui/react";
 import { BsMoonFill, BsSunFill } from "react-icons/bs";
 
@@ -40,7 +41,7 @@ const Header = () => {
         <Link href={data?.me ? "/home" : "/"}>
           <Heading fontSize="2xl">DICS Students</Heading>
         </Link>
-        {data?.me && data?.me?.type !== "Admin" && (
+        {data?.me && data?.me?.type !== "Admin" ? (
           <Link href="/suggest">
             <Text color="gray" fontSize="sm" ml={5}>
               소리함{" "}
@@ -54,6 +55,20 @@ const Header = () => {
               </Tag>
             </Text>
           </Link>
+        ) : (
+          <StyledLink href={process.env.NEXT_PUBLIC_ADMIN_PAGE} isExternal>
+            <Text color="gray" fontSize="sm" ml={5}>
+              어드민{" "}
+              <Tag
+                colorScheme="red"
+                borderRadius="full"
+                size="sm"
+                variant="subtle"
+              >
+                Alpha
+              </Tag>
+            </Text>
+          </StyledLink>
         )}
         <Text color="gray" fontSize="sm" ml={5}>
           시간표{" "}
