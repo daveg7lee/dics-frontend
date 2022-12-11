@@ -56,26 +56,22 @@ const Header = () => {
               </Tag>
             </Text>
           </Link>
-        ) : (
-          data?.me &&
-          data?.me?.type ===
-            "Admin"(
-              <StyledLink href={process.env.NEXT_PUBLIC_ADMIN_PAGE} isExternal>
-                <Text color="gray" fontSize="sm" ml={5}>
-                  어드민{" "}
-                  <Tag
-                    colorScheme="red"
-                    borderRadius="full"
-                    size="sm"
-                    variant="subtle"
-                    display={{ base: "none", md: "inline" }}
-                  >
-                    Alpha
-                  </Tag>
-                </Text>
-              </StyledLink>
-            )
-        )}
+        ) : data?.me && data?.me?.type === "Admin" ? (
+          <StyledLink href={process.env.NEXT_PUBLIC_ADMIN_PAGE} isExternal>
+            <Text color="gray" fontSize="sm" ml={5}>
+              어드민{" "}
+              <Tag
+                colorScheme="red"
+                borderRadius="full"
+                size="sm"
+                variant="subtle"
+                display={{ base: "none", md: "inline" }}
+              >
+                Alpha
+              </Tag>
+            </Text>
+          </StyledLink>
+        ) : null}
         <Text color="gray" fontSize="sm" ml={5}>
           시간표{" "}
           <Tag
