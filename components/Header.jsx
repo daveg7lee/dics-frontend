@@ -36,6 +36,7 @@ const Header = () => {
       display="flex"
       justifyContent="space-between"
       py={4}
+      backgroundColor="chakra-body-bg"
     >
       <Box display="flex" alignItems="center">
         <Link href={data?.me ? "/home" : "/"}>
