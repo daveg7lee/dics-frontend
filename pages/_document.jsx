@@ -14,10 +14,6 @@ export default function Document() {
           rel="apple-touch-icon"
           href="images/icons/icon-192x192.png"
         ></link>
-        <meta
-          name="google-site-verification"
-          content="ljN2MsEuFIaVZgS0RCKF-iufd7Wn6vVp_ygDmB87VRI"
-        />
       </Head>
       <body>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />

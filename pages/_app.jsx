@@ -14,13 +14,13 @@ const MyApp = ({ Component, pageProps }) => {
     <ApolloProvider client={client}>
       <ChakraProvider>
         <DefaultSeo
-          title="DICS Students"
-          description="Powerful website for DICS students!"
+          title="DICS 학생 지원 서비스"
+          description="DICS 학생들의 편의를 위한 웹사이트"
           openGraph={{
             type: "website",
-            url: "https://dics-frontend.vercel.app",
-            title: "DICS Students",
-            description: "Powerful website for DICS students!",
+            url: "https://www.dics.life",
+            title: "DICS 학생 지원 서비스",
+            description: "DICS 학생들의 편의를 위한 웹사이트",
             images: [
               {
                 url: "https://namu.wiki/jump/55EMQO%2FGIJamY7dfBJFNgAtN0X%2FWQXCMLKdHHaKAW0dXqpNn7CppEZY3EQ4aSwY3j%2BkE0XPn6%2B1b2GqsBCt3eyvwlkxpMb%2BF95H6qjz46fs%3D",
