@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { ApolloProvider } from "@apollo/client";
 import "react-toastify/dist/ReactToastify.min.css";
 import "react-quill/dist/quill.bubble.css";
-import "../styles/global.css";
 import { ToastContainer, toast } from "react-toastify";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DefaultSeo } from "next-seo";
