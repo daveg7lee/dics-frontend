@@ -14,6 +14,7 @@ import {
   Heading,
   Input,
 } from "@chakra-ui/react";
+import ProtectedPage from "../components/ProtectedPages/ProtectedPage";
 
 const EDIT_PROFILE = gql`
   mutation updateUser(
@@ -144,59 +145,61 @@ const Edit = () => {
   };
 
   return (
-    <Box
-      px={{ lg: 32, md: 24, sm: 8 }}
-      minH="100vh"
-      display="flex"
-      flexDirection="column"
-      alignItems="start"
-      justifyContent="center"
-    >
-      <Heading fontSize="3xl" mb={4}>
-        Account Information
-      </Heading>
-      <FormControl
-        w="full"
-        h="full"
-        p={4}
-        border="1px"
-        borderColor="gray.200"
-        rounded="lg"
-        as="form"
+    <ProtectedPage>
+      <Box
+        px={{ lg: 32, md: 24, sm: 8 }}
+        minH="100vh"
         display="flex"
         flexDirection="column"
+        alignItems="start"
         justifyContent="center"
-        alignItems="center"
-        onSubmit={handleSubmit(onSubmit)}
       >
-        <Avatar src={previewUrl} size="xl" rounded="full" mb={4} />
+        <Heading fontSize="3xl" mb={4}>
+          Account Information
+        </Heading>
+        <FormControl
+          w="full"
+          h="full"
+          p={4}
+          border="1px"
+          borderColor="gray.200"
+          rounded="lg"
+          as="form"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Avatar src={previewUrl} size="xl" rounded="full" mb={4} />
 
-        <Input id="file" onChange={onFileLoad} type="file" mb={2} />
+          <Input id="file" onChange={onFileLoad} type="file" mb={2} />
 
-        <Input
-          {...register("email", { required: false })}
-          placeholder="Email"
-          mb={2}
-        />
+          <Input
+            {...register("email", { required: false })}
+            placeholder="Email"
+            mb={2}
+          />
 
-        <Input
-          {...register("oldPassword", { required: false })}
-          placeholder="Old Password"
-          type="password"
-          mb={2}
-        />
+          <Input
+            {...register("oldPassword", { required: false })}
+            placeholder="Old Password"
+            type="password"
+            mb={2}
+          />
 
-        <Input
-          {...register("newPassword", { required: false })}
-          placeholder="New Password"
-          type="password"
-          mb={2}
-        />
-        <Button mt={2} w="full">
-          Save
-        </Button>
-      </FormControl>
-    </Box>
+          <Input
+            {...register("newPassword", { required: false })}
+            placeholder="New Password"
+            type="password"
+            mb={2}
+          />
+          <Button mt={2} w="full">
+            Save
+          </Button>
+        </FormControl>
+      </Box>
+    </ProtectedPage>
   );
 };
 
