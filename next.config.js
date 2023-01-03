@@ -10,7 +10,6 @@ const bundleAnalyzer = withBundleAnalyzer({
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
-  reactStrictMode: true,
   images: {
     domains: [
       "res.cloudinary.com",
