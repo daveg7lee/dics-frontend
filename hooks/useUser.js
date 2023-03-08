@@ -7,6 +7,7 @@ const ME = gql`
     me {
       username
       avatar
+      grade
       type
       email
       totalScores

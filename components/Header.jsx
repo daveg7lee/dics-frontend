@@ -73,18 +73,20 @@ const Header = () => {
             </Text>
           </StyledLink>
         ) : null}
-        <Text color="gray" fontSize="sm" ml={5}>
-          시간표{" "}
-          <Tag
-            colorScheme="purple"
-            borderRadius="full"
-            size="sm"
-            variant="subtle"
-            display={{ base: "none", md: "inline" }}
-          >
-            Coming Soon
-          </Tag>
-        </Text>
+        <StyledLink href={"/timetable"}>
+          <Text color="gray" fontSize="sm" ml={5}>
+            시간표{" "}
+            <Tag
+              colorScheme="red"
+              borderRadius="full"
+              size="sm"
+              variant="subtle"
+              display={{ base: "none", md: "inline" }}
+            >
+              Beta
+            </Tag>
+          </Text>
+        </StyledLink>
         <Text color="gray" fontSize="sm" ml={5}>
           급식표{" "}
           <Tag
