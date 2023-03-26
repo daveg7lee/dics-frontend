@@ -75,6 +75,15 @@ const SearchUser = () => {
 
   const deleteScore = async (e) => {
     e.preventDefault();
+    if (!confirm("진짜 지울거야? 진짜로? 진짜? by 가은")) {
+      alert("좋은 선택이야, by 가은");
+      return;
+    }
+    if (!confirm("진짜ㅏㅏㅏㅏ? by 가은")) {
+      alert("좋은 선택이야, by 가은");
+      return;
+    }
+
     try {
       const id = e.target.id;
       const { data: deleteScore } = await deleteScoreMutation({
