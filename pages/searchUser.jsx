@@ -1,8 +1,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Box, Center, Heading, Select, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { purgeAllUsers } from "../apollo";
 import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
 import SearchTable from "../components/searchUser/SearchTable";
 
@@ -31,23 +29,10 @@ const SEE_USERS = gql`
   }
 `;
 
-const DELETE_SCORE = gql`
-  mutation deleteScore($id: String!) {
-    deleteScore(id: $id) {
-      success
-      error
-      score {
-        id
-      }
-    }
-  }
-`;
-
 const SearchUser = () => {
   const [userData, setUserData] = useState([]);
   const [sortType, setSortType] = useState("username");
   const { data, loading, refetch } = useQuery(SEE_USERS);
-  const [deleteScoreMutation] = useMutation(DELETE_SCORE);
 
   useEffect(() => {
     if (data) {
@@ -72,34 +57,6 @@ const SearchUser = () => {
       setUserData(users);
     }
   }, [data, sortType]);
-
-  const deleteScore = async (e) => {
-    e.preventDefault();
-    if (!confirm("진짜 지울거야? 진짜로? 진짜? by 가은")) {
-      alert("좋은 선택이야, by 가은");
-      return;
-    }
-    if (!confirm("진짜ㅏㅏㅏㅏ? by 가은")) {
-      alert("좋은 선택이야, by 가은");
-      return;
-    }
-
-    try {
-      const id = e.target.id;
-      const { data: deleteScore } = await deleteScoreMutation({
-        variables: { id },
-      });
-
-      await purgeAllUsers();
-
-      if (deleteScore) {
-        toast.success("Deleted");
-        refetch();
-      }
-    } catch (e) {
-      toast.error(e.message);
-    }
-  };
 
   return (
     <AdminOnlyPage>
@@ -127,7 +84,7 @@ const SearchUser = () => {
                     user={user}
                     totalScore={user.totalScores}
                     totalMerit={user.totalMerit}
-                    deleteScore={deleteScore}
+                    refetch={refetch}
                   />
                 );
               }
@@ -159,7 +116,7 @@ const SearchUser = () => {
                 user={user}
                 totalScore={user.totalScores}
                 totalMerit={user.totalMerit}
-                deleteScore={deleteScore}
+                refetch={refetch}
               />
             ))}
           </Box>
