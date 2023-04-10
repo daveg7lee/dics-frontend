@@ -97,9 +97,10 @@ function SignUp() {
             {...register("username", { required: true })}
           />
           <Select mb={2} {...register("grade", { required: true })}>
-            <option value="G6" selected>
-              G6
+            <option value="G5" selected>
+              G5
             </option>
+            <option value="G6">G6</option>
             <option value="G7">G7</option>
             <option value="G8">G8</option>
             <option value="G9">G9</option>

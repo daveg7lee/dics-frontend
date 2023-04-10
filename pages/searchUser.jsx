@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { Box, Center, Heading, Select, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
@@ -46,6 +46,7 @@ const SearchUser = () => {
           : sortType === "merit"
           ? [...data.seeUsers.users].sort((a, b) => b.totalMerit - a.totalMerit)
           : sortType === "grade" && [
+              ...data.seeUsers.users.filter((user) => user.grade === "G5"),
               ...data.seeUsers.users.filter((user) => user.grade === "G6"),
               ...data.seeUsers.users.filter((user) => user.grade === "G7"),
               ...data.seeUsers.users.filter((user) => user.grade === "G8"),
