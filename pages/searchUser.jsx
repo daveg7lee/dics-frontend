@@ -102,8 +102,8 @@ const SearchUser = () => {
                     <Th>학년</Th>
                     <Th>프로필</Th>
                     <Th>이름</Th>
-                    <Th>올해 벌점</Th>
-                    <Th>올해 상점</Th>
+                    <Th>이번학기 벌점</Th>
+                    <Th>이번학기 상점</Th>
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
                     <Th>전체보기</Th>
@@ -142,8 +142,8 @@ const SearchUser = () => {
                 <option value={"username"}>이름</option>
                 <option value={"demerit"}>이번달 벌점</option>
                 <option value={"merit"}>이번달 상점</option>
-                <option value={"totalDemerit"}>올해 벌점</option>
-                <option value={"totalMerit"}>올해 상점</option>
+                <option value={"totalDemerit"}>이번학기 벌점</option>
+                <option value={"totalMerit"}>이번학기 상점</option>
                 <option value="grade">학년</option>
               </Select>
             </Box>
@@ -154,8 +154,8 @@ const SearchUser = () => {
                     <Th>학년</Th>
                     <Th>프로필</Th>
                     <Th>이름</Th>
-                    <Th>올해 벌점</Th>
-                    <Th>올해 상점</Th>
+                    <Th>이번학기 벌점</Th>
+                    <Th>이번학기 상점</Th>
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
                     <Th>전체보기</Th>
