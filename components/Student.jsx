@@ -10,18 +10,45 @@ function Student({ me }) {
       alignItems="center"
       py={20}
     >
-      <Box display="flex" justifyContent="center" alignItems="center" mb={20}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        w="full"
+        mb={20}
+      >
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
-          mr={20}
+        >
+          <Heading fontSize={{ base: "9xl", md: "12rem" }}>
+            {me?.fullScores}
+          </Heading>
+          <Text fontSize="xl">이번학기 벌점</Text>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Heading fontSize={{ base: "9xl", md: "12rem" }}>
+            {me?.fullMerit}
+          </Heading>
+          <Text fontSize="xl">이번학기 상점</Text>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
         >
           <Heading fontSize={{ base: "9xl", md: "12rem" }}>
             {me?.totalScores}
           </Heading>
-          <Text fontSize="xl">벌점</Text>
+          <Text fontSize="xl">이번달 벌점</Text>
         </Box>
         <Box
           display="flex"
@@ -32,7 +59,7 @@ function Student({ me }) {
           <Heading fontSize={{ base: "9xl", md: "12rem" }}>
             {me?.totalMerit}
           </Heading>
-          <Text fontSize="xl">상점</Text>
+          <Text fontSize="xl">이번달 상점</Text>
         </Box>
       </Box>
       <Grid templateColumns={"repeat(2, 1fr)"} w="full" gap={5}>

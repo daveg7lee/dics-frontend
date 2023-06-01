@@ -12,6 +12,8 @@ const ME = gql`
       email
       totalScores
       totalMerit
+      fullScores
+      fullMerit
       scores {
         score
         article
