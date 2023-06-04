@@ -110,8 +110,6 @@ const SearchTable = ({ user, refetch }) => {
     }
   };
 
-  console.log(user.attendance, user.username);
-
   return (
     <>
       <Tr key={user.id}>

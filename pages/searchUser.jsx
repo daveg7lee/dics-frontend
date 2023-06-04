@@ -56,12 +56,12 @@ const SearchUser = () => {
           ? [...data.seeUsers.users]
           : sortType === "demerit"
           ? [...data.seeUsers.users].sort(
-              (a, b) => b.totalScores - a.totalScores
+              (a, b) => a.totalScores - b.totalScores
             )
           : sortType === "merit"
           ? [...data.seeUsers.users].sort((a, b) => b.totalMerit - a.totalMerit)
           : sortType === "totalDemerit"
-          ? [...data.seeUsers.users].sort((a, b) => b.fullScores - a.fullScores)
+          ? [...data.seeUsers.users].sort((a, b) => a.fullScores - b.fullScores)
           : sortType === "totalMerit"
           ? [...data.seeUsers.users].sort((a, b) => b.fullMerit - a.fullMerit)
           : sortType === "grade" && [
