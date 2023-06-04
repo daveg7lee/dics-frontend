@@ -110,6 +110,8 @@ const SearchTable = ({ user, refetch }) => {
     }
   };
 
+  console.log(user.attendance, user.username);
+
   return (
     <>
       <Tr key={user.id}>
@@ -122,6 +124,7 @@ const SearchTable = ({ user, refetch }) => {
         <Td>{user.fullMerit}</Td>
         <Td>{user.totalScores}</Td>
         <Td>{user.totalMerit}</Td>
+        <Td>{user.attendance ? "✅" : "❌"}</Td>
         <Td>
           <Button onClick={onOpen}>Detail</Button>
         </Td>

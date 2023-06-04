@@ -29,6 +29,7 @@ const SEE_USERS = gql`
         totalMerit
         fullScores
         fullMerit
+        attendance
         scores {
           id
           score
@@ -158,6 +159,7 @@ const SearchUser = () => {
                     <Th>이번학기 상점</Th>
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
+                    <Th>출석체크 현황</Th>
                     <Th>전체보기</Th>
                   </Tr>
                 </Thead>
