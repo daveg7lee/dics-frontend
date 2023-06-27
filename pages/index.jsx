@@ -14,6 +14,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import Seo from "../components/SEO";
 
 const LOG_USER_IN = gql`
   mutation login($username: String!, $password: String!) {
@@ -86,6 +87,11 @@ const Index = () => {
       flexDirection="column"
       h="100vh"
     >
+      <Seo
+        title="Login"
+        description="DICS 학생들의 벌점 관리 및 다양한 편의 기능을 위한 웹 사이트"
+        keywords="DICS 벌점, DICS 학생 관리, DICS, DICS 상점"
+      />
       <Box>
         <Heading fontSize="3xl" mb={4} textAlign="center">
           DICS Students
