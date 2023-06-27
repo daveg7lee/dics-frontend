@@ -1,6 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { Box, Grid, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import Seo from "../../components/SEO";
 
 const SEE_TIMETABLES = gql`
   query timetable($grade: GradeType!) {
@@ -39,6 +40,11 @@ const GradeTimeTable = () => {
       h="full"
       px={{ lg: 32, md: 24, sm: 8 }}
     >
+      <Seo
+        title={`${router.query.grade || ""} Timetable`}
+        description="DICS 학생들의 시간표를 확인할 수 있는 페이지"
+        keywords="DICS 시간표, DICS"
+      />
       <Text
         mb={10}
         textAlign="start"
