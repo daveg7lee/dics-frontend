@@ -1,4 +1,5 @@
 import { Box, Button, Grid, Link, Text } from "@chakra-ui/react";
+import Seo from "../../components/SEO";
 
 const TimeTable = () => {
   const grades = ["G7", "G8", "G9", "G10", "G11", "G12"];
@@ -14,6 +15,11 @@ const TimeTable = () => {
       h="full"
       px={{ lg: 32, md: 24, sm: 8 }}
     >
+      <Seo
+        title="Timetable"
+        description="DICS 학생들의 시간표를 확인할 수 있는 페이지"
+        keywords="DICS 시간표, DICS"
+      />
       <Grid
         w="full"
         h="full"
