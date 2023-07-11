@@ -131,6 +131,7 @@ const SearchUser = () => {
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
                     <Th>이번달 총 점수</Th>
+                    <Th>출석체크 현황</Th>
                     <Th>전체보기</Th>
                   </Tr>
                 </Thead>
