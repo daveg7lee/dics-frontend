@@ -120,8 +120,10 @@ const SearchTable = ({ user, refetch }) => {
         <Td>{user.username}</Td>
         <Td>{user.fullScores}</Td>
         <Td>{user.fullMerit}</Td>
+        <Td>{user.fullScores + user.fullMerit}</Td>
         <Td>{user.totalScores}</Td>
         <Td>{user.totalMerit}</Td>
+        <Td>{user.totalScores + user.totalMerit}</Td>
         <Td>{user.attendance ? "✅" : "❌"}</Td>
         <Td>
           <Button onClick={onOpen}>Detail</Button>

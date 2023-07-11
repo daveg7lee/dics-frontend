@@ -11,6 +11,8 @@ import {
   Thead,
   Tr,
   Table,
+  Text,
+  HStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
@@ -94,6 +96,26 @@ const SearchUser = () => {
               borderBottom="1px"
               borderColor="gray.200"
             >
+              출석체크
+            </Heading>
+            <Text
+              whiteSpace="nowrap"
+              overflow="auto"
+              fontSize="3xl"
+              fontWeight="bold"
+              py="3"
+            >
+              {userData
+                .filter((user) => user.attendance !== true)
+                .map((user) => `  ${user.username}  `)}
+            </Text>
+            <Heading
+              fontSize="2xl"
+              p={4}
+              mt={4}
+              borderBottom="1px"
+              borderColor="gray.200"
+            >
               솔로몬 고위험자
             </Heading>
             <TableContainer>
@@ -105,14 +127,16 @@ const SearchUser = () => {
                     <Th>이름</Th>
                     <Th>이번학기 벌점</Th>
                     <Th>이번학기 상점</Th>
+                    <Th>이번학기 총 점수</Th>
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
+                    <Th>이번달 총 점수</Th>
                     <Th>전체보기</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   {userData?.map((user) => {
-                    if (user.totalScores <= -15) {
+                    if (user.totalScores + user.totalMerit <= -15) {
                       return (
                         <SearchTable
                           key={user.id}
@@ -157,8 +181,10 @@ const SearchUser = () => {
                     <Th>이름</Th>
                     <Th>이번학기 벌점</Th>
                     <Th>이번학기 상점</Th>
+                    <Th>이번학기 총 점수</Th>
                     <Th>이번달 벌점</Th>
                     <Th>이번달 상점</Th>
+                    <Th>이번달 총 점수</Th>
                     <Th>출석체크 현황</Th>
                     <Th>전체보기</Th>
                   </Tr>
