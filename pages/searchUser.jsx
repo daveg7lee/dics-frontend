@@ -137,7 +137,7 @@ const SearchUser = () => {
                 </Thead>
                 <Tbody>
                   {userData?.map((user) => {
-                    if (user.totalScores + user.totalMerit <= -15) {
+                    if (user.totalScores + user.totalMerit <= -1) {
                       return (
                         <SearchTable
                           key={user.id}
