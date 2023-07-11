@@ -62,10 +62,20 @@ const SearchUser = () => {
             )
           : sortType === "merit"
           ? [...data.seeUsers.users].sort((a, b) => b.totalMerit - a.totalMerit)
+          : sortType === "score"
+          ? [...data.seeUsers.users].sort(
+              (a, b) =>
+                a.totalScores + a.totalMerit - (b.totalScores + b.totalMerit)
+            )
           : sortType === "totalDemerit"
           ? [...data.seeUsers.users].sort((a, b) => a.fullScores - b.fullScores)
           : sortType === "totalMerit"
           ? [...data.seeUsers.users].sort((a, b) => b.fullMerit - a.fullMerit)
+          : sortType === "totalScore"
+          ? [...data.seeUsers.users].sort(
+              (a, b) =>
+                a.fullScores + a.fullMerit - (b.fullScores + b.fullMerit)
+            )
           : sortType === "grade" && [
               ...data.seeUsers.users.filter((user) => user.grade === "G12"),
               ...data.seeUsers.users.filter((user) => user.grade === "G11"),
@@ -168,8 +178,10 @@ const SearchUser = () => {
                 <option value={"username"}>이름</option>
                 <option value={"demerit"}>이번달 벌점</option>
                 <option value={"merit"}>이번달 상점</option>
+                <option value={"score"}>이번달 총 점수</option>
                 <option value={"totalDemerit"}>이번학기 벌점</option>
                 <option value={"totalMerit"}>이번학기 상점</option>
+                <option value={"totalScore"}>이번학기 총 점수</option>
                 <option value="grade">학년</option>
               </Select>
             </Box>
