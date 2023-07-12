@@ -13,10 +13,13 @@ import {
   Table,
   Text,
   HStack,
+  Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AdminOnlyPage from "../components/ProtectedPages/AdminOnlyPage";
 import SearchTable from "../components/searchUser/SearchTable";
+import { purgeAllUsers } from "../apollo";
+import { useRouter } from "next/router";
 
 const SEE_USERS = gql`
   query {
@@ -50,6 +53,7 @@ const SearchUser = () => {
   const [userData, setUserData] = useState([]);
   const [sortType, setSortType] = useState("username");
   const { data, loading, refetch } = useQuery(SEE_USERS);
+  const router = useRouter();
 
   useEffect(() => {
     if (data) {
@@ -90,6 +94,11 @@ const SearchUser = () => {
     }
   }, [data, sortType]);
 
+  const refetchData = async () => {
+    await purgeAllUsers();
+    router.reload();
+  };
+
   return (
     <AdminOnlyPage>
       <Box pt={20}>
@@ -99,6 +108,7 @@ const SearchUser = () => {
           </Center>
         ) : (
           <Box px={10}>
+            <Button onClick={() => refetchData()}>최신 데이터 불러오기</Button>
             <Heading
               fontSize="2xl"
               p={4}
@@ -108,6 +118,7 @@ const SearchUser = () => {
             >
               출석체크
             </Heading>
+
             <Text
               whiteSpace="nowrap"
               overflow="auto"
