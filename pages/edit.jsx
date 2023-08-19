@@ -194,7 +194,7 @@ const Edit = () => {
             type="password"
             mb={2}
           />
-          <Button mt={2} w="full">
+          <Button mt={2} w="full" type="submit">
             Save
           </Button>
         </FormControl>
