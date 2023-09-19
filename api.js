@@ -4,7 +4,7 @@ export const api = axios.create({
   baseURL:
     process.env.NODE_ENV !== "production"
       ? "http://127.0.0.1:8000/"
-      : "https://backend.roles.kr/",
+      : "https://dicsmeal.onrender.com/",
 });
 
 export const mealsApi = {
