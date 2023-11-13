@@ -40,7 +40,7 @@ const DELETE_SCORE_BY_USER = gql`
   }
 `;
 
-const SearchTable = ({ user, refetch }) => {
+const SearchTable = ({ user, refetch, isAdmin }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteScoreMutation] = useMutation(DELETE_SCORE);
   const [deleteScoreByUserMutation] = useMutation(DELETE_SCORE_BY_USER);
@@ -144,9 +144,11 @@ const SearchTable = ({ user, refetch }) => {
             justifyContent="space-between"
           >
             {user.username}의 벌점 현황
-            <Button colorScheme="red" onClick={deleteScoreByUser}>
-              벌점 전체삭제
-            </Button>
+            {isAdmin && (
+              <Button colorScheme="red" onClick={deleteScoreByUser}>
+                벌점 전체삭제
+              </Button>
+            )}
           </ModalHeader>
           <ModalBody>
             <TableContainer>
@@ -175,8 +177,12 @@ const SearchTable = ({ user, refetch }) => {
                       </Td>
                       <Td>{score.uploader}</Td>
                       <Td>{score.detail}</Td>
-                      <Td onClick={deleteScore}>
-                        <Button id={score.id}>Delete</Button>
+                      <Td>
+                        {isAdmin && (
+                          <Button id={score.id} onClick={deleteScore}>
+                            Delete
+                          </Button>
+                        )}
                       </Td>
                     </Tr>
                   ))}

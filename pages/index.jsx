@@ -1,4 +1,4 @@
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery } from "@apollo/client";
 import { logUserIn } from "../apollo";
 import cookie from "cookie";
 import { useForm } from "react-hook-form";
@@ -12,9 +12,16 @@ import {
   Input,
   Link,
   Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import Seo from "../components/SEO";
+import SearchTable from "../components/searchUser/SearchTable";
 
 const LOG_USER_IN = gql`
   mutation login($username: String!, $password: String!) {
@@ -43,11 +50,40 @@ export async function getServerSideProps({ req, res }) {
   return { props: {} };
 }
 
+const SEE_USERS = gql`
+  query {
+    seeUsers {
+      users {
+        id
+        username
+        grade
+        avatar
+        type
+        totalScores
+        totalMerit
+        fullScores
+        fullMerit
+        attendance
+        scores {
+          id
+          score
+          article
+          date
+          type
+          uploader
+          detail
+        }
+      }
+    }
+  }
+`;
+
 const Index = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [logUserInMutation] = useMutation(LOG_USER_IN);
+  const { data, refetch } = useQuery(SEE_USERS);
 
   const onSubmit = async ({ username, password }) => {
     setLoading(true);
@@ -85,7 +121,8 @@ const Index = () => {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      h="100vh"
+      minH="100vh"
+      py="24"
     >
       <Seo
         title="Login"
@@ -122,6 +159,42 @@ const Index = () => {
           </Link>
         </Box>
       </Box>
+      <Heading textAlign="left" mt="10">
+        솔로몬 위험자 목록
+      </Heading>
+      <TableContainer mt="4">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>학년</Th>
+              <Th>프로필</Th>
+              <Th>이름</Th>
+              <Th>이번학기 벌점</Th>
+              <Th>이번학기 상점</Th>
+              <Th>이번학기 총 점수</Th>
+              <Th>이번달 벌점</Th>
+              <Th>이번달 상점</Th>
+              <Th>이번달 총 점수</Th>
+              <Th>출석체크 현황</Th>
+              <Th>전체보기</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data?.seeUsers.users?.map((user) => {
+              if (user.totalScores + user.totalMerit <= -1) {
+                return (
+                  <SearchTable
+                    key={user.id}
+                    user={user}
+                    refetch={refetch}
+                    isAdmin={false}
+                  />
+                );
+              }
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

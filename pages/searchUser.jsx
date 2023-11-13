@@ -116,27 +116,6 @@ const SearchUser = () => {
               borderBottom="1px"
               borderColor="gray.200"
             >
-              출석체크
-            </Heading>
-
-            <Text
-              whiteSpace="nowrap"
-              overflow="auto"
-              fontSize="3xl"
-              fontWeight="bold"
-              py="3"
-            >
-              {userData
-                .filter((user) => user.attendance !== true)
-                .map((user) => `  ${user.username}  `)}
-            </Text>
-            <Heading
-              fontSize="2xl"
-              p={4}
-              mt={4}
-              borderBottom="1px"
-              borderColor="gray.200"
-            >
               솔로몬 고위험자
             </Heading>
             <TableContainer>
@@ -164,6 +143,7 @@ const SearchUser = () => {
                           key={user.id}
                           user={user}
                           refetch={refetch}
+                          isAdmin={true}
                         />
                       );
                     }
@@ -215,7 +195,12 @@ const SearchUser = () => {
                 </Thead>
                 <Tbody>
                   {userData?.map((user) => (
-                    <SearchTable key={user.id} user={user} refetch={refetch} />
+                    <SearchTable
+                      key={user.id}
+                      user={user}
+                      refetch={refetch}
+                      isAdmin={true}
+                    />
                   ))}
                 </Tbody>
               </Table>
